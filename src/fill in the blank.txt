@@ -1,0 +1,172 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Typography } from 'antd';
+
+const { Paragraph, Title } = Typography;
+
+const PageContainer = styled.div`
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+`;
+
+const LeftSection = styled.div`
+  flex: 1;
+  padding-right: 20px;
+`;
+
+const RightSection = styled.div`
+  flex: 1;
+  padding-left: 20px;
+`;
+
+const QuestionContainer = styled.div`
+  margin-bottom: 20px;
+`;
+
+const DropZone = styled.span`
+  display: inline-block;
+  width: 120px;
+  height: 32px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  background-color: ${props => props.isActive ? '#e6f7ff' : 'white'};
+  padding: 4px 11px;
+  cursor: pointer;
+`;
+
+const SelectableWord = styled.span`
+  cursor: pointer;
+  padding: 0 2px;
+  border-radius: 3px;
+  background-color: ${props => props.isSelected ? '#e6f7ff' : 'transparent'};
+  &:hover {
+    background-color: #e6f7ff;
+  }
+`;
+
+const App = () => {
+  const [answers, setAnswers] = useState({
+    astronomy: '',
+    jupiter: '',
+    milkyWay: '',
+    eight: '',
+    earth: ''
+  });
+  const [draggedWord, setDraggedWord] = useState('');
+
+  const handleDragStart = (word) => {
+    setDraggedWord(word);
+  };
+
+  const handleDrop = (field) => {
+    setAnswers(prev => ({ ...prev, [field]: draggedWord }));
+    setDraggedWord('');
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const renderSelectableText = (text) => {
+    return text.split(/\s+/).map((word, index) => (
+      <SelectableWord
+        key={index}
+        draggable
+        onDragStart={() => handleDragStart(word)}
+        isSelected={word === draggedWord}
+      >
+        {word}{' '}
+      </SelectableWord>
+    ));
+  };
+
+  return (
+    <PageContainer>
+      <LeftSection>
+        <Title level={2}>The Wonders of Space</Title>
+        <Paragraph>
+          {renderSelectableText(`Space, the final frontier, has captivated human imagination for centuries. 
+          From the twinkling stars in the night sky to the vast galaxies beyond our own, 
+          the universe is full of mysteries waiting to be unraveled. Scientists and 
+          astronomers work tirelessly to explore the cosmos, using advanced telescopes 
+          and space probes to peer into the depths of space.`)}
+        </Paragraph>
+        <Paragraph>
+          {renderSelectableText(`Our solar system, a small part of the Milky Way galaxy, consists of eight 
+          planets orbiting the Sun. Each planet has its unique characteristics, from 
+          the scorching heat of Mercury to the icy winds of Neptune. Jupiter 
+          is the largest planet in our solar system. Earth, our home, 
+          is the only known planet to harbor life, making it a truly special place in 
+          the vastness of space.`)}
+        </Paragraph>
+      </LeftSection>
+      <RightSection>
+        <Title level={2}>Fill in the Blanks</Title>
+        <QuestionContainer>
+          <Paragraph>
+            The study of space and celestial bodies is called 
+            <DropZone
+              onDrop={() => handleDrop('astronomy')}
+              onDragOver={handleDragOver}
+              isActive={answers.astronomy === draggedWord}
+            >
+              {answers.astronomy}
+            </DropZone>. 
+          </Paragraph>
+        </QuestionContainer>
+        <QuestionContainer>
+          <Paragraph>
+            The largest planet in our solar system is 
+            <DropZone
+              onDrop={() => handleDrop('jupiter')}
+              onDragOver={handleDragOver}
+              isActive={answers.jupiter === draggedWord}
+            >
+              {answers.jupiter}
+            </DropZone>. 
+          </Paragraph>
+        </QuestionContainer>
+        <QuestionContainer>
+          <Paragraph>
+            The galaxy that contains our solar system is called the 
+            <DropZone
+              onDrop={() => handleDrop('milkyWay')}
+              onDragOver={handleDragOver}
+              isActive={answers.milkyWay === draggedWord}
+            >
+              {answers.milkyWay}
+            </DropZone>.
+          </Paragraph>
+        </QuestionContainer>
+        <QuestionContainer>
+          <Paragraph>
+            The number of planets in our solar system is 
+            <DropZone
+              onDrop={() => handleDrop('eight')}
+              onDragOver={handleDragOver}
+              isActive={answers.eight === draggedWord}
+            >
+              {answers.eight}
+            </DropZone>.
+          </Paragraph>
+        </QuestionContainer>
+        <QuestionContainer>
+          <Paragraph>
+            The only planet known to support life is 
+            <DropZone
+              onDrop={() => handleDrop('earth')}
+              onDragOver={handleDragOver}
+              isActive={answers.earth === draggedWord}
+            >
+              {answers.earth}
+            </DropZone>.
+          </Paragraph>
+        </QuestionContainer>
+      </RightSection>
+    </PageContainer>
+  );
+};
+
+export default App;
