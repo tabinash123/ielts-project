@@ -1,6 +1,8 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Typography, Input } from 'antd';
+import { answerQuestion } from '../../utils/actions';
 
 const { Paragraph } = Typography;
 
@@ -18,7 +20,14 @@ const BlankInput = styled(Input)`
   }
 `;
 
-const FillInTheBlankQuestion = ({ question }) => {
+const FillInTheBlankQuestion = ({ question, partIndex }) => {
+  const dispatch = useDispatch();
+  const answer = useSelector(state => state.answers[partIndex]?.[question.questionNo] || '');
+
+  const handleInputChange = (e) => {
+    dispatch(answerQuestion(partIndex, question.questionNo, e.target.value));
+  };
+
   const renderQuestionText = () => {
     const parts = question.text.split('{BLANK:');
     return parts.map((part, index) => {
@@ -26,7 +35,11 @@ const FillInTheBlankQuestion = ({ question }) => {
       const [blankNum, ...rest] = part.split('}');
       return (
         <React.Fragment key={index}>
-          <BlankInput placeholder={`${blankNum}`} />
+          <BlankInput 
+            placeholder={`${blankNum}`} 
+            onChange={handleInputChange}
+            value={answer}
+          />
           {rest.join('}')}
         </React.Fragment>
       );
