@@ -1,6 +1,5 @@
 import React, { useState, useCallback,useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import { Typography,Button,message } from 'antd';
 import { readingData } from './readingData';
 import TrueFalseQuestion from './questionTypes/TrueFalseQuestion';
@@ -8,6 +7,7 @@ import FillInTheBlankQuestion from './questionTypes/FillInBlanksQuestion';
 import FillInParagraphQuestion from './questionTypes/FillInParagraphQuestion';
 import { changePart } from '../utils/actions';
 import Timer from './Timer';
+import styled from 'styled-components';
 
 
 const { Title, Paragraph } = Typography;
