@@ -1,10 +1,11 @@
 import React from 'react'
-import ReadingSection from './readingSection/ReadingSection';
+import Hompage from './pages/Hompage'
+import About from './pages/About';
 
 const App = () => {
   return (
     <>
-    <ReadingSection />
+      <About />
     </>
   )
 }
