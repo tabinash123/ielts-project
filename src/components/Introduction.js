@@ -16,45 +16,38 @@ const { Title, Paragraph } = Typography;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #f0f9ff;
-  padding: 40px 20px;
+  background-color: #fff;
+  // padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  margin-bottom: 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  // margin-bottom: 20px;
 
   @media (min-width: 768px) {
-    flex-direction: row;
-    margin-bottom: 50px;
-    padding: 60px;
+    // padding: 40px;
   }
 `;
 
 const ContentSection = styled.div`
-  flex: 1;
-  padding-right: 0;
-  margin-bottom: 20px;
+  flex: 0.5;
+  margin-top: 30px;
 
   @media (min-width: 768px) {
-    padding-right: 40px;
-    margin-bottom: 0;
+    margin-top: 50px;
   }
 `;
 
 const ImageSection = styled.div`
-  flex: 1;
-  border-radius: 20px;
+  width: 100%;
   overflow: hidden;
-  min-height: 200px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  height: 500px;
+  background-color: #003366;
 
   @media (min-width: 768px) {
-    min-height: 300px;
+    height: 400px;
   }
 
   @media (min-width: 1024px) {
-    min-height: 400px;
+    height: 500px;
   }
 `;
 
@@ -63,23 +56,20 @@ const StyledTitle = styled(Title)`
     color: #ff6b6b;
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 2px;
 
     @media (min-width: 768px) {
       font-size: 16px;
-      margin-bottom: 16px;
     }
   }
 `;
 
 const StyledHeading = styled(Title)`
   && {
-    color: #4ecdc4;
-    font-size: 28px;
+    color: #003366;
+    font-size: 24px;
     font-weight: bold;
-    line-height: 1.2;
     margin-bottom: 16px;
 
     @media (min-width: 768px) {
@@ -95,27 +85,28 @@ const StyledHeading = styled(Title)`
 
 const StyledParagraph = styled(Paragraph)`
   && {
-    color: #45b7d1;
-    font-size: 16px;
+    color: #333;
+    font-size: 14px;
     margin-bottom: 16px;
     line-height: 1.6;
 
     @media (min-width: 768px) {
-      font-size: 18px;
+      font-size: 16px;
       margin-bottom: 24px;
     }
   }
 `;
 
 const ListItem = styled.li`
-  color: #45b7d1;
-  font-size: 16px;
-  margin-bottom: 12px;
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
 
   @media (min-width: 768px) {
-    font-size: 18px;
+    font-size: 16px;
+    margin-bottom: 12px;
   }
 `;
 
@@ -123,13 +114,13 @@ const StyledCheckIcon = styled(CheckOutlined)`
   && {
     color: #ff6b6b;
     margin-right: 12px;
-    font-size: 20px;
+    font-size: 15px;
     background-color: #ffe66d;
     border-radius: 50%;
     padding: 4px;
 
     @media (min-width: 768px) {
-      font-size: 24px;
+      font-size: 18px;
       padding: 6px;
     }
   }
@@ -162,17 +153,16 @@ const ContactButton = styled(Button)`
 `;
 
 const CarouselImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease-in-out;
-
-  &:hover {
-    transform: scale(1.05);
-  }
+ 
 `;
 
 const StyledCarousel = styled(Carousel)`
+  height: 100%;
+
+  .slick-dots {
+    bottom: 10px;
+  }
+
   .slick-dots li button {
     background: #ff6b6b;
   }
@@ -187,8 +177,22 @@ const AboutIntroduction = () => {
 
   return (
     <Container>
+      <ImageSection>
+        <StyledCarousel
+          autoplay
+          infinite
+          dots
+          effect="fade"
+        >
+          {schoolImages.map((school, index) => (
+            <div key={index}>
+              <CarouselImage src={school} alt={`School Image ${index + 1}`} style={{height:"600px"}} />
+            </div>
+          ))}
+        </StyledCarousel>
+      </ImageSection>
       <ContentSection>
-        <StyledTitle level={4}>Welcome to Little Minds Montessori</StyledTitle>
+        <StyledTitle level={2}>Welcome to Little Minds Montessori</StyledTitle>
         <StyledHeading level={2}>
           Where Learning is
           <br />
@@ -217,20 +221,6 @@ const AboutIntroduction = () => {
           Contact Us <RightOutlined />
         </ContactButton>
       </ContentSection>
-      <ImageSection>
-        <StyledCarousel
-          autoplay
-          infinite
-          dots
-          effect="fade"
-        >
-          {schoolImages.map((school, index) => (
-            <div key={index}>
-              <CarouselImage src={school} alt={`School Image ${index + 1}`} />
-            </div>
-          ))}
-        </StyledCarousel>
-      </ImageSection>
     </Container>
   );
 };

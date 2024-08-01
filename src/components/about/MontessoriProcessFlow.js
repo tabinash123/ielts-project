@@ -1,131 +1,181 @@
-"use client"
 import React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import ChildCareIcon from '@mui/icons-material/ChildCare';
-import SchoolIcon from '@mui/icons-material/School';
-import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import styled, { keyframes } from 'styled-components';
+import { Timeline, Carousel } from 'antd';
+import { ClockCircleOutlined } from '@ant-design/icons';
 
-const ProcessSection = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(4),
-  marginTop: "50px",
-  textAlign: 'center',
-  color: '#4ecdc4',
-  marginBottom: "90px",
-}));
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
 
-const ProcessTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '1rem',
-  fontWeight: 400,
-  fontFamily: 'Arial, sans-serif',
-  marginBottom: theme.spacing(1),
-}));
+const slideIn = keyframes`
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+`;
 
-const ProcessHeader = styled(Typography)(({ theme }) => ({
-  color: '#ff6b6b',
-  fontSize: '2rem',
-  fontWeight: 800,
-  fontFamily: 'Arial, sans-serif',
-  marginBottom: theme.spacing(5),
-}));
+const StoryContainer = styled.div`
+  max-width: 100%;
+  overflow: hidden;
+`;
 
-const StepIcon = styled(Box)(({ theme }) => ({
-  backgroundColor: '#4ecdc4',
-  borderRadius: '15px',
-  width: '80px',
-  height: '80px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  margin: '0 auto',
-  marginBottom: theme.spacing(2),
-  position: 'relative',
-}));
+const Hero = styled.div`
+  height: 100vh;
+  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 
-const StepNumber = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  top: -10,
-  right: -10,
-  backgroundColor: '#ff6b6b',
-  color: 'white',
-  borderRadius: '50%',
-  width: '30px',
-  height: '30px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontWeight: 'bold',
-}));
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/path-to-your-hero-image.jpg') center/cover no-repeat;
+    opacity: 0.2;
+    animation: ${fadeIn} 2s ease-out;
+  }
+`;
 
-const StepTitle = styled(Typography)(({ theme }) => ({
-  color: '#333333',
-  fontWeight: 'bold',
-  marginBottom: theme.spacing(1),
-}));
+const HeroContent = styled.div`
+  z-index: 1;
+  animation: ${slideIn} 1s ease-out;
+`;
 
-const StepDescription = styled(Typography)(({ theme }) => ({
-  color: '#666',
-}));
+const Title = styled.h1`
+  font-size: 72px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+`;
 
-const ArrowIcon = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  [theme.breakpoints.down('md')]: {
-    transform: 'rotate(90deg)',
-    margin: theme.spacing(2, 0),
-  },
-}));
+const Subtitle = styled.p`
+  font-size: 24px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+`;
 
-const MontessoriProcessFlow = () => {
+const Section = styled.section`
+  padding: 100px 0;
+  background-color: ${props => props.bgColor || 'white'};
+  color: ${props => props.textColor || '#333'};
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 48px;
+  margin-bottom: 50px;
+  text-align: center;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #FF6B6B, #4ECDC4);
+  }
+`;
+
+const StoryContent = styled.p`
+  font-size: 20px;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  text-align: center;
+`;
+
+const StyledTimeline = styled(Timeline)`
+  max-width: 800px;
+  margin: 0 auto;
+
+  .ant-timeline-item-head {
+    background-color: #FF6B6B;
+  }
+
+  .ant-timeline-item-content {
+    font-size: 18px;
+  }
+`;
+
+const MissionSection = styled(Section)`
+  background: linear-gradient(45deg, #4ECDC4, #45B7D1);
+  color: white;
+`;
+
+const MissionStatement = styled.p`
+  font-size: 28px;
+  font-style: italic;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.6;
+`;
+
+const StyledCarousel = styled(Carousel)`
+  max-width: 800px;
+  margin: 0 auto;
+
+  .slick-slide {
+    text-align: center;
+    background: #F7F7F7;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  h3 {
+    font-size: 24px;
+    color: #FF6B6B;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+    color: #333;
+  }
+`;
+
+const OurStory = () => {
   return (
-    <ProcessSection>
-      <ProcessTitle variant="h6">OUR APPROACH</ProcessTitle>
-      <ProcessHeader variant="h3" style={{marginBottom:"50px"}}>The Montessori Journey</ProcessHeader>
-      <Grid container spacing={3} alignItems="center">
-        <Grid item xs={12} md={3}>
-          <StepIcon>
-            <ChildCareIcon sx={{ color: 'white', fontSize: 40 }} />
-            <StepNumber>01</StepNumber>
-          </StepIcon>
-          <StepTitle variant="h6">Observation</StepTitle>
-          <StepDescription>
-            We observe each child's unique interests and developmental needs
-          </StepDescription>
-        </Grid>
-        <Grid item xs={12} md={1}>
-          <ArrowIcon>
-            <Typography variant="h4" color="#ccc">→</Typography>
-          </ArrowIcon>
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <StepIcon>
-            <SchoolIcon sx={{ color: 'white', fontSize: 40 }} />
-            <StepNumber>02</StepNumber>
-          </StepIcon>
-          <StepTitle variant="h6">Prepared Environment</StepTitle>
-          <StepDescription>
-            We create a carefully curated space that fosters independence and learning
-          </StepDescription>
-        </Grid>
-        <Grid item xs={12} md={1}>
-          <ArrowIcon>
-            <Typography variant="h4" color="#ccc">→</Typography>
-          </ArrowIcon>
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <StepIcon>
-            <EmojiPeopleIcon sx={{ color: 'white', fontSize: 40 }} />
-            <StepNumber>03</StepNumber>
-          </StepIcon>
-          <StepTitle variant="h6">Guided Discovery</StepTitle>
-          <StepDescription>
-            Children explore and learn at their own pace with gentle guidance
-          </StepDescription>
-        </Grid>
-      </Grid>
-    </ProcessSection>
+    <StoryContainer>
+     
+      <Section>
+        <SectionTitle>The Mother's Pride Story</SectionTitle>
+        <StoryContent>
+          Mother's Pride began with a vision to create a nurturing environment where every child's potential could blossom. Founded by Sarah Johnson, a passionate educator, our preschool has grown from a small classroom of 10 children to a thriving community of learners.
+        </StoryContent>
+        <StoryContent>
+          Over the years, we've remained committed to our core values of compassion, creativity, and excellence in early childhood education. Our journey has been marked by continuous innovation in our teaching methods and unwavering dedication to the well-being of each child.
+        </StoryContent>
+      </Section>
+
+      <Section bgColor="#F7F7F7">
+        <SectionTitle>Our Milestones</SectionTitle>
+        <StyledTimeline mode="alternate">
+          <Timeline.Item>1995: Mother's Pride opens its doors</Timeline.Item>
+          <Timeline.Item color="#4ECDC4">2000: Expanded to include kindergarten program</Timeline.Item>
+          <Timeline.Item dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />}>
+            2005: Introduced innovative STEAM curriculum
+          </Timeline.Item>
+          <Timeline.Item color="#FF6B6B">2010: Opened second location</Timeline.Item>
+          <Timeline.Item>2015: Celebrated 20 years of excellence</Timeline.Item>
+          <Timeline.Item dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />}>
+            2020: Launched virtual learning program
+          </Timeline.Item>
+        </StyledTimeline>
+      </Section>
+
+      
+    </StoryContainer>
   );
 };
 
-export default MontessoriProcessFlow;
+export default OurStory;

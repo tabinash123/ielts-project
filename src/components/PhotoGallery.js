@@ -25,9 +25,10 @@ const Title = styled.h2`
   margin-bottom: 15px;
   display: flex;
   align-items: center;
+    color: #003366;
 
   .anticon {
-    color: #ff4d4f;
+    color: #003366;
     margin-right: 10px;
   }
 `;
@@ -77,25 +78,6 @@ const ViewMoreButton = styled(Button)`
   }
 `;
 
-const FloatingButton = styled.div`
-  position: fixed;
-  bottom: 20px;
-  ${props => props.position}: 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: ${props => props.color};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 1000;
-  transition: transform 0.3s ease-in-out;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
 
 const PhotoGallery = () => {
   const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
@@ -117,12 +99,7 @@ const PhotoGallery = () => {
           </ViewMoreButton>
         </ViewMoreBox>
       </ImageGrid>
-      <FloatingButton position="left" color="#25D366">
-        {/* WhatsApp icon */}
-      </FloatingButton>
-      <FloatingButton position="right" color="#007bff">
-        {/* Phone icon */}
-      </FloatingButton>
+
     </GallerySection>
   );
 };
