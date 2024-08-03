@@ -1,228 +1,199 @@
-import React from 'react';
 import styled from 'styled-components';
-import { Typography, Button } from 'antd';
-import { CheckOutlined, PhoneOutlined, RightOutlined } from '@ant-design/icons';
-import { Carousel } from 'antd';
+import About from '../assets/gallary/10.png';
 
-// Import your school images
-import school1 from '../assets/gallary/1.png';
-import school2 from '../assets/gallary/2.png';
-import school3 from '../assets/gallary/3.png';
-import school4 from '../assets/gallary/4.png';
-import school5 from '../assets/gallary/5.png';
-
-const { Title, Paragraph } = Typography;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  // padding: 20px;
+const AboutSection = styled.section`
   max-width: 1200px;
   margin: 0 auto;
-  // margin-bottom: 20px;
+  padding: 40px 20px;
 
-  @media (min-width: 768px) {
-    // padding: 40px;
+  @media (min-width: 769px) {
+    padding: 60px 20px;
+  }
+
+  @media (min-width: 1025px) {
+    padding: 80px 20px;
   }
 `;
 
-const ContentSection = styled.div`
-  flex: 0.5;
-  margin-top: 30px;
-
-  @media (min-width: 768px) {
-    margin-top: 50px;
-  }
-`;
-
-const ImageSection = styled.div`
-  width: 100%;
-  overflow: hidden;
-  height: 500px;
-  background-color: #003366;
-
-  @media (min-width: 768px) {
-    height: 400px;
-  }
-
-  @media (min-width: 1024px) {
-    height: 500px;
-  }
-`;
-
-const StyledTitle = styled(Title)`
-  && {
-    color: #ff6b6b;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-
-    @media (min-width: 768px) {
-      font-size: 16px;
-    }
-  }
-`;
-
-const StyledHeading = styled(Title)`
-  && {
-    color: #003366;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 16px;
-
-    @media (min-width: 768px) {
-      font-size: 36px;
-      margin-bottom: 24px;
-    }
-
-    @media (min-width: 1024px) {
-      font-size: 42px;
-    }
-  }
-`;
-
-const StyledParagraph = styled(Paragraph)`
-  && {
-    color: #333;
-    font-size: 14px;
-    margin-bottom: 16px;
-    line-height: 1.6;
-
-    @media (min-width: 768px) {
-      font-size: 16px;
-      margin-bottom: 24px;
-    }
-  }
-`;
-
-const ListItem = styled.li`
+const Title = styled.h2`
+  font-size: 28px;
   color: #333;
-  font-size: 14px;
-  margin-bottom: 8px;
+  text-align: center;
+  margin-bottom: 30px;
+
+  @media (min-width: 769px) {
+    font-size: 32px;
+    margin-bottom: 35px;
+  }
+
+  @media (min-width: 1025px) {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+`;
+
+const ContentWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
 
-  @media (min-width: 768px) {
-    font-size: 16px;
-    margin-bottom: 12px;
+  @media (min-width: 769px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 `;
 
-const StyledCheckIcon = styled(CheckOutlined)`
-  && {
-    color: #ff6b6b;
-    margin-right: 12px;
-    font-size: 15px;
-    background-color: #ffe66d;
-    border-radius: 50%;
-    padding: 4px;
+const TextContent = styled.div`
+  width: 100%;
+  margin-bottom: 30px;
 
-    @media (min-width: 768px) {
-      font-size: 18px;
-      padding: 6px;
-    }
+  @media (min-width: 769px) {
+    flex: 1;
+    padding-right: 20px;
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 1025px) {
+    padding-right: 40px;
   }
 `;
 
-const ContactButton = styled(Button)`
-  && {
-    background-color: #ff6b6b;
-    border-color: #ff6b6b;
-    color: white;
-    font-size: 16px;
-    height: auto;
-    padding: 10px 20px;
-    border-radius: 30px;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    transition: all 0.3s ease;
+const Subtitle = styled.h3`
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
 
-    &:hover {
-      background-color: #ff8e8e;
-      border-color: #ff8e8e;
-      transform: translateY(-2px);
-    }
+  @media (min-width: 769px) {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
 
-    .anticon {
-      margin-left: 8px;
-    }
+  @media (min-width: 1025px) {
+    font-size: 24px;
+    margin-bottom: 20px;
   }
 `;
 
-const CarouselImage = styled.img`
- 
+const Description = styled.p`
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15px;
+
+  @media (min-width: 1025px) {
+    margin-bottom: 20px;
+  }
 `;
 
-const StyledCarousel = styled(Carousel)`
+const Stats = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  @media (min-width: 769px) {
+    margin-top: 25px;
+  }
+
+  @media (min-width: 1025px) {
+    margin-top: 30px;
+  }
+`;
+
+const StatItem = styled.div`
+  text-align: center;
+`;
+
+const StatNumber = styled.div`
+  font-size: 28px;
+  color: #f0a500;
+  font-weight: bold;
+
+  @media (min-width: 769px) {
+    font-size: 32px;
+  }
+
+  @media (min-width: 1025px) {
+    font-size: 36px;
+  }
+`;
+
+const StatLabel = styled.div`
+  color: #666;
+  font-size: 12px;
+
+  @media (min-width: 769px) {
+    font-size: 13px;
+  }
+
+  @media (min-width: 1025px) {
+    font-size: 14px;
+  }
+`;
+
+const ImageWrapper = styled.div`
+  width: 100%;
+  height: 250px;
+
+  @media (min-width: 769px) {
+    flex: none;
+    width: 45%;
+    height: 300px;
+  }
+
+  @media (min-width: 1025px) {
+    width: 500px;
+    height: 350px;
+  }
+`;
+
+const Image = styled.img`
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  border: 6px solid #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-  .slick-dots {
-    bottom: 10px;
-  }
-
-  .slick-dots li button {
-    background: #ff6b6b;
-  }
-
-  .slick-dots li.slick-active button {
-    background: #ff8e8e;
+  @media (min-width: 1025px) {
+    border-width: 8px;
   }
 `;
 
-const AboutIntroduction = () => {
-  const schoolImages = [school1, school2, school3, school4, school5];
+const AboutUs = () => (
+  <AboutSection>
+    <Title>About Us</Title>
+    <ContentWrapper>
+      <TextContent>
+        <Subtitle>We are a professional team of tattoists</Subtitle>
+        <Description>
+          Our tattoo salon is a home for talented tattoo artists ready to turn your body into 
+          a canvas with beautiful pictures on it.
+        </Description>
+        <Description>
+          To get your body inked in our tattoo salon, you may contact us via contact form 
+          on our website, or by phone. We welcome appointments, as well as walk-ins. We 
+          have gathered the best team of tattoo artists who work full time in our salon, and 
+          we have fantastic guest artists visiting our shop.
+        </Description>
+        <Stats>
+          <StatItem>
+            <StatNumber>8600</StatNumber>
+            <StatLabel>Reviews</StatLabel>
+          </StatItem>
+          <StatItem>
+            <StatNumber>1580</StatNumber>
+            <StatLabel>Tattoos</StatLabel>
+          </StatItem>
+          <StatItem>
+            <StatNumber>975</StatNumber>
+            <StatLabel>Happy Clients</StatLabel>
+          </StatItem>
+        </Stats>
+      </TextContent>
+      <ImageWrapper>
+        <Image src={About} alt="Tattoo artist at work" />
+      </ImageWrapper>
+    </ContentWrapper>
+  </AboutSection>
+);
 
-  return (
-    <Container>
-      <ImageSection>
-        <StyledCarousel
-          autoplay
-          infinite
-          dots
-          effect="fade"
-        >
-          {schoolImages.map((school, index) => (
-            <div key={index}>
-              <CarouselImage src={school} alt={`School Image ${index + 1}`} style={{height:"600px"}} />
-            </div>
-          ))}
-        </StyledCarousel>
-      </ImageSection>
-      <ContentSection>
-        <StyledTitle level={2}>Welcome to Little Minds Montessori</StyledTitle>
-        <StyledHeading level={2}>
-          Where Learning is
-          <br />
-          Fun and Magical!
-        </StyledHeading>
-        <StyledParagraph>
-          At Little Minds Montessori in Kathmandu, we believe every child is a unique star waiting to shine. 
-          Since 2010, we've been creating a colorful world of wonder where young explorers can learn, 
-          play, and grow. Our Montessori approach nurtures curiosity, creativity, and confidence in every little mind.
-        </StyledParagraph>
-        <ul style={{ listStyleType: 'none', padding: 0 }}>
-          <ListItem>
-            <StyledCheckIcon />
-            Playful learning adventures every day
-          </ListItem>
-          <ListItem>
-            <StyledCheckIcon />
-            Safe, loving environment for all children
-          </ListItem>
-          <ListItem>
-            <StyledCheckIcon />
-            Helping little stars reach their full potential
-          </ListItem>
-        </ul>
-        <ContactButton icon={<PhoneOutlined />}>
-          Contact Us <RightOutlined />
-        </ContactButton>
-      </ContentSection>
-    </Container>
-  );
-};
-
-export default AboutIntroduction;
+export default AboutUs;

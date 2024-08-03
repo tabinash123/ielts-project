@@ -5,16 +5,15 @@ import { Typography, Row, Col } from 'antd';
 const { Title, Paragraph } = Typography;
 
 const Section = styled.section`
+  font-family: Arial, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 20px;
 `;
 
 const ContentWrapper = styled.div`
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  
 `;
 
 const Header = styled.div`
@@ -33,6 +32,7 @@ const StyledTitle = styled(Title)`
     margin-bottom: 20px;
     position: relative;
     padding-bottom: 10px;
+    
 
     &:after {
       content: '';

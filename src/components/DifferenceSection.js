@@ -1,241 +1,343 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import { Row, Col, Modal } from 'antd';
-import { motion } from 'framer-motion';
-
-import curriculum from '../assets/different/curriculum.png';
-import safe from '../assets/different/safe.png';
-import small from '../assets/different/small.png';
-import teacher from '../assets/different/teacher.png';
+import { FaUserGraduate, FaGraduationCap, FaGlobeAmericas, FaHeart } from 'react-icons/fa';
 
 const breakpoints = {
-  mobile: '576px',
+  mobile: '480px',
   tablet: '768px',
-  smallDesktop: '992px',
-  largeDesktop: '1200px',
+  laptop: '1024px',
+  desktop: '1200px',
 };
 
-const SectionWrapper = styled.section`
+const media = Object.keys(breakpoints).reduce((acc, label) => {
+  acc[label] = (...args) => css`
+    @media (min-width: ${breakpoints[label]}) {
+      ${css(...args)}
+    }
+  `;
+  return acc;
+}, {});
+
+const floatAnimation = keyframes`
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+`;
+
+const Container = styled.div`
+  background-color: #fce4ec;
+  padding: 20px 10px;
   text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(135deg, #FFF9C4 0%, #FFEB3B 100%);
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
+    font-family: Arial, sans-serif;
 
-  @media (min-width: ${breakpoints.tablet}) {
-    padding: 80px 30px;
-  }
+  ${media.tablet`
+    padding: 30px 20px;
+  `}
 
-  @media (min-width: ${breakpoints.smallDesktop}) {
-    padding: 100px 40px;
-  }
-`;
-
-const Title = styled(motion.h2)`
-  font-size: 36px;
-  color: #FF5722;
-  margin-bottom: 15px;
-  font-weight: 700;
-  text-shadow: 2px 2px 0px #FFC107;
-
-  @media (min-width: ${breakpoints.tablet}) {
-    font-size: 44px;
-  }
-
-  @media (min-width: ${breakpoints.smallDesktop}) {
-    font-size: 52px;
-  }
-`;
-
-const Subtitle = styled(motion.p)`
-  font-size: 20px;
-  color: #4CAF50;
-  margin-bottom: 40px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 600;
-
-  @media (min-width: ${breakpoints.tablet}) {
-    font-size: 22px;
-  }
-
-  @media (min-width: ${breakpoints.smallDesktop}) {
-    font-size: 24px;
-    margin-bottom: 60px;
-  }
-`;
-
-const FeatureWrapper = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: #FFFFFF;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
-  border: 3px solid #FFC107;
-
-  &:hover {
-    transform: translateY(-10px) rotate(2deg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-  }
-`;
-
-const bounce = keyframes`
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-`;
-
-const FeatureIcon = styled(motion.img)`
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border: 4px solid #FF9800;
-  animation: ${bounce} 2s infinite;
-
-  @media (min-width: ${breakpoints.tablet}) {
-    width: 110px;
-    height: 110px;
-  }
-
-  @media (min-width: ${breakpoints.smallDesktop}) {
-    width: 130px;
-    height: 130px;
-  }
-`;
-
-const FeatureTitle = styled.h3`
-  font-size: 18px;
-  color: #2196F3;
-  margin-top: 15px;
-  font-weight: 600;
-  transition: color 0.3s ease;
-
-  ${FeatureWrapper}:hover & {
-    color: #E91E63;
-  }
-
-  @media (min-width: ${breakpoints.tablet}) {
-    font-size: 20px;
-  }
+  ${media.laptop`
+    padding: 40px 20px;
+  `}
 `;
 
 const CloudBackground = styled.div`
-  background-image: url('/path-to-cloud-image.png');
-  background-repeat: repeat-x;
-  height: 80px;
-  width: 100%;
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  opacity: 0.7;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
 `;
 
-const StyledModal = styled(Modal)`
-  .ant-modal-content {
-    border-radius: 20px;
-    overflow: hidden;
-    border: 5px solid #FFC107;
+const Cloud = styled.div`
+  position: absolute;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: ${floatAnimation} 10s ease-in-out infinite;
+  
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
   }
 
-  .ant-modal-header {
-    background-color: #FF9800;
-    border-bottom: none;
-    padding: 16px 24px;
+  &.cloud1 {
+    width: 100px;
+    height: 30px;
+    top: 5%;
+    left: 5%;
+    
+    &::before {
+      width: 50px;
+      height: 50px;
+      top: -25px;
+      left: 5px;
+    }
+    
+    &::after {
+      width: 60px;
+      height: 60px;
+      top: -35px;
+      right: 5px;
+    }
+
+    ${media.tablet`
+      width: 150px;
+      height: 45px;
+      
+      &::before {
+        width: 75px;
+        height: 75px;
+        top: -37px;
+        left: 7px;
+      }
+      
+      &::after {
+        width: 90px;
+        height: 90px;
+        top: -52px;
+        right: 7px;
+      }
+    `}
+
+    ${media.laptop`
+      width: 200px;
+      height: 60px;
+      
+      &::before {
+        width: 100px;
+        height: 100px;
+        top: -50px;
+        left: 10px;
+      }
+      
+      &::after {
+        width: 120px;
+        height: 120px;
+        top: -70px;
+        right: 10px;
+      }
+    `}
   }
 
-  .ant-modal-title {
-    color: white;
-    font-size: 24px;
-    font-weight: 600;
-  }
+  &.cloud2 {
+    width: 75px;
+    height: 22px;
+    top: 15%;
+    right: 10%;
+    animation-delay: -3s;
+    
+    &::before {
+      width: 37px;
+      height: 37px;
+      top: -18px;
+      left: 3px;
+    }
+    
+    &::after {
+      width: 45px;
+      height: 45px;
+      top: -26px;
+      right: 3px;
+    }
 
-  .ant-modal-body {
-    padding: 24px;
+    ${media.tablet`
+      width: 112px;
+      height: 33px;
+      
+      &::before {
+        width: 56px;
+        height: 56px;
+        top: -28px;
+        left: 5px;
+      }
+      
+      &::after {
+        width: 67px;
+        height: 67px;
+        top: -39px;
+        right: 5px;
+      }
+    `}
+
+    ${media.laptop`
+      width: 150px;
+      height: 45px;
+      
+      &::before {
+        width: 75px;
+        height: 75px;
+        top: -37px;
+        left: 7px;
+      }
+      
+      &::after {
+        width: 90px;
+        height: 90px;
+        top: -52px;
+        right: 7px;
+      }
+    `}
+  }
+`;
+
+const Content = styled.div`
+  position: relative;
+  z-index: 1;
+`;
+
+const Title = styled.h2`
+  color: #00bcd4;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 5px;
+
+  ${media.tablet`
+    font-size: 28px;
+    margin-bottom: 7px;
+  `}
+
+  ${media.laptop`
+    font-size: 32px;
+    margin-bottom: 10px;
+  `}
+
+  ${media.desktop`
+    font-size: 36px;
+  `}
+`;
+
+const Subtitle = styled.p`
+  color: #00bcd4;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+
+  ${media.tablet`
+    font-size: 16px;
+    margin-bottom: 30px;
+  `}
+
+  ${media.laptop`
     font-size: 18px;
-    color: #4CAF50;
-    background-color: #FFFDE7;
-  }
-
-  .ant-modal-footer {
-    border-top: none;
-    background-color: #FFFDE7;
-  }
+    margin-bottom: 40px;
+  `}
 `;
 
-const features = [
-  { title: "Dedicated Professional Team", image: teacher, description: "Our team consists of highly qualified and experienced educators dedicated to nurturing young minds." },
-  { title: "Best Appropriate Curriculum", image: curriculum, description: "We offer a comprehensive, age-appropriate curriculum designed to foster holistic development in children." },
-  { title: "Child Friendly Teaching Method", image: small, description: "Our teaching methods are tailored to engage children in fun, interactive learning experiences." },
-  { title: "Safe and Stimulating Environment", image: safe, description: "We provide a secure, nurturing environment that encourages exploration and creativity." }
-];
+const FeaturesContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
-const HowAreDifferentSection = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedFeature, setSelectedFeature] = useState(null);
+const Feature = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45%;
+  margin-bottom: 20px;
 
-  const showModal = (feature) => {
-    setSelectedFeature(feature);
-    setModalVisible(true);
-  };
+  ${media.tablet`
+    width: 45%;
+  `}
 
+  ${media.laptop`
+    width: 22%;
+  `}
+`;
+
+const IconCircle = styled.div`
+  background-color: ${props => props.color};
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+
+  ${media.tablet`
+    width: 60px;
+    height: 60px;
+  `}
+
+  ${media.laptop`
+    width: 70px;
+    height: 70px;
+  `}
+
+  ${media.desktop`
+    width: 80px;
+    height: 80px;
+  `}
+`;
+
+const FeatureText = styled.p`
+  color: #e91e63;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  max-width: 120px;
+
+  ${media.tablet`
+    font-size: 13px;
+    max-width: 130px;
+  `}
+
+  ${media.laptop`
+    font-size: 14px;
+    max-width: 140px;
+  `}
+
+  ${media.desktop`
+    font-size: 16px;
+    max-width: 150px;
+  `}
+`;
+
+const HowAreWeDifferent = () => {
   return (
-    <SectionWrapper>
-      <Title
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        How are we different?
-      </Title>
-      <Subtitle
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-      >
-        Leader in Early Childhood Education
-      </Subtitle>
-      <Row gutter={[24, 24]} justify="center">
-        {features.map((feature, index) => (
-          <Col xs={12} sm={12} md={12} lg={6} key={index}>
-            <FeatureWrapper
-              onClick={() => showModal(feature)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <FeatureIcon
-                src={feature.image}
-                alt={feature.title}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-              />
-              <FeatureTitle>{feature.title}</FeatureTitle>
-            </FeatureWrapper>
-          </Col>
-        ))}
-      </Row>
-      <CloudBackground />
-      <StyledModal
-        title={selectedFeature?.title}
-        visible={modalVisible}
-        onOk={() => setModalVisible(false)}
-        onCancel={() => setModalVisible(false)}
-      >
-        <p>{selectedFeature?.description}</p>
-      </StyledModal>
-    </SectionWrapper>
+    <Container>
+      <CloudBackground>
+        <Cloud className="cloud1" />
+        <Cloud className="cloud2" />
+      </CloudBackground>
+      <Content>
+        <Title>How are we different?</Title>
+        <Subtitle>Leader in Early Childhood Education</Subtitle>
+        <FeaturesContainer>
+          <Feature>
+            <IconCircle color="#4caf50">
+              <FaUserGraduate size={25} color="white" />
+            </IconCircle>
+            <FeatureText>Dedicated Professional Team</FeatureText>
+          </Feature>
+          <Feature>
+            <IconCircle color="#2196f3">
+              <FaGraduationCap size={25} color="white" />
+            </IconCircle>
+            <FeatureText>Best Appropriate Curriculum</FeatureText>
+          </Feature>
+          <Feature>
+            <IconCircle color="#ff9800">
+              <FaGlobeAmericas size={25} color="white" />
+            </IconCircle>
+            <FeatureText>Child Friendly Teaching Method</FeatureText>
+          </Feature>
+          <Feature>
+            <IconCircle color="#f44336">
+              <FaHeart size={25} color="white" />
+            </IconCircle>
+            <FeatureText>Safe and Stimulating Environment</FeatureText>
+          </Feature>
+        </FeaturesContainer>
+      </Content>
+    </Container>
   );
 };
 
-export default HowAreDifferentSection;
+export default HowAreWeDifferent;

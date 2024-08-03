@@ -9,6 +9,7 @@ import principalImage from '../../assets/large.png';
 const { Title, Paragraph } = Typography;
 
 const Section = styled.section`
+  font-family: Arial, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
@@ -158,9 +159,7 @@ const PrincipalMessage = () => {
             <br />
             Principal, Little Minds Montessori
           </StyledParagraph>
-          <ContactButton icon={<MailOutlined />}>
-            Email the Principal
-          </ContactButton>
+     
         </ContentSection>
       </Container>
     </Section>

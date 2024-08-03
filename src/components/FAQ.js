@@ -6,6 +6,7 @@ const FAQSection = styled.section`
   max-width: 800px;
   margin: 60px auto;
   padding: 0 20px;
+    font-family: Arial, sans-serif;
 `;
 
 const Title = styled.h2`

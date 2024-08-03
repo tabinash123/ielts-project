@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const NavbarContainer = styled.nav`
-  background-color: white;
-  padding: 15px 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  background-color: #ffffff;
+  padding: 1.4rem;
+  position: relative;
 `;
 
-const NavContent = styled.div`
+const NavbarContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,93 +17,83 @@ const NavContent = styled.div`
 `;
 
 const Logo = styled.a`
-  font-size: 24px;
+  color: red;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #ff1493;
   text-decoration: none;
 `;
 
 const NavLinks = styled.ul`
-  display: flex;
+  display: none;
   list-style: none;
   margin: 0;
   padding: 0;
 
-  @media (max-width: 768px) {
-    display: none;
+  @media (min-width: 768px) {
+    display: flex;
   }
 `;
 
 const NavLink = styled.li`
-  margin-left: 30px;
+  margin-left: 1.5rem;
 
   a {
-    color: #333;
+    color: #fff;
     text-decoration: none;
-    font-weight: 500;
     transition: color 0.3s ease;
 
     &:hover {
-      color: #ff1493;
+      color: #8B4513;
     }
   }
 `;
 
-const MobileMenuIcon = styled.div`
-  display: none;
-  font-size: 24px;
+const MobileMenuButton = styled.button`
+  background: 1px solid #eeeeee;
+  border: none;
+  color: #000000;
+  font-size: 1.5rem;
   cursor: pointer;
 
-  @media (max-width: 768px) {
-    display: block;
+  @media (min-width: 768px) {
+    display: none;
   }
 `;
 
 const MobileMenu = styled.div`
-  position: fixed;
-  top: 0;
-  right: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
-  width: 70%;
-  height: 100vh;
-  background-color: white;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-  transition: right 0.3s ease-in-out;
-  z-index: 1001;
-`;
+  position: absolute;
+  
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: orange;
+  padding: 1rem;
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
 
-const MobileMenuContent = styled.div`
-  padding: 50px 30px;
+  @media (min-width: 768px) {
+    display: none;
+  }
 `;
 
 const MobileNavLinks = styled.ul`
   list-style: none;
+  margin: 0;
   padding: 0;
 `;
 
 const MobileNavLink = styled.li`
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 
   a {
-    color: #333;
+    color: #000000;
     text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 1.2rem;
     transition: color 0.3s ease;
 
     &:hover {
-      color: #ff1493;
+      color: #8B4513;
     }
   }
-`;
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 24px;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
 `;
 
 const Navbar = () => {
@@ -120,32 +105,25 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <NavContent>
-        <Logo href="/">Mother's Pride</Logo>
+      <NavbarContent>
+        <Logo href="/">Tattoo Studio</Logo>
         <NavLinks>
           <NavLink><a href="/">Home</a></NavLink>
-          <NavLink><a href="/about">About</a></NavLink>
-          <NavLink><a href="/programs">Programs</a></NavLink>
-          <NavLink><a href="/admissions">Admissions</a></NavLink>
+          <NavLink><a href="/about">About Us</a></NavLink>
           <NavLink><a href="/contact">Contact</a></NavLink>
+          <NavLink><a href="/gallery">Photo Gallery</a></NavLink>
         </NavLinks>
-        <MobileMenuIcon onClick={toggleMobileMenu}>
-          <MenuOutlined />
-        </MobileMenuIcon>
-      </NavContent>
+        <MobileMenuButton onClick={toggleMobileMenu}>
+          {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+        </MobileMenuButton>
+      </NavbarContent>
       <MobileMenu isOpen={isMobileMenuOpen}>
-        <MobileMenuContent>
-          <CloseButton onClick={toggleMobileMenu}>
-            <CloseOutlined />
-          </CloseButton>
-          <MobileNavLinks>
-            <MobileNavLink><a href="/" onClick={toggleMobileMenu}>Home</a></MobileNavLink>
-            <MobileNavLink><a href="/about" onClick={toggleMobileMenu}>About</a></MobileNavLink>
-            <MobileNavLink><a href="/programs" onClick={toggleMobileMenu}>Programs</a></MobileNavLink>
-            <MobileNavLink><a href="/admissions" onClick={toggleMobileMenu}>Admissions</a></MobileNavLink>
-            <MobileNavLink><a href="/contact" onClick={toggleMobileMenu}>Contact</a></MobileNavLink>
-          </MobileNavLinks>
-        </MobileMenuContent>
+        <MobileNavLinks>
+          <MobileNavLink><a href="/" onClick={toggleMobileMenu}>Home</a></MobileNavLink>
+          <MobileNavLink><a href="/about" onClick={toggleMobileMenu}>About Us</a></MobileNavLink>
+          <MobileNavLink><a href="/contact" onClick={toggleMobileMenu}>Contact</a></MobileNavLink>
+          <MobileNavLink><a href="/gallery" onClick={toggleMobileMenu}>Photo Gallery</a></MobileNavLink>
+        </MobileNavLinks>
       </MobileMenu>
     </NavbarContainer>
   );

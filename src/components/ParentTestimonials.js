@@ -1,188 +1,203 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Carousel, Button } from 'antd';
-import { PlayCircleOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-import parent1 from '../assets/parents/parent1.jpg';
-import parent2 from '../assets/parents/parent2.jpg';
-import parent3 from '../assets/parents/parent3.jpg';
+import staff1 from '../assets/parents/parent1.jpg';
+import staff2 from '../assets/parents/parent2.jpg';
+import staff3 from '../assets/parents/parent3.jpg';
 
-const Section = styled.section`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  position: relative;
+const TestimonialSection = styled.section`
+  background-color: #ffffff;
+  color: #000000;
+  padding: 90px 80px;
+
+  @media (max-width: 768px) {
+    padding: 40px 20px;
+  }
+`;
+
+const SectionHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
 `;
 
 const Title = styled.h2`
-  font-size: 28px;
+  font-size: 42px;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
- 
-  span {
-    color: #ff4081;
-  }
-`;
-
-const TestimonialCard = styled.div`
-  text-align: left;
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const ImagePlaceholder = styled.div`
-  width: 100%;
-  height: 200px;
-  background-color: #f0f0f0;
-  margin-bottom: 0px;
-  // border-radius: 8px;
-  // overflow: hidden;
+  margin: 0;
   position: relative;
-  background-size: cover;
-  background-position: center;
-  background-image: url(${props => props.image});
-`;
-
-const CardTitle = styled.h3`
-  font-size: 16px;
-  font-weight: 600;
-  color: #ff4081;
-  margin-bottom: 12px;
+  padding-left: 20px;
   text-transform: uppercase;
-`;
-
-const CardText = styled.p`
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 20px;
-  line-height: 1.6;
-`;
-
-const ViewButton = styled(Button)`
-  background-color: #ff4081;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  font-size: 14px;
-  padding: 6px 16px;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
- 
-  &:hover {
-    background-color: #e91e63;
-    color: #fff;
-  }
- 
-  .anticon {
-    margin-right: 6px;
-  }
-`;
-
-const StyledCarousel = styled(Carousel)`
-  .slick-dots li button {
-    background: #ff4081;
-  }
-  .slick-dots li.slick-active button {
-    background: #e91e63;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 80%;
+    background-color: #e53935;
   }
   
-  .slick-slide > div {
-    padding: 0 5px;
+  @media (max-width: 480px) {
+    font-size: 22px;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 32px;
   }
 `;
 
-const NavigationButton = styled(Button)`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  ${props => props.direction === 'left' ? 'left: -20px;' : 'right: -20px;'}
+const TestimonialItem = styled.div`
+  text-align: left;
+  padding: 20px; /* Reduce padding to make the container smaller */
   background-color: #fff;
-  border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 1;
- 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  margin: 0 15px; /* Adding margin to give space between the cards */
+  max-width: 280px; /* Setting a max-width to reduce the overall size */
+
   &:hover {
-    background-color: #ff4081;
-    color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
 `;
 
-const ParentTestimonials = () => {
-  const carouselRef = React.useRef();
-  const next = () => carouselRef.current.next();
-  const previous = () => carouselRef.current.prev();
+const TestimonialImageWrapper = styled.div`
+  width: 80px; /* Reduce the image wrapper size */
+  height: 80px; /* Reduce the image wrapper size */
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 20px;
+`;
+
+const TestimonialImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const TestimonialContent = styled.p`
+  font-size: 14px; /* Reduce the font size */
+  color: #000000;
+  margin: 0 0 15px 0;
+`;
+
+const TestimonialName = styled.h3`
+  font-size: 16px; /* Reduce the font size */
+  margin: 0 0 5px 0;
+  color: #000000;
+`;
+
+const TestimonialTitle = styled.p`
+  font-size: 12px; /* Reduce the font size */
+  color: #000000;
+  margin: 0;
+`;
+
+const RedLine = styled.div`
+  height: 2px;
+  background-color: #e53935;
+  width: 40px;
+  margin-bottom: 15px;
+`;
+
+const StyledSlider = styled(Slider)`
+  .slick-slide > div {
+    margin: 0 15px;
+  }
+  .slick-list {
+    margin: 0 -15px;
+  }
+  
+  .slick-dots {
+    bottom: -40px;
+    
+    li button:before {
+      font-size: 12px;
+      color: #e53935;
+      opacity: 0.25;
+    }
+    
+    li.slick-active button:before {
+      opacity: 1;
+    }
+  }
+`;
+
+const UserTestimonials = () => {
+  const testimonials = [
+    { 
+      name: 'John Doe', 
+      title: 'Satisfied Customer', 
+      image: staff1,
+      content: 'Absolutely love my new tattoo! The artists here are true professionals and made the whole experience enjoyable.'
+    },
+    { 
+      name: 'Jane Smith', 
+      title: 'Repeat Client', 
+      image: staff2,
+      content: 'I ve been coming here for years and every tattoo is a masterpiece. The attention to detail is unmatched.'
+    },
+    { 
+      name: 'Mike Johnson', 
+      title: 'First-Time Client', 
+      image: staff3,
+      content: 'As a first-timer, I was nervous, but the staff made me feel comfortable throughout the entire process. Highly recommend!'
+    },
+  ];
 
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     autoplay: true,
+    autoplaySpeed: 3000,
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
 
   return (
-    <Section>
-      <Title>What Parents Say <span>♥</span></Title>
-      <StyledCarousel ref={carouselRef} {...settings}>
+    <TestimonialSection>
+      <SectionHeader>
+        <Title>Parent Review</Title>
+      </SectionHeader>
+      <StyledSlider {...settings}>
         {testimonials.map((testimonial, index) => (
-          <div key={index}>
-            <TestimonialCard>
-              <ImagePlaceholder image={testimonial.image} />
-              <CardTitle>{testimonial.title}</CardTitle>
-              <CardText>{testimonial.text}</CardText>
-            </TestimonialCard>
-          </div>
+          <TestimonialItem key={index}>
+            <TestimonialImageWrapper>
+              <TestimonialImage src={testimonial.image} alt={testimonial.name} />
+            </TestimonialImageWrapper>
+            <RedLine />
+            <TestimonialContent>{testimonial.content}</TestimonialContent>
+            <TestimonialName>{testimonial.name}</TestimonialName>
+            <TestimonialTitle>{testimonial.title}</TestimonialTitle>
+          </TestimonialItem>
         ))}
-      </StyledCarousel>
-      <NavigationButton direction="left" icon={<LeftOutlined />} onClick={previous} />
-      <NavigationButton direction="right" icon={<RightOutlined />} onClick={next} />
-    </Section>
+      </StyledSlider>
+    </TestimonialSection>
   );
 };
 
-const testimonials = [
-  {
-    title: "Child-Friendly Infrastructure",
-    text: "Impeccable facilities and top-notch security system impressed Mrs. Shilpa, making the decision easy for her child.",
-    image: parent1,
-  },
-  {
-    title: "Holistic Development",
-    text: "Dr. Poonam's son gained exceptional skills, thanks to Mother's Pride's focus on holistic development.",
-    image: parent2,
-  },
-  {
-    title: "Welcoming Environment",
-    text: "The warm atmosphere at Mother's Pride helped Mrs. Ankita's daughter Aarna become a confident little girl.",
-    image: parent3,
-  }
-];
-
-export default ParentTestimonials;
+export default UserTestimonials;
