@@ -1,132 +1,178 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaInstagram, FaTwitter, FaYoutube, FaFacebookF, FaPinterest, FaWhatsapp, FaViber, FaPhone } from 'react-icons/fa';
+import { Layout, Row, Col, Typography, Input, Button } from 'antd';
+import { 
+  PhoneOutlined, 
+  MailOutlined, 
+  EnvironmentOutlined, 
+  FacebookOutlined, 
+  InstagramOutlined, 
+  TwitterOutlined,
+  SendOutlined
+} from '@ant-design/icons';
 
-const FooterContainer = styled.footer`
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: #111;
-  color: #fff;
+const { Footer } = Layout;
+const { Title, Text, Paragraph } = Typography;
 
-  @media (min-width: 768px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+const StyledFooter = styled(Footer)`
+  background-color: #f8f4e6;
+  color: #333;
+  padding: 60px 0 30px;
+  position: relative;
+  overflow: hidden;
 
-  @media (min-width: 1024px) {
-    flex-wrap: nowrap;
-  }
-`;
-
-const Section = styled.div`
-  flex: 1;
-  margin-bottom: 20px;
-
-  @media (min-width: 768px) {
-    flex: 0 0 50%;
-    padding-right: 20px;
-  }
-
-  @media (min-width: 1024px) {
-    flex: 1;
-    padding-right: 0;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(90deg, #ff9ff3, #feca57, #ff6b6b, #48dbfb, #ff9ff3);
   }
 `;
 
-const WorkTimeSection = styled(Section)`
-  max-width: 300px;
+const FooterSection = styled.div`
+  margin-bottom: 30px;
 `;
 
-const Title = styled.h3`
-  font-size: 18px;
-  margin-bottom: 15px;
+const FooterTitle = styled(Title)`
+  color: #ff6b6b !important;
+  font-size: 24px !important;
+  margin-bottom: 25px !important;
+  font-weight: bold !important;
 `;
 
-const ContactInfo = styled.p`
-  color: #888;
-  margin: 5px 0;
+const FooterLink = styled(Link)`
+  color: #54a0ff;
+  display: block;
+  margin-bottom: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: #5f27cd;
+    transform: translateX(5px);
+  }
 `;
 
 const ContactItem = styled.div`
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
-  margin: 10px 0;
-  color: #888;
+  font-size: 16px;
+  
+  .anticon {
+    margin-right: 15px;
+    color: #ff6b6b;
+    font-size: 20px;
+  }
 `;
 
-const ContactIcon = styled.span`
-  margin-right: 10px;
-  color: #8B4513;
+const SocialIcon = styled.a`
+  color: #54a0ff;
+  font-size: 32px;
+  margin-right: 20px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: #5f27cd;
+    transform: scale(1.2);
+  }
 `;
 
-const SocialIcons = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
+const Newsletter = styled.div`
+  margin-top: 25px;
 `;
 
-const WorkTimeItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 0;
+const StyledInput = styled(Input)`
+  border-radius: 20px 0 0 20px !important;
+  border: 2px solid #ff6b6b !important;
+  background-color: #fff !important;
+  color: #333 !important;
+  font-size: 16px !important;
+  
+  &::placeholder {
+    color: #888;
+  }
 `;
 
-const Day = styled.span`
-  color: #888;
-  flex: 1;
+const StyledButton = styled(Button)`
+  border-radius: 0 20px 20px 0 !important;
+  border: none !important;
+  background-color: #ff6b6b !important;
+  color: #fff !important;
+  font-size: 16px !important;
+  
+  &:hover {
+    background-color: #ff4757 !important;
+  }
 `;
 
-const Time = styled.span`
-  color: ${props => props.closed ? '#0f0' : '#888'};
-  text-align: right;
-  flex: 1;
+const Copyright = styled.div`
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 2px solid #feca57;
+  color: #333;
+  font-size: 14px;
 `;
 
-const Footer = () => {
+const FooterComponent = () => {
   return (
-    <FooterContainer>
-      <Section>
-        <Title>CONTACT</Title>
-        <ContactInfo>0665 Broadway NY, New York 10001</ContactInfo>
-        <ContactInfo>United States of America</ContactInfo>
-        <ContactItem>
-          <ContactIcon><FaPhone /></ContactIcon>
-          855 100 4444
-        </ContactItem>
-        <ContactItem>
-          <ContactIcon><FaWhatsapp /></ContactIcon>
-          +1 (855) 100-4444
-        </ContactItem>
-        <ContactItem>
-          <ContactIcon><FaViber /></ContactIcon>
-          +1 (855) 100-4444
-        </ContactItem>
-        <ContactItem>
-          <ContactIcon>📧</ContactIcon>
-          info@tattoo.com
-        </ContactItem>
-        <SocialIcons>
-          <FaInstagram />
-          <FaTwitter />
-          <FaYoutube />
-          <FaFacebookF />
-          <FaPinterest />
-        </SocialIcons>
-      </Section>
-      
-      <WorkTimeSection>
-        <Title>WORK TIME</Title>
-        <WorkTimeItem><Day>Monday</Day><Time>10:00 - 20:00</Time></WorkTimeItem>
-        <WorkTimeItem><Day>Tuesday</Day><Time>10:00 - 20:00</Time></WorkTimeItem>
-        <WorkTimeItem><Day>Thursday</Day><Time>10:00 - 20:00</Time></WorkTimeItem>
-        <WorkTimeItem><Day>Friday</Day><Time>10:00 - 20:00</Time></WorkTimeItem>
-        <WorkTimeItem><Day>Saturday</Day><Time>10:00 - 20:00</Time></WorkTimeItem>
-        <WorkTimeItem><Day>Weekend</Day><Time closed>Closed</Time></WorkTimeItem>
-      </WorkTimeSection>
-      
-    </FooterContainer>
+    <StyledFooter>
+      <Row gutter={[32, 32]} justify="space-around">
+        <Col xs={24} sm={12} lg={6}>
+          <FooterSection>
+            <FooterTitle level={4}>Quick Links</FooterTitle>
+            <FooterLink to="/">Home</FooterLink>
+            <FooterLink to="/about">About Us</FooterLink>
+            <FooterLink to="/classes">Classes</FooterLink>
+            <FooterLink to="/facilities">Facilities</FooterLink>
+            <FooterLink to="/contact">Contact</FooterLink>
+          </FooterSection>
+        </Col>
+        <Col xs={24} sm={12} lg={6}>
+          <FooterSection>
+            <FooterTitle level={4}>Contact Us</FooterTitle>
+            <ContactItem>
+              <PhoneOutlined /> <Text>01 - 400 3564</Text>
+            </ContactItem>
+            <ContactItem>
+              <MailOutlined /> <Text>info@angelskingdom.com</Text>
+            </ContactItem>
+            <ContactItem>
+              <EnvironmentOutlined /> <Text>Chaitya Marg, Lazimpat</Text>
+            </ContactItem>
+          </FooterSection>
+        </Col>
+        <Col xs={24} sm={24} lg={8}>
+          <FooterSection>
+            <FooterTitle level={4}>Stay Connected</FooterTitle>
+            <Paragraph style={{ color: '#333', marginBottom: '20px', fontSize: '16px' }}>
+              Join our community for updates on events, activities, and educational tips!
+            </Paragraph>
+            <div style={{ marginBottom: '20px' }}>
+              <SocialIcon href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <FacebookOutlined />
+              </SocialIcon>
+              <SocialIcon href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <InstagramOutlined />
+              </SocialIcon>
+              <SocialIcon href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <TwitterOutlined />
+              </SocialIcon>
+            </div>
+            
+          </FooterSection>
+        </Col>
+      </Row>
+      <Copyright>
+        <Text>© 2024 Angel's Kingdom Kindergarten. All rights reserved.</Text>
+      </Copyright>
+    </StyledFooter>
   );
 };
 
-export default Footer;
+export default FooterComponent;

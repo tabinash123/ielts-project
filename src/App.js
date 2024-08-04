@@ -8,6 +8,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Gallery from './pages/Gallary';
 
+import { ParallaxProvider } from 'react-scroll-parallax';
+
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,6 +37,7 @@ const StyledFooter = styled.footer`
 
 const App = () => {
   return (
+        <ParallaxProvider>
     <Router>
       <AppContainer>
         <StyledHeader>
@@ -52,7 +55,8 @@ const App = () => {
           <Footer />
         </StyledFooter>
       </AppContainer>
-    </Router>
+      </Router>
+      </ParallaxProvider>
   );
 };
 

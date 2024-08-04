@@ -1,132 +1,219 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { Layout, Row, Col, Drawer, Button, Divider } from 'antd';
+import { Link } from 'react-router-dom';
+import { 
+  PhoneOutlined, FacebookOutlined, InstagramOutlined, EnvironmentOutlined, MenuOutlined,
+  HomeOutlined, InfoCircleOutlined, BookOutlined, TeamOutlined, ToolOutlined, QuestionCircleOutlined, ContactsOutlined
+} from '@ant-design/icons';
 
-const NavbarContainer = styled.nav`
-  background-color: #ffffff;
-  padding: 1.4rem;
-  position: relative;
+const { Header } = Layout;
+
+const TopBar = styled.div`
+  background-color: #333;
+  color: white;
+  padding: 5px 0;
+  font-size: 14px;
+  font-weight: 500;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
-const NavbarContent = styled.div`
+const MainHeader = styled(Header)`
+  background-color: #f8f4e6;
+  padding: 10px 20px;
+  height: auto;
+  line-height: 1.5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+`;
+
+const Logo = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+`;
+
+const LogoTitle = styled.span`
+  font-size: 28px;
+  font-weight: 800;
+  color: #4a90e2;
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+`;
+
+const LogoSubtitle = styled.span`
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+`;
+
+const NavMenu = styled.div`
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
+  height: 100%;
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
-const Logo = styled.a`
-  color: red;
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-decoration: none;
+const MenuItem = styled(Link)`
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  &:nth-child(1) { color: #4a90e2; }
+  &:nth-child(2) { color: #f39c12; }
+  &:nth-child(3) { color: #e74c3c; }
+  &:nth-child(4) { color: #2ecc71; }
+  &:nth-child(5) { color: #9b59b6; }
+  &:nth-child(6) { color: #3498db; }
+  &:nth-child(7) { color: #333; }
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
-const NavLinks = styled.ul`
+const MenuButton = styled(Button)`
   display: none;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  @media (min-width: 768px) {
-    display: flex;
+  @media (max-width: 1024px) {
+    display: block;
   }
 `;
 
-const NavLink = styled.li`
-  margin-left: 1.5rem;
-
-  a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #8B4513;
-    }
+const StyledDrawer = styled(Drawer)`
+  .ant-drawer-header {
+    background-color: #4a90e2;
+    border-bottom: none;
+  }
+  .ant-drawer-title {
+    color: white;
+  }
+  .ant-drawer-body {
+    padding: 0;
+    background-color: #f5f5f5;
   }
 `;
 
-const MobileMenuButton = styled.button`
-  background: 1px solid #eeeeee;
-  border: none;
-  color: #000000;
-  font-size: 1.5rem;
-  cursor: pointer;
-
-  @media (min-width: 768px) {
-    display: none;
-  }
-`;
-
-const MobileMenu = styled.div`
-  position: absolute;
+const DrawerMenuItem = styled(Link)`
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
   
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: orange;
-  padding: 1rem;
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  &:hover {
+    background-color: #e6f7ff;
+    color: #4a90e2;
+    border-left-color: #4a90e2;
+  }
 
-  @media (min-width: 768px) {
-    display: none;
+  .anticon {
+    font-size: 20px;
+    margin-right: 15px;
   }
 `;
 
-const MobileNavLinks = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
+const DrawerFooter = styled.div`
+  padding: 20px;
+  background-color: white;
+  text-align: center;
+  border-top: 1px solid #f0f0f0;
 `;
 
-const MobileNavLink = styled.li`
-  margin-bottom: 1rem;
+const HeaderComponent = () => {
+  const [visible, setVisible] = useState(false);
 
-  a {
-    color: #000000;
-    text-decoration: none;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #8B4513;
-    }
-  }
-`;
-
-const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const showDrawer = () => {
+    setVisible(true);
   };
 
+  const onClose = () => {
+    setVisible(false);
+  };
+
+  const handleDrawerClose = () => {
+    setVisible(false);
+  };
+
+  const menuItems = [
+    { icon: <HomeOutlined />, text: 'Home', path: '/', color: '#4a90e2' },
+    { icon: <InfoCircleOutlined />, text: 'About', path: '/about', color: '#f39c12' },
+    { icon: <BookOutlined />, text: 'School', path: '/school', color: '#e74c3c' },
+    { icon: <TeamOutlined />, text: 'Classes', path: '/classes', color: '#2ecc71' },
+    { icon: <ToolOutlined />, text: 'Facilities', path: '/facilities', color: '#9b59b6' },
+    { icon: <QuestionCircleOutlined />, text: 'FAQ', path: '/faq', color: '#3498db' },
+    { icon: <ContactsOutlined />, text: 'Contact', path: '/contact', color: '#34495e' },
+  ];
+
   return (
-    <NavbarContainer>
-      <NavbarContent>
-        <Logo href="/">Tattoo Studio</Logo>
-        <NavLinks>
-          <NavLink><a href="/">Home</a></NavLink>
-          <NavLink><a href="/about">About Us</a></NavLink>
-          <NavLink><a href="/contact">Contact</a></NavLink>
-          <NavLink><a href="/gallery">Photo Gallery</a></NavLink>
-        </NavLinks>
-        <MobileMenuButton onClick={toggleMobileMenu}>
-          {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-        </MobileMenuButton>
-      </NavbarContent>
-      <MobileMenu isOpen={isMobileMenuOpen}>
-        <MobileNavLinks>
-          <MobileNavLink><a href="/" onClick={toggleMobileMenu}>Home</a></MobileNavLink>
-          <MobileNavLink><a href="/about" onClick={toggleMobileMenu}>About Us</a></MobileNavLink>
-          <MobileNavLink><a href="/contact" onClick={toggleMobileMenu}>Contact</a></MobileNavLink>
-          <MobileNavLink><a href="/gallery" onClick={toggleMobileMenu}>Photo Gallery</a></MobileNavLink>
-        </MobileNavLinks>
-      </MobileMenu>
-    </NavbarContainer>
+    <>
+      <TopBar>
+        <Row justify="space-between" align="middle" style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <Col><EnvironmentOutlined /> Chaitya Marg, Lazimpat</Col>
+          <Col><PhoneOutlined /> 01 - 400 3564</Col>
+          <Col>
+            Educating students since 2064 B.S.
+            <FacebookOutlined style={{ marginLeft: 10 }} />
+            <InstagramOutlined style={{ marginLeft: 10 }} />
+            <EnvironmentOutlined style={{ marginLeft: 10 }} />
+          </Col>
+        </Row>
+      </TopBar>
+      <MainHeader>
+        <Row justify="space-between" align="middle" style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <Col>
+            <Logo>
+              <LogoTitle>ANGEL'S KINGDOM</LogoTitle>
+              <LogoSubtitle>Kindergarten</LogoSubtitle>
+            </Logo>
+          </Col>
+          <Col>
+            <NavMenu>
+              {menuItems.map((item, index) => (
+                <MenuItem key={index} to={item.path} style={{ color: item.color }}>{item.text}</MenuItem>
+              ))}
+            </NavMenu>
+            <MenuButton type="primary" onClick={showDrawer}>
+              <MenuOutlined />
+            </MenuButton>
+          </Col>
+        </Row>
+      </MainHeader>
+      <StyledDrawer
+        title={<LogoTitle style={{ fontSize: '22px', color: 'white' }}>ANGEL'S KINGDOM</LogoTitle>}
+        placement="right"
+        onClose={onClose}
+        visible={visible}
+        width={300}
+      >
+        {menuItems.map((item, index) => (
+          <React.Fragment key={index}>
+            <DrawerMenuItem to={item.path} style={{ color: item.color }} onClick={handleDrawerClose}>
+              {item.icon}
+              {item.text}
+            </DrawerMenuItem>
+            {index < menuItems.length - 1 && <Divider style={{ margin: 0 }} />}
+          </React.Fragment>
+        ))}
+        <DrawerFooter>
+          <p><PhoneOutlined /> 01 - 400 3564</p>
+          <p><EnvironmentOutlined /> Chaitya Marg, Lazimpat</p>
+          <div>
+            <FacebookOutlined style={{ fontSize: '20px', margin: '0 10px' }} />
+            <InstagramOutlined style={{ fontSize: '20px', margin: '0 10px' }} />
+          </div>
+        </DrawerFooter>
+      </StyledDrawer>
+    </>
   );
 };
 
-export default Navbar;
+export default HeaderComponent;

@@ -1,34 +1,48 @@
+import React from 'react';
 import styled from 'styled-components';
 import About from '../assets/gallary/10.png';
 
 const AboutSection = styled.section`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 
   @media (min-width: 769px) {
-    padding: 60px 20px;
+    padding: 80px 40px;
   }
 
   @media (min-width: 1025px) {
-    padding: 80px 20px;
+    padding: 100px 60px;
   }
 `;
 
 const Title = styled.h2`
-  font-size: 28px;
-  color: #333;
+  font-size: 36px;
+  color: #2c3e50;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  position: relative;
+  font-weight: 700;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #f0a500;
+    margin: 20px auto 0;
+    border-radius: 2px;
+  }
 
   @media (min-width: 769px) {
-    font-size: 32px;
-    margin-bottom: 35px;
+    font-size: 42px;
   }
 
   @media (min-width: 1025px) {
-    font-size: 36px;
-    margin-bottom: 40px;
+    font-size: 48px;
   }
 `;
 
@@ -36,6 +50,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 40px;
 
   @media (min-width: 769px) {
     flex-direction: row;
@@ -46,57 +61,32 @@ const ContentWrapper = styled.div`
 
 const TextContent = styled.div`
   width: 100%;
-  margin-bottom: 30px;
 
   @media (min-width: 769px) {
     flex: 1;
-    padding-right: 20px;
-    margin-bottom: 0;
-  }
-
-  @media (min-width: 1025px) {
     padding-right: 40px;
   }
 `;
 
-const Subtitle = styled.h3`
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 15px;
+const Description = styled.p`
+  color: #34495e;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-size: 16px;
 
   @media (min-width: 769px) {
-    font-size: 22px;
-    margin-bottom: 18px;
-  }
-
-  @media (min-width: 1025px) {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-`;
-
-const Description = styled.p`
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 15px;
-
-  @media (min-width: 1025px) {
-    margin-bottom: 20px;
+    font-size: 18px;
   }
 `;
 
 const Stats = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-
-  @media (min-width: 769px) {
-    margin-top: 25px;
-  }
-
-  @media (min-width: 1025px) {
-    margin-top: 30px;
-  }
+  margin-top: 40px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 `;
 
 const StatItem = styled.div`
@@ -104,45 +94,47 @@ const StatItem = styled.div`
 `;
 
 const StatNumber = styled.div`
-  font-size: 28px;
+  font-size: 32px;
   color: #f0a500;
-  font-weight: bold;
+  font-weight: 700;
+  margin-bottom: 5px;
 
   @media (min-width: 769px) {
-    font-size: 32px;
+    font-size: 36px;
   }
 
   @media (min-width: 1025px) {
-    font-size: 36px;
+    font-size: 42px;
   }
 `;
 
 const StatLabel = styled.div`
-  color: #666;
-  font-size: 12px;
+  color: #7f8c8d;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
 
   @media (min-width: 769px) {
-    font-size: 13px;
-  }
-
-  @media (min-width: 1025px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 
 const ImageWrapper = styled.div`
   width: 100%;
-  height: 250px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
   @media (min-width: 769px) {
     flex: none;
     width: 45%;
-    height: 300px;
+    height: 400px;
   }
 
   @media (min-width: 1025px) {
     width: 500px;
-    height: 350px;
+    height: 450px;
   }
 `;
 
@@ -150,47 +142,41 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 6px solid #333;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 
-  @media (min-width: 1025px) {
-    border-width: 8px;
+  &:hover {
+    transform: scale(1.05);
   }
 `;
 
 const AboutUs = () => (
   <AboutSection>
-    <Title>About Us</Title>
+    <Title>Angel Montessori</Title>
     <ContentWrapper>
       <TextContent>
-        <Subtitle>We are a professional team of tattoists</Subtitle>
         <Description>
-          Our tattoo salon is a home for talented tattoo artists ready to turn your body into 
-          a canvas with beautiful pictures on it.
+          At Angel Montessori, we provide a nurturing environment where children can explore, learn, and grow. Our dedicated team of educators is committed to fostering each child's unique potential through the Montessori method.
         </Description>
         <Description>
-          To get your body inked in our tattoo salon, you may contact us via contact form 
-          on our website, or by phone. We welcome appointments, as well as walk-ins. We 
-          have gathered the best team of tattoo artists who work full time in our salon, and 
-          we have fantastic guest artists visiting our shop.
+          We believe in hands-on learning experiences that encourage independence, creativity, and critical thinking. Our classrooms are carefully prepared to stimulate curiosity and promote self-directed learning, allowing children to develop at their own pace.
         </Description>
         <Stats>
           <StatItem>
-            <StatNumber>8600</StatNumber>
-            <StatLabel>Reviews</StatLabel>
+            <StatNumber>25</StatNumber>
+            <StatLabel>Years Experience</StatLabel>
           </StatItem>
           <StatItem>
-            <StatNumber>1580</StatNumber>
-            <StatLabel>Tattoos</StatLabel>
+            <StatNumber>500+</StatNumber>
+            <StatLabel>Happy Students</StatLabel>
           </StatItem>
           <StatItem>
-            <StatNumber>975</StatNumber>
-            <StatLabel>Happy Clients</StatLabel>
+            <StatNumber>30</StatNumber>
+            <StatLabel>Certified Teachers</StatLabel>
           </StatItem>
         </Stats>
       </TextContent>
       <ImageWrapper>
-        <Image src={About} alt="Tattoo artist at work" />
+        <Image src={About} alt="Children learning at Angel Montessori" />
       </ImageWrapper>
     </ContentWrapper>
   </AboutSection>
