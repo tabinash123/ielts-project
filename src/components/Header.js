@@ -146,10 +146,7 @@ const HeaderComponent = () => {
   const menuItems = [
     { icon: <HomeOutlined />, text: 'Home', path: '/', color: '#4a90e2' },
     { icon: <InfoCircleOutlined />, text: 'About', path: '/about', color: '#f39c12' },
-    { icon: <BookOutlined />, text: 'School', path: '/school', color: '#e74c3c' },
-    { icon: <TeamOutlined />, text: 'Classes', path: '/classes', color: '#2ecc71' },
-    { icon: <ToolOutlined />, text: 'Facilities', path: '/facilities', color: '#9b59b6' },
-    { icon: <QuestionCircleOutlined />, text: 'FAQ', path: '/faq', color: '#3498db' },
+    { icon: <BookOutlined />, text: 'Gallary', path: '/gallery', color: '#e74c3c' },
     { icon: <ContactsOutlined />, text: 'Contact', path: '/contact', color: '#34495e' },
   ];
 
@@ -171,8 +168,8 @@ const HeaderComponent = () => {
         <Row justify="space-between" align="middle" style={{ maxWidth: 1200, margin: '0 auto' }}>
           <Col>
             <Logo>
-              <LogoTitle>ANGEL'S KINGDOM</LogoTitle>
-              <LogoSubtitle>Kindergarten</LogoSubtitle>
+              <LogoTitle>SunGava</LogoTitle>
+              <LogoSubtitle>Montessori</LogoSubtitle>
             </Logo>
           </Col>
           <Col>

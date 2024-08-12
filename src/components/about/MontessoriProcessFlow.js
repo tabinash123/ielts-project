@@ -1,105 +1,172 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-import { Timeline, Carousel } from 'antd';
-import { ClockCircleOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
+import { BookOpen, Users, Compass, Leaf } from 'lucide-react';
 
-const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
-`;
-
-const slideIn = keyframes`
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-`;
-
-const StoryContainer = styled.div`
-  font-family: Arial, sans-serif;
-  max-width: 100%;
-  overflow: hidden;
-`;
-
-
-const Section = styled.section`
-
-  padding: 100px 0;
-  background-color: ${props => props.bgColor || 'white'};
-  color: ${props => props.textColor || '#333'};
-`;
-
-const SectionTitle = styled.h2`
-  // font-size: 20px;
-  margin-bottom: 50px;
-  text-align: center;
-  position: relative;
-  
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(to right, #FF6B6B, #4ECDC4);
-  }
-`;
-
-const StoryContent = styled.p`
-  font-size: 15px;
-  line-height: 1.8;
-  max-width: 800px;
-  margin: 0 auto 30px;
-  text-align: center;
-`;
-
-const StyledTimeline = styled(Timeline)`
-  max-width: 800px;
+const Container = styled.div`
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f2e6fe;
+  font-family: Arial, sans-serif;
 
-  .ant-timeline-item-head {
-    background-color: #FF6B6B;
+  @media (min-width: 768px) {
+    padding: 30px;
   }
 
-  .ant-timeline-item-content {
-    font-size: 18px;
+  @media (min-width: 1024px) {
+    padding: 40px;
   }
 `;
 
-const OurStory = () => {
+const Title = styled.h1`
+  font-size: 24px;
+  font-weight: bold;
+  color: #424242;
+  margin-bottom: 10px;
+
+  @media (min-width: 768px) {
+    font-size: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 36px;
+  }
+`;
+
+const Subtitle = styled.p`
+  font-size: 14px;
+  color: #616161;
+  max-width: 600px;
+  margin: 0 auto 30px;
+
+  @media (min-width: 768px) {
+    font-size: 15px;
+    margin-bottom: 35px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+`;
+
+const FeaturesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`;
+
+const FeatureCard = styled.div`
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  @media (min-width: 768px) {
+    padding: 25px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 30px 20px;
+  }
+`;
+
+const FeatureTitle = styled.h3`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #4FB3FF;
+
+  @media (min-width: 768px) {
+    font-size: 19px;
+    margin-bottom: 13px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+`;
+
+const FeatureIcon = styled.div`
+  color: #9c27b0;
+  margin-bottom: 12px;
+
+  @media (min-width: 768px) {
+    margin-bottom: 13px;
+  }
+
+  @media (min-width: 1024px) {
+    margin-bottom: 15px;
+  }
+`;
+
+const FeatureDescription = styled.p`
+  font-size: 13px;
+  color: #616161;
+
+  @media (min-width: 768px) {
+    font-size: 13.5px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+`;
+
+const MontessoriProcessFlow = () => {
   return (
-    <StoryContainer>
-     
-      <Section>
-        <SectionTitle>The Mother's Pride Story</SectionTitle>
-        <StoryContent>
-          Mother's Pride began with a vision to create a nurturing environment where every child's potential could blossom. Founded by Sarah Johnson, a passionate educator, our preschool has grown from a small classroom of 10 children to a thriving community of learners.
-        </StoryContent>
-        <StoryContent>
-          Over the years, we've remained committed to our core values of compassion, creativity, and excellence in early childhood education. Our journey has been marked by continuous innovation in our teaching methods and unwavering dedication to the well-being of each child.
-        </StoryContent>
-      </Section>
-
-      <Section bgColor="#F7F7F7">
-        <SectionTitle>Our Milestones</SectionTitle>
-        <StyledTimeline mode="alternate">
-          <Timeline.Item>1995: Mother's Pride opens its doors</Timeline.Item>
-          <Timeline.Item color="#4ECDC4">2000: Expanded to include kindergarten program</Timeline.Item>
-          <Timeline.Item dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />}>
-            2005: Introduced innovative STEAM curriculum
-          </Timeline.Item>
-          <Timeline.Item color="#FF6B6B">2010: Opened second location</Timeline.Item>
-          <Timeline.Item>2015: Celebrated 20 years of excellence</Timeline.Item>
-          <Timeline.Item dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />}>
-            2020: Launched virtual learning program
-          </Timeline.Item>
-        </StyledTimeline>
-      </Section>
-
-      
-    </StoryContainer>
+    <Container>
+      <Title>Sungava Balsansar: Nurturing Young Minds the Montessori Way</Title>
+      <Subtitle>
+        Our Montessori approach fosters independence, critical thinking, and a lifelong love for learning in a carefully prepared environment.
+      </Subtitle>
+      <FeaturesGrid>
+        <FeatureCard>
+          <FeatureTitle>Prepared Environment</FeatureTitle>
+          <FeatureIcon>
+            <BookOpen size={36} />
+          </FeatureIcon>
+          <FeatureDescription>Carefully curated spaces that encourage exploration and learning</FeatureDescription>
+        </FeatureCard>
+        <FeatureCard>
+          <FeatureTitle>Mixed-Age Classrooms</FeatureTitle>
+          <FeatureIcon>
+            <Users size={36} />
+          </FeatureIcon>
+          <FeatureDescription>Promoting peer learning and social development</FeatureDescription>
+        </FeatureCard>
+        <FeatureCard>
+          <FeatureTitle>Self-Directed Learning</FeatureTitle>
+          <FeatureIcon>
+            <Compass size={36} />
+          </FeatureIcon>
+          <FeatureDescription>Empowering children to choose their activities and pace</FeatureDescription>
+        </FeatureCard>
+        <FeatureCard>
+          <FeatureTitle>Holistic Development</FeatureTitle>
+          <FeatureIcon>
+            <Leaf size={36} />
+          </FeatureIcon>
+          <FeatureDescription>Nurturing intellectual, physical, and emotional growth</FeatureDescription>
+        </FeatureCard>
+      </FeaturesGrid>
+    </Container>
   );
 };
 
-export default OurStory;
+export default MontessoriProcessFlow;

@@ -1,343 +1,156 @@
 import React from 'react';
-import styled, { keyframes, css } from 'styled-components';
-import { FaUserGraduate, FaGraduationCap, FaGlobeAmericas, FaHeart } from 'react-icons/fa';
-
-const breakpoints = {
-  mobile: '480px',
-  tablet: '768px',
-  laptop: '1024px',
-  desktop: '1200px',
-};
-
-const media = Object.keys(breakpoints).reduce((acc, label) => {
-  acc[label] = (...args) => css`
-    @media (min-width: ${breakpoints[label]}) {
-      ${css(...args)}
-    }
-  `;
-  return acc;
-}, {});
-
-const floatAnimation = keyframes`
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
-`;
+import styled from 'styled-components';
+import { Home, Users, Building, Smile } from 'lucide-react';
 
 const Container = styled.div`
-  background-color: #fce4ec;
-  padding: 20px 10px;
+  background-color: #b3e5fc;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-    font-family: Arial, sans-serif;
-
-  ${media.tablet`
-    padding: 30px 20px;
-  `}
-
-  ${media.laptop`
-    padding: 40px 20px;
-  `}
 `;
 
-const CloudBackground = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-`;
+const Title = styled.h1`
+  color: #424242;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 
-const Cloud = styled.div`
-  position: absolute;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  animation: ${floatAnimation} 10s ease-in-out infinite;
-  
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
+  @media (min-width: 768px) {
+    font-size: 2.25rem;
   }
 
-  &.cloud1 {
+  @media (min-width: 1024px) {
+    font-size: 2.5rem;
+  }
+`;
+
+const Underline = styled.div`
+  width: 80px;
+  height: 4px;
+  background-color: #4caf50;
+  margin: 0 auto 1.5rem;
+
+  @media (min-width: 768px) {
+    width: 90px;
+  }
+
+  @media (min-width: 1024px) {
     width: 100px;
-    height: 30px;
-    top: 5%;
-    left: 5%;
-    
-    &::before {
-      width: 50px;
-      height: 50px;
-      top: -25px;
-      left: 5px;
-    }
-    
-    &::after {
-      width: 60px;
-      height: 60px;
-      top: -35px;
-      right: 5px;
-    }
-
-    ${media.tablet`
-      width: 150px;
-      height: 45px;
-      
-      &::before {
-        width: 75px;
-        height: 75px;
-        top: -37px;
-        left: 7px;
-      }
-      
-      &::after {
-        width: 90px;
-        height: 90px;
-        top: -52px;
-        right: 7px;
-      }
-    `}
-
-    ${media.laptop`
-      width: 200px;
-      height: 60px;
-      
-      &::before {
-        width: 100px;
-        height: 100px;
-        top: -50px;
-        left: 10px;
-      }
-      
-      &::after {
-        width: 120px;
-        height: 120px;
-        top: -70px;
-        right: 10px;
-      }
-    `}
-  }
-
-  &.cloud2 {
-    width: 75px;
-    height: 22px;
-    top: 15%;
-    right: 10%;
-    animation-delay: -3s;
-    
-    &::before {
-      width: 37px;
-      height: 37px;
-      top: -18px;
-      left: 3px;
-    }
-    
-    &::after {
-      width: 45px;
-      height: 45px;
-      top: -26px;
-      right: 3px;
-    }
-
-    ${media.tablet`
-      width: 112px;
-      height: 33px;
-      
-      &::before {
-        width: 56px;
-        height: 56px;
-        top: -28px;
-        left: 5px;
-      }
-      
-      &::after {
-        width: 67px;
-        height: 67px;
-        top: -39px;
-        right: 5px;
-      }
-    `}
-
-    ${media.laptop`
-      width: 150px;
-      height: 45px;
-      
-      &::before {
-        width: 75px;
-        height: 75px;
-        top: -37px;
-        left: 7px;
-      }
-      
-      &::after {
-        width: 90px;
-        height: 90px;
-        top: -52px;
-        right: 7px;
-      }
-    `}
   }
 `;
 
-const Content = styled.div`
-  position: relative;
-  z-index: 1;
-`;
+const Description = styled.p`
+  color: #616161;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 90%;
+  margin: 0 auto 2rem;
 
-const Title = styled.h2`
-  color: #00bcd4;
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 5px;
+  @media (min-width: 768px) {
+    font-size: 0.95rem;
+    max-width: 80%;
+  }
 
-  ${media.tablet`
-    font-size: 28px;
-    margin-bottom: 7px;
-  `}
-
-  ${media.laptop`
-    font-size: 32px;
-    margin-bottom: 10px;
-  `}
-
-  ${media.desktop`
-    font-size: 36px;
-  `}
-`;
-
-const Subtitle = styled.p`
-  color: #00bcd4;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 20px;
-
-  ${media.tablet`
-    font-size: 16px;
-    margin-bottom: 30px;
-  `}
-
-  ${media.laptop`
-    font-size: 18px;
-    margin-bottom: 40px;
-  `}
+  @media (min-width: 1024px) {
+    font-size: 1rem;
+    max-width: 800px;
+  }
 `;
 
 const FeaturesContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  max-width: 1200px;
-  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @media (min-width: 1024px) {
+    justify-content: space-around;
+  }
 `;
 
 const Feature = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 45%;
-  margin-bottom: 20px;
+  width: 100%;
+  max-width: 250px;
+  margin: 1rem 0;
 
-  ${media.tablet`
+  @media (min-width: 768px) {
     width: 45%;
-  `}
+    margin: 1rem;
+  }
 
-  ${media.laptop`
-    width: 22%;
-  `}
+  @media (min-width: 1024px) {
+    width: 200px;
+  }
 `;
 
 const IconCircle = styled.div`
-  background-color: ${props => props.color};
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 
-  ${media.tablet`
-    width: 60px;
-    height: 60px;
-  `}
+  @media (min-width: 768px) {
+    width: 75px;
+    height: 75px;
+  }
 
-  ${media.laptop`
-    width: 70px;
-    height: 70px;
-  `}
-
-  ${media.desktop`
+  @media (min-width: 1024px) {
     width: 80px;
     height: 80px;
-  `}
+  }
 `;
 
 const FeatureText = styled.p`
-  color: #e91e63;
-  font-size: 12px;
-  font-weight: 500;
+  color: #424242;
+  font-size: 0.85rem;
+  font-weight: bold;
   text-align: center;
-  max-width: 120px;
 
-  ${media.tablet`
-    font-size: 13px;
-    max-width: 130px;
-  `}
+  @media (min-width: 768px) {
+    font-size: 0.875rem;
+  }
 
-  ${media.laptop`
-    font-size: 14px;
-    max-width: 140px;
-  `}
-
-  ${media.desktop`
-    font-size: 16px;
-    max-width: 150px;
-  `}
+  @media (min-width: 1024px) {
+    font-size: 0.9rem;
+  }
 `;
 
-const HowAreWeDifferent = () => {
+const MontessoriFeatures = () => {
+  const features = [
+    { icon: <Home size={35} color="white" />, text: "A Safe and Caring Environment", color: "#e91e63" },
+    { icon: <Users size={35} color="white" />, text: "Experienced and Qualified Teachers", color: "#ffc107" },
+    { icon: <Building size={35} color="white" />, text: "A spacious and state-of-the-art facility", color: "#8bc34a" },
+    { icon: <Smile size={35} color="white" />, text: "Fun-filled-activity based approach to learning", color: "#9c27b0" },
+  ];
+
   return (
     <Container>
-      <CloudBackground>
-        <Cloud className="cloud1" />
-        <Cloud className="cloud2" />
-      </CloudBackground>
-      <Content>
-        <Title>How are we different?</Title>
-        <Subtitle>Leader in Early Childhood Education</Subtitle>
-        <FeaturesContainer>
-          <Feature>
-            <IconCircle color="#4caf50">
-              <FaUserGraduate size={25} color="white" />
-            </IconCircle>
-            <FeatureText>Dedicated Professional Team</FeatureText>
+      <Title>Your Child's Second Home</Title>
+      <Underline />
+      <Description>
+        Our preschool fosters an environment in which all children can reach their full potential. We focus on building and practicing fundamental
+        social, emotional, and problem-solving abilities that children will need throughout their schooling, and not just textbook learning.
+      </Description>
+      <FeaturesContainer>
+        {features.map((feature, index) => (
+          <Feature key={index}>
+            <IconCircle style={{ backgroundColor: feature.color }}>{feature.icon}</IconCircle>
+            <FeatureText>{feature.text}</FeatureText>
           </Feature>
-          <Feature>
-            <IconCircle color="#2196f3">
-              <FaGraduationCap size={25} color="white" />
-            </IconCircle>
-            <FeatureText>Best Appropriate Curriculum</FeatureText>
-          </Feature>
-          <Feature>
-            <IconCircle color="#ff9800">
-              <FaGlobeAmericas size={25} color="white" />
-            </IconCircle>
-            <FeatureText>Child Friendly Teaching Method</FeatureText>
-          </Feature>
-          <Feature>
-            <IconCircle color="#f44336">
-              <FaHeart size={25} color="white" />
-            </IconCircle>
-            <FeatureText>Safe and Stimulating Environment</FeatureText>
-          </Feature>
-        </FeaturesContainer>
-      </Content>
+        ))}
+      </FeaturesContainer>
     </Container>
   );
 };
 
-export default HowAreWeDifferent;
+export default MontessoriFeatures;

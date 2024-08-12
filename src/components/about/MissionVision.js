@@ -13,11 +13,10 @@ const Section = styled.section`
 const ContentWrapper = styled.div`
   background-color: #ffffff;
   overflow: hidden;
-  
 `;
 
 const Header = styled.div`
-  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  background: linear-gradient(to right, #4FB3FF, #B39DDB);
   height: 10px;
 `;
 
@@ -27,7 +26,7 @@ const Content = styled.div`
 
 const StyledTitle = styled(Title)`
   && {
-    color: #333;
+    color: #424242;
     font-size: 28px;
     margin-bottom: 20px;
     position: relative;
@@ -41,14 +40,14 @@ const StyledTitle = styled(Title)`
       left: 0;
       width: 60px;
       height: 3px;
-      background-color: #ff7e5f;
+      background-color: #4FB3FF;
     }
   }
 `;
 
 const StyledParagraph = styled(Paragraph)`
   && {
-    color: #555;
+    color: #616161;
     font-size: 16px;
     line-height: 1.8;
   }
@@ -64,20 +63,21 @@ const MissionVision = () => {
             <Col xs={24} md={12}>
               <StyledTitle level={3}>Our Mission</StyledTitle>
               <StyledParagraph>
-                At Sadhana Montessori, our mission is to cultivate the unique potential of every child. We believe in the power of 
-                holistic education, nurturing the mind, body, and spirit. Our approach is rooted in the Montessori philosophy, 
-                empowering students to explore, discover, and grow at their own pace. We are committed to creating a safe, 
-                supportive environment that celebrates diversity, encourages curiosity, and inspires a lifelong love of learning.
+                At Sungava Balsansar Montessori School, our mission is to provide a nurturing and stimulating environment where 
+                children can develop their full potential. We are dedicated to implementing the Montessori method, which 
+                respects each child's unique learning style and pace. Our goal is to foster independence, critical thinking, 
+                and a lifelong love for learning. We strive to create a community where children, parents, and educators work 
+                together to support the holistic development of each child - intellectually, physically, emotionally, and socially.
               </StyledParagraph>
             </Col>
             <Col xs={24} md={12}>
               <StyledTitle level={3}>Our Vision</StyledTitle>
               <StyledParagraph>
-                We envision a world where children are celebrated as unique individuals, each with their own gifts, talents, and 
-                interests. A world where education is a journey of self-discovery, guided by curiosity and fueled by imagination. A world 
-                where students are empowered to think critically, collaborate creatively, and contribute meaningfully to their 
-                communities. A world where learning is a joyful, transformative experience that prepares children for a lifetime of 
-                growth, purpose, and fulfillment. This is the world we aspire to create at Sadhana Montessori.
+                We envision Sungava Balsansar Montessori School as a beacon of child-centered education in Kathmandu. We aim to 
+                be recognized as a leading institution that prepares children not just for academic success, but for life. Our 
+                vision is to create global citizens who are confident, compassionate, and creative problem-solvers. We see a 
+                future where our students become lifelong learners, critical thinkers, and responsible members of their 
+                communities, equipped with the skills and values necessary to thrive in an ever-changing world.
               </StyledParagraph>
             </Col>
           </Row>

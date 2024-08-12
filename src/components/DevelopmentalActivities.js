@@ -1,20 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import art from '../assets/art.png';
-import circle from '../assets/circle.png';
-import hand from '../assets/hand.png';
-import large from '../assets/large.png';
-import meal from '../assets/meal.png';
-import music from '../assets/music.png';
-import nap from '../assets/nap.png';
-import role from '../assets/role.png';
-import small from '../assets/small.png';
+
+import art from '../assets/activities/art.jpg';
+import cowork from '../assets/activities/cowork.jpg';
+import creativity from '../assets/activities/creativity.jpg';
+import hands from '../assets/activities/hands.jpg';
+import meal from '../assets/activities/meal.png';
+import socialActivity from '../assets/activities/social activity.jpg';
+import yoga from '../assets/activities/yoga.jpg';
+
 
 const ServicesSection = styled.section`
   font-family: Arial, sans-serif;
   max-width: 1200px;
-  margin: 100px auto;
+  // margin: 100px auto;
   padding: 20px;
+    background-color: #f2e6fe;
+
+  
 `;
 
 const SectionHeader = styled.div`
@@ -96,18 +99,16 @@ const ServiceLabel = styled.div`
 `;
 
 const services = [
-  { name: 'CIRCLE TIME', image: circle },
-  { name: 'HANDS ON ACTIVITIES', image: hand },
+  { name: 'CIRCLE TIME', image: cowork },
+  { name: 'HANDS ON ACTIVITIES', image: hands },
   { name: 'ART ACTIVITIES', image: art },
-  { name: 'STORY TIME', image: large },
-  { name: 'MUSIC & MOVEMENT', image: music },
-  { name: 'ROLE PLAY & DRAMA', image: role },
-  { name: 'LARGE GROUP TIME', image: large },
-  { name: 'SMALL GROUP TIME', image: small },
+  { name: 'STORY TIME', image: creativity },
+  { name: 'Yoga & Meditation', image: yoga },
+  { name: 'Social Activity', image: socialActivity },
+  { name: 'Cowork', image: cowork },
   { name: 'MEAL TIME', image: meal },
-  { name: 'NAP TIME', image: nap },
+  { name: 'Creativity', image: creativity },
 ];
-
 const DevelopmentalActivities = () => {
   return (
     <ServicesSection>

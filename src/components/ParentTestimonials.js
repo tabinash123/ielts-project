@@ -4,13 +4,13 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import staff1 from '../assets/parents/parent1.jpg';
-import staff2 from '../assets/parents/parent2.jpg';
-import staff3 from '../assets/parents/parent3.jpg';
+import parent1 from '../assets/parents/parent1.jpg';
+import parent2 from '../assets/parents/parent2.jpg';
+import parent3 from '../assets/parents/parent3.jpg';
 
 const TestimonialSection = styled.section`
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #f2e6fe;
+  color: #424242;
   padding: 90px 80px;
 
   @media (max-width: 768px) {
@@ -41,7 +41,7 @@ const Title = styled.h2`
     transform: translateY(-50%);
     width: 4px;
     height: 80%;
-    background-color: #e53935;
+    background-color: #4FB3FF;
   }
   
   @media (max-width: 480px) {
@@ -55,13 +55,13 @@ const Title = styled.h2`
 
 const TestimonialItem = styled.div`
   text-align: left;
-  padding: 20px; /* Reduce padding to make the container smaller */
+  padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
-  margin: 0 15px; /* Adding margin to give space between the cards */
-  max-width: 280px; /* Setting a max-width to reduce the overall size */
+  margin: 0 15px;
+  max-width: 280px;
 
   &:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -69,8 +69,8 @@ const TestimonialItem = styled.div`
 `;
 
 const TestimonialImageWrapper = styled.div`
-  width: 80px; /* Reduce the image wrapper size */
-  height: 80px; /* Reduce the image wrapper size */
+  width: 80px;
+  height: 80px;
   overflow: hidden;
   border-radius: 50%;
   margin-bottom: 20px;
@@ -83,26 +83,26 @@ const TestimonialImage = styled.img`
 `;
 
 const TestimonialContent = styled.p`
-  font-size: 14px; /* Reduce the font size */
-  color: #000000;
+  font-size: 14px;
+  color: #616161;
   margin: 0 0 15px 0;
 `;
 
 const TestimonialName = styled.h3`
-  font-size: 16px; /* Reduce the font size */
+  font-size: 16px;
   margin: 0 0 5px 0;
-  color: #000000;
+  color: #424242;
 `;
 
 const TestimonialTitle = styled.p`
-  font-size: 12px; /* Reduce the font size */
-  color: #000000;
+  font-size: 12px;
+  color: #9c27b0;
   margin: 0;
 `;
 
-const RedLine = styled.div`
+const BlueLine = styled.div`
   height: 2px;
-  background-color: #e53935;
+  background-color: #4FB3FF;
   width: 40px;
   margin-bottom: 15px;
 `;
@@ -120,7 +120,7 @@ const StyledSlider = styled(Slider)`
     
     li button:before {
       font-size: 12px;
-      color: #e53935;
+      color: #4FB3FF;
       opacity: 0.25;
     }
     
@@ -130,25 +130,25 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-const UserTestimonials = () => {
+const ParentTestimonials = () => {
   const testimonials = [
     { 
-      name: 'John Doe', 
-      title: 'Satisfied Customer', 
-      image: staff1,
-      content: 'Absolutely love my new tattoo! The artists here are true professionals and made the whole experience enjoyable.'
+      name: 'Aarav Sharma', 
+      title: 'Parent of 5-year-old', 
+      image: parent1,
+      content: 'Sungava Balsansar has been a blessing for our family. The Montessori approach has helped our daughter become more independent and confident in her abilities.'
     },
     { 
-      name: 'Jane Smith', 
-      title: 'Repeat Client', 
-      image: staff2,
-      content: 'I ve been coming here for years and every tattoo is a masterpiece. The attention to detail is unmatched.'
+      name: 'Priya Thapa', 
+      title: 'Mother of twins', 
+      image: parent2,
+      content: 'We\'ve seen remarkable progress in our twins since they started at Sungava Balsansar. The teachers are attentive and the environment truly nurtures their individual growth.'
     },
     { 
-      name: 'Mike Johnson', 
-      title: 'First-Time Client', 
-      image: staff3,
-      content: 'As a first-timer, I was nervous, but the staff made me feel comfortable throughout the entire process. Highly recommend!'
+      name: 'Rajesh Adhikari', 
+      title: 'Father of 3-year-old', 
+      image: parent3,
+      content: 'The holistic development approach at Sungava Balsansar is impressive. Our son has not only improved academically but also socially and emotionally.'
     },
   ];
 
@@ -181,7 +181,7 @@ const UserTestimonials = () => {
   return (
     <TestimonialSection>
       <SectionHeader>
-        <Title>Parent Review</Title>
+        <Title>Parent Testimonials</Title>
       </SectionHeader>
       <StyledSlider {...settings}>
         {testimonials.map((testimonial, index) => (
@@ -189,7 +189,7 @@ const UserTestimonials = () => {
             <TestimonialImageWrapper>
               <TestimonialImage src={testimonial.image} alt={testimonial.name} />
             </TestimonialImageWrapper>
-            <RedLine />
+            <BlueLine />
             <TestimonialContent>{testimonial.content}</TestimonialContent>
             <TestimonialName>{testimonial.name}</TestimonialName>
             <TestimonialTitle>{testimonial.title}</TestimonialTitle>
@@ -200,4 +200,4 @@ const UserTestimonials = () => {
   );
 };
 
-export default UserTestimonials;
+export default ParentTestimonials;

@@ -17,9 +17,9 @@ const App = () => {
       <Inroduction />
       <DifferenceSection />
       <DevelopmentalActivities />
+      <ParentTestimonials />
       <PhotoGallery />
       {/* <MKWBlog /> */}
-      <ParentTestimonials />
       <FAQ />
     </>
   )
