@@ -217,11 +217,11 @@ const Contact = () => {
           </ContactDetail>
           <ContactDetail>
             <MapPin size={20} />
-            Lazimpat, Kathmandu, Nepal
+            Tandi, Chitwan, Nepal
           </ContactDetail>
           <ContactDetail>
             <Clock size={20} />
-            Monday - Friday: 8:00 AM - 4:00 PM
+            Sunday - Friday: 10:00 AM - 4:00 PM
           </ContactDetail>
           <ContactDetail>
             <Globe size={20} />

@@ -201,11 +201,11 @@ const MontessoriIntroComponent = () => (
   <IntroSection>
     <Grid>
       <ContentArea>
-        <Title>Angel's Kingdom</Title>
+        <Title>Sungava Balsansar Montessori School</Title>
         <Subtitle>Where Learning Blossoms</Subtitle>
         
         <Description>
-          Angel's Kingdom Kindergarten is a Montessori preschool in Lazimpat, Kathmandu offering progressive and child-centered education to children ages 2 years to 5.5 years old. We foster a nurturing environment where every child's unique potential can flourish.
+          Sungava Balsansar  is a Montessori preschool in Tandi, Chitwan offering progressive and child-centered education to children ages 2 years to 5.5 years old. We foster a nurturing environment where every child's unique potential can flourish.
         </Description>
         <StatsGrid>
           <StatItem>

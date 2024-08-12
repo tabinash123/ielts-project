@@ -32,7 +32,7 @@ const IntroSection = styled.div`
 
 const IntroTitle = styled.h2`
   font-size: 2.5rem;
-  color: #8B4513;
+  color: #003366;
   margin-bottom: 1.5rem;
   font-weight: 600;
 `;

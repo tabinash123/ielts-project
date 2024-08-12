@@ -73,7 +73,7 @@ const MissionVision = () => {
             <Col xs={24} md={12}>
               <StyledTitle level={3}>Our Vision</StyledTitle>
               <StyledParagraph>
-                We envision Sungava Balsansar Montessori School as a beacon of child-centered education in Kathmandu. We aim to 
+                We envision Sungava Balsansar Montessori School as a beacon of child-centered education in Chitwan. We aim to 
                 be recognized as a leading institution that prepares children not just for academic success, but for life. Our 
                 vision is to create global citizens who are confident, compassionate, and creative problem-solvers. We see a 
                 future where our students become lifelong learners, critical thinkers, and responsible members of their 

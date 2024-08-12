@@ -154,10 +154,10 @@ const HeaderComponent = () => {
     <>
       <TopBar>
         <Row justify="space-between" align="middle" style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <Col><EnvironmentOutlined /> Chaitya Marg, Lazimpat</Col>
-          <Col><PhoneOutlined /> 01 - 400 3564</Col>
+          <Col><EnvironmentOutlined /> Tandi, Chitwan</Col>
+          <Col><PhoneOutlined /> 9884547637</Col>
           <Col>
-            Educating students since 2064 B.S.
+            Educating students since 2069 B.S.
             <FacebookOutlined style={{ marginLeft: 10 }} />
             <InstagramOutlined style={{ marginLeft: 10 }} />
             <EnvironmentOutlined style={{ marginLeft: 10 }} />
