@@ -127,7 +127,7 @@ const FAQ = () => {
     },
     {
       question: "How do you communicate with parents?",
-      answer: "We use a combination of daily reports, weekly newsletters, parent-teacher conferences, and a secure mobile app to keep parents informed about their child's progress and daily activities."
+      answer: "We use a combination of daily reports, weekly newsletters, parent-teacher conferences to keep parents informed about their child's progress and daily activities."
     }
   ];
 

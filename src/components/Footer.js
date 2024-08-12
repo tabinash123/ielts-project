@@ -128,8 +128,7 @@ const FooterComponent = () => {
             <FooterTitle level={4}>Quick Links</FooterTitle>
             <FooterLink to="/">Home</FooterLink>
             <FooterLink to="/about">About Us</FooterLink>
-            <FooterLink to="/classes">Classes</FooterLink>
-            <FooterLink to="/facilities">Facilities</FooterLink>
+            <FooterLink to="/gallary">Gallary</FooterLink>
             <FooterLink to="/contact">Contact</FooterLink>
           </FooterSection>
         </Col>
@@ -140,10 +139,10 @@ const FooterComponent = () => {
               <PhoneOutlined /> <Text>01 - 400 3564</Text>
             </ContactItem>
             <ContactItem>
-              <MailOutlined /> <Text>info@angelskingdom.com</Text>
+              {/* <MailOutlined /> <Text>info@angelskingdom.com</Text> */}
             </ContactItem>
             <ContactItem>
-              <EnvironmentOutlined /> <Text>Chaitya Marg, Lazimpat</Text>
+              <EnvironmentOutlined /> <Text>Tandi,Chitwan</Text>
             </ContactItem>
           </FooterSection>
         </Col>
@@ -154,22 +153,17 @@ const FooterComponent = () => {
               Join our community for updates on events, activities, and educational tips!
             </Paragraph>
             <div style={{ marginBottom: '20px' }}>
-              <SocialIcon href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <SocialIcon href="https://www.facebook.com/SungavaBalsansarMontessoriSchool" target="_blank" rel="noopener noreferrer">
                 <FacebookOutlined />
               </SocialIcon>
-              <SocialIcon href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                <InstagramOutlined />
-              </SocialIcon>
-              <SocialIcon href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                <TwitterOutlined />
-              </SocialIcon>
+
             </div>
             
           </FooterSection>
         </Col>
       </Row>
       <Copyright>
-        <Text>© 2024 Angel's Kingdom Kindergarten. All rights reserved.</Text>
+        <Text>Sungava Balsansar Montessori School. All rights reserved.</Text>
       </Copyright>
     </StyledFooter>
   );
