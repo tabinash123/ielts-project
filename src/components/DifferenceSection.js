@@ -3,16 +3,19 @@ import styled from 'styled-components';
 import { Home, Users, Building, Smile } from 'lucide-react';
 
 const Container = styled.div`
-  background-color: #b3e5fc;
+  background-color: #FFF9C4; // Changed to match the intro component's background
   padding: 2rem;
   font-family: Arial, sans-serif;
   text-align: center;
+  border-radius: 20px; // Added for a softer look
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Added for depth
 `;
 
 const Title = styled.h1`
   color: #424242;
   font-size: 2rem;
   margin-bottom: 0.5rem;
+  font-weight: 700; // Added for emphasis
 
   @media (min-width: 768px) {
     font-size: 2.25rem;
@@ -26,8 +29,9 @@ const Title = styled.h1`
 const Underline = styled.div`
   width: 80px;
   height: 4px;
-  background-color: #4caf50;
+  background-color: #FF9800; // Changed to match the intro component's accent color
   margin: 0 auto 1.5rem;
+  border-radius: 2px; // Added for a softer look
 
   @media (min-width: 768px) {
     width: 90px;
@@ -79,6 +83,11 @@ const Feature = styled.div`
   width: 100%;
   max-width: 250px;
   margin: 1rem 0;
+  transition: transform 0.3s ease; // Added for interactivity
+
+  &:hover {
+    transform: translateY(-5px); // Added for interactivity
+  }
 
   @media (min-width: 768px) {
     width: 45%;
@@ -98,6 +107,11 @@ const IconCircle = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
+  transition: transform 0.3s ease; // Added for interactivity
+
+  ${Feature}:hover & {
+    transform: scale(1.1); // Added for interactivity
+  }
 
   @media (min-width: 768px) {
     width: 75px;

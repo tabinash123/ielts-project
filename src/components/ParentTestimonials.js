@@ -1,79 +1,93 @@
 import React from 'react';
 import styled from 'styled-components';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Star } from 'lucide-react';
 
 import parent1 from '../assets/parents/parent1.jpg';
 import parent2 from '../assets/parents/parent2.jpg';
 import parent3 from '../assets/parents/parent3.jpg';
 
 const TestimonialSection = styled.section`
-  background-color: #f2e6fe;
-  color: #424242;
-  padding: 90px 80px;
-
-  @media (max-width: 768px) {
-    padding: 40px 20px;
-  }
-`;
-
-const SectionHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
+  background-color: #FFF9C4;
+  padding: 60px 20px;
+  text-align: center;
 `;
 
 const Title = styled.h2`
-  font-size: 42px;
-  font-weight: bold;
-  margin: 0;
+  color: #424242;
+  font-size: 2rem;
+  margin-bottom: 40px;
   position: relative;
-  padding-left: 20px;
-  text-transform: uppercase;
-  
-  &::before {
+  display: inline-block;
+  font-weight: 700;
+
+  @media (min-width: 768px) {
+    font-size: 2.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 2.5rem;
+  }
+
+  &::after {
     content: '';
     position: absolute;
+    bottom: -10px;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 80%;
-    background-color: #4FB3FF;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 22px;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 32px;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #FF9800, transparent);
   }
 `;
 
-const TestimonialItem = styled.div`
-  text-align: left;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-  margin: 0 15px;
-  max-width: 280px;
+const TestimonialGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const TestimonialCard = styled.div`
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   }
+`;
+
+const QuoteSymbol = styled.div`
+  font-size: 4rem;
+  color: #FF9800;
+  line-height: 1;
+  margin-bottom: 20px;
+  font-family: Georgia, serif;
+`;
+
+const TestimonialContent = styled.p`
+  color: #616161;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-style: italic;
+`;
+
+const TestimonialFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const TestimonialImageWrapper = styled.div`
-  width: 80px;
-  height: 80px;
-  overflow: hidden;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  margin-bottom: 20px;
+  overflow: hidden;
+  margin-right: 15px;
 `;
 
 const TestimonialImage = styled.img`
@@ -82,122 +96,82 @@ const TestimonialImage = styled.img`
   object-fit: cover;
 `;
 
-const TestimonialContent = styled.p`
-  font-size: 14px;
-  color: #616161;
-  margin: 0 0 15px 0;
+const TestimonialAuthor = styled.div`
+  text-align: left;
 `;
 
 const TestimonialName = styled.h3`
-  font-size: 16px;
-  margin: 0 0 5px 0;
   color: #424242;
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
 `;
 
 const TestimonialTitle = styled.p`
-  font-size: 12px;
-  color: #9c27b0;
-  margin: 0;
+  color: #FF9800;
+  font-size: 0.9rem;
+  margin: 5px 0 0;
 `;
 
-const BlueLine = styled.div`
-  height: 2px;
-  background-color: #4FB3FF;
-  width: 40px;
+const StarRating = styled.div`
+  color: #FFD700;
+  display: flex;
+  justify-content: center;
   margin-bottom: 15px;
 `;
 
-const StyledSlider = styled(Slider)`
-  .slick-slide > div {
-    margin: 0 15px;
-  }
-  .slick-list {
-    margin: 0 -15px;
-  }
-  
-  .slick-dots {
-    bottom: -40px;
-    
-    li button:before {
-      font-size: 12px;
-      color: #4FB3FF;
-      opacity: 0.25;
-    }
-    
-    li.slick-active button:before {
-      opacity: 1;
-    }
-  }
-`;
-
-const ParentTestimonials = () => {
+const SimpleTestimonials = () => {
   const testimonials = [
     { 
       name: 'Aarav Sharma', 
       title: 'Parent of 5-year-old', 
       image: parent1,
-      content: 'Sungava Balsansar has been a blessing for our family. The Montessori approach has helped our daughter become more independent and confident in her abilities.'
+      content: 'Sungava Balsansar has been a blessing for our family. The Montessori approach has helped our daughter become more independent and confident in her abilities.',
+      rating: 5
     },
     { 
       name: 'Priya Thapa', 
       title: 'Mother of twins', 
       image: parent2,
-      content: 'We\'ve seen remarkable progress in our twins since they started at Sungava Balsansar. The teachers are attentive and the environment truly nurtures their individual growth.'
+      content: 'We\'ve seen remarkable progress in our twins since they started at Sungava Balsansar. The teachers are attentive and the environment truly nurtures their individual growth.',
+      rating: 5
     },
     { 
       name: 'Rajesh Adhikari', 
       title: 'Father of 3-year-old', 
       image: parent3,
-      content: 'The holistic development approach at Sungava Balsansar is impressive. Our son has not only improved academically but also socially and emotionally.'
+      content: 'The holistic development approach at Sungava Balsansar is impressive. Our son has not only improved academically but also socially and emotionally.',
+      rating: 5
     },
   ];
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
-
   return (
     <TestimonialSection>
-      <SectionHeader>
-        <Title>Parent Testimonials</Title>
-      </SectionHeader>
-      <StyledSlider {...settings}>
+      <Title>What Parents Say</Title>
+      <TestimonialGrid>
         {testimonials.map((testimonial, index) => (
-          <TestimonialItem key={index}>
-            <TestimonialImageWrapper>
-              <TestimonialImage src={testimonial.image} alt={testimonial.name} />
-            </TestimonialImageWrapper>
-            <BlueLine />
+          <TestimonialCard key={index}>
+            <QuoteSymbol>"</QuoteSymbol>
+            <StarRating>
+              {[...Array(testimonial.rating)].map((_, i) => (
+                <Star key={i} size={20} fill="#FFD700" />
+              ))}
+            </StarRating>
             <TestimonialContent>{testimonial.content}</TestimonialContent>
-            <TestimonialName>{testimonial.name}</TestimonialName>
-            <TestimonialTitle>{testimonial.title}</TestimonialTitle>
-          </TestimonialItem>
+            <TestimonialFooter>
+              <TestimonialImageWrapper>
+                <TestimonialImage src={testimonial.image} alt={testimonial.name} />
+              </TestimonialImageWrapper>
+              <TestimonialAuthor>
+                <TestimonialName>{testimonial.name}</TestimonialName>
+                <TestimonialTitle>{testimonial.title}</TestimonialTitle>
+              </TestimonialAuthor>
+            </TestimonialFooter>
+          </TestimonialCard>
         ))}
-      </StyledSlider>
+      </TestimonialGrid>
     </TestimonialSection>
   );
 };
 
-export default ParentTestimonials;
+export default SimpleTestimonials;

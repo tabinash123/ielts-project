@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Book, Heart, Sun } from 'lucide-react';
 
-import schoolExterior from '../assets/gallary/11.jpg'; // You'll need to add this image
+import schoolExterior from '../assets/gallary/11.jpg';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -18,13 +18,13 @@ const IntroSection = styled.section`
   display: flex;
   flex-direction: column;
   padding: 4rem 2rem;
-  max-width: 1200px;
   margin: 0rem auto;
   gap: 3rem;
-  background-color: #f2e6fe;
+  background-color: #FFF9C4; // Light yellow background
   color: #4A4A4A;
   position: relative;
   overflow: hidden;
+  font-family: 'Comic Sans MS', cursive, sans-serif; // More playful font
 
   @media (min-width: 1024px) {
     flex-direction: row;
@@ -38,8 +38,8 @@ const IntroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="none"/><path d="M0 80V0l20 20L0 80zm21 0V20l20 20-20 40zm21 0V40l20 20-20 20zm21 0V60l17 17v3H63z" fill="%234CAF50" opacity="0.05"/></svg>') repeat;
-    opacity: 0.05;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="none"/><path d="M0 80V0l20 20L0 80zm21 0V20l20 20-20 40zm21 0V40l20 20-20 20zm21 0V60l17 17v3H63z" fill="%23FF9800" opacity="0.1"/></svg>') repeat;
+    opacity: 0.1;
     z-index: 0;
   }
 `;
@@ -67,98 +67,70 @@ const ContentArea = styled.div`
   justify-content: center;
 `;
 
-const Title = styled.h2`
+const Title = styled.h1`
+  color: #FF6F00; // Warm orange
   font-size: 2.5rem;
-  color: #4CAF50;
   margin-bottom: 1rem;
   position: relative;
   padding-bottom: 0.5rem;
-  font-weight: 600;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+
+  @media (min-width: 768px) {
+    font-size: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 3.5rem;
+  }
 
   &::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(to right, #4CAF50, transparent);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #FF6F00, #FFA000);
+    border-radius: 2px;
   }
 
   animation: ${fadeIn} 1s ease-out;
-
-  @media (min-width: 768px) {
-    font-size: 2.75rem;
-  }
 `;
 
-const Subtitle = styled.h3`
-  font-size: 1.1rem;
-  color: #FFA000;
+const Subtitle = styled.h2`
+  font-size: 1.2rem;
+  color: #4CAF50; // Cheerful green
   margin-bottom: 1rem;
   font-weight: 600;
 
-  animation: ${slideIn} 1s ease-out 0.3s both;
-
   @media (min-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
+
+  @media (min-width: 1024px) {
+    font-size: 1.6rem;
+  }
+
+  animation: ${slideIn} 1s ease-out 0.3s both;
 `;
 
 const Description = styled.p`
-  color: #555;
+  color: #4A4A4A;
   line-height: 1.6;
   margin-bottom: 1rem;
   font-size: 1rem;
-
-  animation: ${slideIn} 1s ease-out 0.6s both;
+  font-family: Arial, sans-serif; // More readable font for longer text
 
   @media (min-width: 768px) {
     font-size: 1.1rem;
   }
-`;
 
-const StatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
-
-  animation: ${fadeIn} 1s ease-out 1s both;
-`;
-
-const StatItem = styled.div`
-  text-align: center;
-  padding: 1rem;
-  background-color: rgba(76, 175, 80, 0.1);
-  border: 1px solid rgba(76, 175, 80, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+  @media (min-width: 1024px) {
+    font-size: 1.2rem;
   }
-`;
 
-const StatNumber = styled.div`
-  font-size: 1.5rem;
-  color: #4A4A4A;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-
-  @media (min-width: 768px) {
-    font-size: 1.75rem;
-  }
-`;
-
-const StatLabel = styled.div`
-  color: #4CAF50;
-  font-size: 0.9rem;
-  font-weight: 600;
-
-  @media (min-width: 768px) {
-    font-size: 1rem;
-  }
+  animation: ${slideIn} 1s ease-out 0.6s both;
 `;
 
 const ImageWrapper = styled.div`
@@ -172,7 +144,8 @@ const ImageWrapper = styled.div`
     left: 10px;
     right: -10px;
     bottom: -10px;
-    border: 2px solid #4CAF50;
+    border: 4px solid #FF9800; // Playful orange border
+    border-radius: 20px; // Rounded corners
     z-index: 1;
   }
 
@@ -190,10 +163,11 @@ const Image = styled.img`
   object-fit: cover;
   position: relative;
   z-index: 2;
-  transition: filter 0.3s ease;
+  transition: transform 0.3s ease;
+  border-radius: 15px; // Rounded corners for the image
 
   &:hover {
-    filter: brightness(1.1);
+    transform: scale(1.05);
   }
 `;
 
@@ -202,28 +176,17 @@ const MontessoriIntroComponent = () => (
     <Grid>
       <ContentArea>
         <Title>Sungava Balsansar Montessori School</Title>
-        <Subtitle>Where Learning Blossoms</Subtitle>
+        <Subtitle>Where Little Minds Bloom and Grow!</Subtitle>
         
         <Description>
-          Sungava Balsansar  is a Montessori preschool in Tandi, Chitwan offering progressive and child-centered education to children ages 2 years to 5.5 years old. We foster a nurturing environment where every child's unique potential can flourish.
+          Welcome to Sungava Balsansar Montessori Preschool in Tandi, Chitwan! Our colorful world is designed for curious explorers aged 2 to 5.5 years. Here, we nurture your child's natural love for learning through fun, hands-on activities and gentle guidance from our caring teachers.
         </Description>
-        <StatsGrid>
-          <StatItem>
-            <StatNumber>15+</StatNumber>
-            <StatLabel>Years Experience</StatLabel>
-          </StatItem>
-          <StatItem>
-            <StatNumber>1:10</StatNumber>
-            <StatLabel>Teacher-Student Ratio</StatLabel>
-          </StatItem>
-          <StatItem>
-            <StatNumber>100%</StatNumber>
-            <StatLabel>Montessori Certified</StatLabel>
-          </StatItem>
-        </StatsGrid>
+        <Description>
+          At Sungava Balsansar, we believe in the magic of childhood. Our playful environment encourages creativity, builds confidence, and helps your little one make new friends. We focus on developing important skills through games, stories, and exciting discoveries, setting the stage for a lifetime of joyful learning.
+        </Description>
       </ContentArea>
       <ImageWrapper>
-        <Image src={schoolExterior} alt="Angel's Kingdom Kindergarten exterior" />
+        <Image src={schoolExterior} alt="Sungava Balsansar Montessori School exterior" />
       </ImageWrapper>
     </Grid>
   </IntroSection>

@@ -3,19 +3,28 @@ import styled, { keyframes } from 'styled-components';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 
 const FAQSection = styled.section`
-  max-width: 800px;
-  // margin: 60px auto;
-  padding: 20px 20px;
-    font-family: Arial, sans-serif;
-    
+  // max-width: 800px;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+  background-color: #FFF9C4;
+  margin: 0 auto;
 `;
 
 const Title = styled.h2`
-  font-size: 36px;
+  color: #424242;
+  font-size: 2rem;
   text-align: center;
   margin-bottom: 40px;
-  color: #333;
   position: relative;
+  font-weight: 700;
+
+  @media (min-width: 768px) {
+    font-size: 2.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 2.5rem;
+  }
 
   &::after {
     content: '';
@@ -23,9 +32,9 @@ const Title = styled.h2`
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
+    width: 80px;
     height: 3px;
-    background-color: #ff1493;
+    background: linear-gradient(to right, #FF9800, transparent);
   }
 `;
 
@@ -35,6 +44,7 @@ const FAQItem = styled.div`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: all 0.3s ease;
+  background-color: #FFFFFF;
 
   &:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -44,17 +54,25 @@ const FAQItem = styled.div`
 
 const FAQQuestion = styled.div`
   padding: 20px;
-  background-color: #f8f8f8;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
-  color: #333;
+  color: #424242;
+  font-size: 0.85rem;
   transition: background-color 0.3s ease;
 
+  @media (min-width: 768px) {
+    font-size: 0.875rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 0.9rem;
+  }
+
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #FFF3E0;
   }
 `;
 
@@ -65,7 +83,7 @@ const IconWrapper = styled.span`
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: #ff1493;
+  background-color: #FF9800;
   color: white;
   font-size: 16px;
   transition: all 0.3s ease;
@@ -96,8 +114,17 @@ const FAQAnswer = styled.div`
 
   p {
     margin: 20px 0;
-    color: #666;
-    line-height: 1.6;
+    color: #616161;
+    line-height: 1.5;
+    font-size: 0.9rem;
+
+    @media (min-width: 768px) {
+      font-size: 0.95rem;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 1rem;
+    }
   }
 `;
 

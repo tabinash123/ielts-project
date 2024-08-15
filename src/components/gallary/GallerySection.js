@@ -16,8 +16,17 @@ import img11 from "../../assets/gallary/11.jpg";
 import img12 from "../../assets/gallary/12.jpg";
 
 const GallerySection = styled.section`
-  padding: 4rem 2rem;
-  background-color: #f5f5f5;
+  padding: 60px 20px;
+  background-color: #FFF9C4;
+  font-family: Arial, sans-serif;
+
+  @media (min-width: 768px) {
+    padding: 70px 30px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 80px 40px;
+  }
 `;
 
 const GalleryContainer = styled.div`
@@ -26,43 +35,73 @@ const GalleryContainer = styled.div`
 `;
 
 const IntroSection = styled.div`
-  text-align: left;
+  text-align: center;
   margin-bottom: 3rem;
 `;
 
 const IntroTitle = styled.h2`
-  font-size: 2.5rem;
-  color: #003366;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
+  color: #424242;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+
+  @media (min-width: 768px) {
+    font-size: 2.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 2.5rem;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #FF9800, transparent);
+  }
 `;
 
 const IntroDescription = styled.p`
-  font-size: 1.1rem;
-  color: #555;
+  color: #616161;
+  font-size: 0.9rem;
   line-height: 1.6;
   max-width: 800px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    font-size: 0.95rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 1rem;
+  }
 `;
 
 const GalleryTitle = styled.h3`
-  font-size: 2rem;
-  color: #8B4513;
+  color: #FF9800;
+  font-size: 1.5rem;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 const GalleryGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 `;
 
@@ -70,7 +109,14 @@ const GalleryImageWrapper = styled.div`
   position: relative;
   cursor: pointer;
   overflow: hidden;
-  // aspect-ratio: 3 / 2;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 `;
 
 const GalleryImage = styled.img`
@@ -79,31 +125,9 @@ const GalleryImage = styled.img`
   object-fit: cover;
   transition: transform 0.3s ease;
 
-`;
-
-const ImageOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-
   ${GalleryImageWrapper}:hover & {
-    opacity: 1;
+    transform: scale(1.1);
   }
-`;
-
-const OverlayText = styled.span`
-  color: white;
-  font-size: 1rem;
-  text-align: center;
-  padding: 0.5rem;
 `;
 
 const LightboxOverlay = styled.div`
@@ -150,18 +174,18 @@ const NextButton = styled(LightboxButton)`
 `;
 
 const galleryImages = [
-  { src: img1, alt: 'Hotel exterior at night' },
-  { src: img2, alt: 'Luxurious bedroom' },
-  { src: img3, alt: 'Swimming pool at night' },
-  { src: img4, alt: 'Garden gazebo' },
-  { src: img5, alt: 'Hotel pathway' },
-  { src: img6, alt: 'Hotel building at night' },
-  { src: img7, alt: 'Hotel building at night' },
-  { src: img8, alt: 'Hotel building at night' },
-  { src: img9, alt: 'Hotel building at night' },
-  { src: img10, alt: 'Hotel building at night' },
-  { src: img11, alt: 'Hotel building at night' },
-  { src: img12, alt: 'Hotel building at night' },
+  { src: img1, alt: 'Classroom activity' },
+  { src: img2, alt: 'Children playing' },
+  { src: img3, alt: 'Art session' },
+  { src: img4, alt: 'Outdoor playtime' },
+  { src: img5, alt: 'Reading corner' },
+  { src: img6, alt: 'Music class' },
+  { src: img7, alt: 'Science experiment' },
+  { src: img8, alt: 'Group activity' },
+  { src: img9, alt: 'Montessori materials' },
+  { src: img10, alt: 'Snack time' },
+  { src: img11, alt: 'Parent-teacher meeting' },
+  { src: img12, alt: 'School event' },
 ];
 
 const Gallery = () => {
@@ -188,18 +212,17 @@ const Gallery = () => {
     <GallerySection>
       <GalleryContainer>
         <IntroSection>
-          <IntroTitle>Explore Our Visual Journey</IntroTitle>
+          <IntroTitle>Our Visual Journey</IntroTitle>
           <IntroDescription>
-            Immerse yourself in the beauty and elegance of our hotel through our carefully curated gallery. 
-            From stunning exterior views to luxurious rooms and top-notch amenities, each image 
-            tells a story of comfort, style, and unforgettable experiences. Let our visual narrative 
-            inspire your next stay with us and showcase the exceptional quality we offer at every turn.
+            Explore the vibrant world of Sungava Balsansar Montessori School through our gallery. 
+            These images capture the essence of our nurturing environment, engaging activities, 
+            and the joy of learning that defines our children's daily experiences.
           </IntroDescription>
         </IntroSection>
 
         <GalleryTitle>
-          <ImageIcon size={32} color="#8B4513" style={{ marginRight: '0.5rem' }} />
-          Our Gallery
+          <ImageIcon size={24} color="#FF9800" style={{ marginRight: '0.5rem' }} />
+          School Gallery
         </GalleryTitle>
         <GalleryGrid>
           {galleryImages.map((image, index) => (
@@ -211,15 +234,19 @@ const Gallery = () => {
               role="button"
               aria-label={`View larger image of ${image.alt}`}
             >
-              <GalleryImage
-                src={image.src}
-                alt={image.alt}
-              />
-
+              <GalleryImage src={image.src} alt={image.alt} />
             </GalleryImageWrapper>
           ))}
         </GalleryGrid>
         
+        {lightboxIndex !== null && (
+          <LightboxOverlay>
+            <LightboxImage src={galleryImages[lightboxIndex].src} alt={galleryImages[lightboxIndex].alt} />
+            <CloseButton onClick={closeLightbox}><X /></CloseButton>
+            <PrevButton onClick={() => navigateLightbox(-1)}><ChevronLeft /></PrevButton>
+            <NextButton onClick={() => navigateLightbox(1)}><ChevronRight /></NextButton>
+          </LightboxOverlay>
+        )}
       </GalleryContainer>
     </GallerySection>
   );

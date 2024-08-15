@@ -8,38 +8,66 @@ const fadeIn = keyframes`
 `;
 
 const PageContainer = styled.div`
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 2rem;
-  font-family: 'Arial', sans-serif;
-  background-color: #f2e6fe;
+  padding: 60px 20px;
+  font-family: Arial, sans-serif;
+  background-color: #FFF9C4;
   position: relative;
 
-  @media (max-width: 768px) {
-    padding: 3rem 1rem;
+  @media (min-width: 768px) {
+    padding: 70px 30px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 80px 40px;
   }
 `;
 
-const PageTitle = styled.h1`
-  font-size: 2.5rem;
-  text-align: center;
+const PageTitle = styled.h2`
   color: #424242;
-  margin-bottom: 1rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
 
-  @media (max-width: 768px) {
-    font-size: 2rem;
+  @media (min-width: 768px) {
+    font-size: 2.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 2.5rem;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #FF9800, transparent);
   }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.1rem;
-  text-align: center;
   color: #616161;
+  font-size: 0.9rem;
+  text-align: center;
   margin-bottom: 3rem;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.6;
+
+  @media (min-width: 768px) {
+    font-size: 0.95rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 1rem;
+  }
 `;
 
 const ContactSection = styled.div`
@@ -56,7 +84,7 @@ const ContactInfo = styled.div`
   flex: 1;
   background: white;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   animation: ${fadeIn} 0.6s ease-out;
 `;
@@ -65,14 +93,14 @@ const ContactForm = styled.form`
   flex: 1;
   background: white;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   animation: ${fadeIn} 0.6s ease-out;
 `;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled.h3`
   font-size: 1.5rem;
-  color: #424242;
+  color: #FF9800;
   margin-bottom: 1.5rem;
   font-weight: 600;
 `;
@@ -86,7 +114,7 @@ const ContactDetail = styled.div`
 
   svg {
     margin-right: 1rem;
-    color: #4FB3FF;
+    color: #FF9800;
   }
 `;
 
@@ -103,7 +131,7 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #4FB3FF;
+    border-color: #FF9800;
   }
 `;
 
@@ -117,12 +145,12 @@ const TextArea = styled.textarea`
 
   &:focus {
     outline: none;
-    border-color: #4FB3FF;
+    border-color: #FF9800;
   }
 `;
 
 const SubmitButton = styled.button`
-  background-color: #4FB3FF;
+  background-color: #FF9800;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -132,7 +160,7 @@ const SubmitButton = styled.button`
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #3d8cbf;
+    background-color: #F57C00;
   }
 `;
 
@@ -144,7 +172,7 @@ const Map = styled.iframe`
   width: 100%;
   height: 400px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 768px) {
@@ -154,10 +182,10 @@ const Map = styled.iframe`
 
 const InfoBox = styled.div`
   background: white;
-  border-left: 4px solid #4FB3FF;
+  border-left: 4px solid #FF9800;
   padding: 1.5rem;
   margin-top: 2rem;
-  border-radius: 4px;
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
@@ -174,7 +202,7 @@ const InfoList = styled.ul`
 
     &:before {
       content: '•';
-      color: #4FB3FF;
+      color: #FF9800;
       position: absolute;
       left: 0;
     }

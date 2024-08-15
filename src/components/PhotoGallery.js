@@ -13,30 +13,43 @@ import img9 from '../assets/gallary/9.jpg';
 import img10 from '../assets/gallary/10.jpg';
 
 const GallerySection = styled.section`
-    background-color: #f2e6fe;
-  padding: 20px;
+  background-color: #FFF9C4;
+  padding: 40px 20px;
 
   @media (min-width: 768px) {
-    padding: 30px;
+    padding: 50px 30px;
   }
 
   @media (min-width: 1024px) {
-    padding: 40px;
+    padding: 60px 40px;
   }
 `;
 
 const GalleryTitle = styled.h2`
-  font-size: 42px;
-  font-weight: bold;
-  margin: 0 0 20px;
-  color: #000000;
-  text-transform: uppercase;
+  color: #424242;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  font-weight: 700;
   
-  @media (max-width: 480px) {
-    font-size: 22px;
+  @media (min-width: 768px) {
+    font-size: 2.25rem;
   }
-  @media (max-width: 768px) {
-    font-size: 32px;
+
+  @media (min-width: 1024px) {
+    font-size: 2.5rem;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #FF9800, transparent);
   }
 `;
 
@@ -57,31 +70,43 @@ const GalleryGrid = styled.div`
 const GalleryImageWrapper = styled.div`
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const GalleryImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+
+  ${GalleryImageWrapper}:hover & {
+    transform: scale(1.1);
+  }
 `;
 
 const Gallery = () => {
   const images = [
-    { src: img1, alt: "Tattooing" },
-    { src: img2, alt: "Tattooing" },
-    { src: img3, alt: "Piercing" },
-    { src: img4, alt: "Consultation" },
-    { src: img5, alt: "Tribal" },
-    { src: img6, alt: "Modification" },
-    { src: img7, alt: "Design" },
-    { src: img8, alt: "Design" },
-    { src: img9, alt: "Modification" },
-    { src: img10, alt: "Design" },
+    { src: img1, alt: "Children playing" },
+    { src: img2, alt: "Art activity" },
+    { src: img3, alt: "Outdoor playtime" },
+    { src: img4, alt: "Story time" },
+    { src: img5, alt: "Music class" },
+    { src: img6, alt: "Mealtime" },
+    { src: img7, alt: "Nap time" },
+    { src: img8, alt: "Science experiment" },
+    { src: img9, alt: "Physical activity" },
+    { src: img10, alt: "Group activity" },
   ];
 
   return (
     <GallerySection>
-      <GalleryTitle>Gallery</GalleryTitle>
+      <GalleryTitle>Our Kindergarten in Action</GalleryTitle>
       <GalleryGrid>
         {images.map((image, index) => (
           <GalleryImageWrapper key={index}>

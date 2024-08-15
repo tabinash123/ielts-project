@@ -3,57 +3,67 @@ import styled from 'styled-components';
 import { BookOpen, Users, Compass, Leaf } from 'lucide-react';
 
 const Container = styled.div`
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 60px 20px;
   text-align: center;
-  background-color: #f2e6fe;
+  background-color: #FFF9C4;
   font-family: Arial, sans-serif;
 
   @media (min-width: 768px) {
-    padding: 30px;
+    padding: 70px 30px;
   }
 
   @media (min-width: 1024px) {
-    padding: 40px;
+    padding: 80px 40px;
   }
 `;
 
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: bold;
+const Title = styled.h2`
   color: #424242;
-  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
 
   @media (min-width: 768px) {
-    font-size: 30px;
+    font-size: 2.25rem;
   }
 
   @media (min-width: 1024px) {
-    font-size: 36px;
+    font-size: 2.5rem;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #FF9800, transparent);
   }
 `;
 
 const Subtitle = styled.p`
-  font-size: 14px;
   color: #616161;
+  font-size: 0.9rem;
   max-width: 600px;
-  margin: 0 auto 30px;
+  margin: 0 auto 40px;
+  line-height: 1.5;
 
   @media (min-width: 768px) {
-    font-size: 15px;
-    margin-bottom: 35px;
+    font-size: 0.95rem;
   }
 
   @media (min-width: 1024px) {
-    font-size: 16px;
-    margin-bottom: 40px;
+    font-size: 1rem;
   }
 `;
 
 const FeaturesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 20px;
 
   @media (min-width: 768px) {
@@ -66,8 +76,8 @@ const FeaturesGrid = styled.div`
 `;
 
 const FeatureCard = styled.div`
-  padding: 20px;
-  border-radius: 8px;
+  padding: 30px 20px;
+  border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -75,93 +85,60 @@ const FeatureCard = styled.div`
   &:hover {
     transform: translateY(-5px);
   }
-
-  @media (min-width: 768px) {
-    padding: 25px;
-  }
-
-  @media (min-width: 1024px) {
-    padding: 30px 20px;
-  }
 `;
 
 const FeatureTitle = styled.h3`
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  color: #4FB3FF;
-
-  @media (min-width: 768px) {
-    font-size: 19px;
-    margin-bottom: 13px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #FF9800;
 `;
 
 const FeatureIcon = styled.div`
-  color: #9c27b0;
-  margin-bottom: 12px;
-
-  @media (min-width: 768px) {
-    margin-bottom: 13px;
-  }
-
-  @media (min-width: 1024px) {
-    margin-bottom: 15px;
-  }
+  color: #FF9800;
+  margin-bottom: 15px;
 `;
 
 const FeatureDescription = styled.p`
-  font-size: 13px;
+  font-size: 0.9rem;
   color: #616161;
-
-  @media (min-width: 768px) {
-    font-size: 13.5px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
+  line-height: 1.5;
 `;
 
 const MontessoriProcessFlow = () => {
   return (
     <Container>
-      <Title>Sungava Balsansar: Nurturing Young Minds the Montessori Way</Title>
+      <Title>Nurturing Young Minds the Montessori Way</Title>
       <Subtitle>
         Our Montessori approach fosters independence, critical thinking, and a lifelong love for learning in a carefully prepared environment.
       </Subtitle>
       <FeaturesGrid>
         <FeatureCard>
-          <FeatureTitle>Prepared Environment</FeatureTitle>
           <FeatureIcon>
             <BookOpen size={36} />
           </FeatureIcon>
+          <FeatureTitle>Prepared Environment</FeatureTitle>
           <FeatureDescription>Carefully curated spaces that encourage exploration and learning</FeatureDescription>
         </FeatureCard>
         <FeatureCard>
-          <FeatureTitle>Mixed-Age Classrooms</FeatureTitle>
           <FeatureIcon>
             <Users size={36} />
           </FeatureIcon>
+          <FeatureTitle>Mixed-Age Classrooms</FeatureTitle>
           <FeatureDescription>Promoting peer learning and social development</FeatureDescription>
         </FeatureCard>
         <FeatureCard>
-          <FeatureTitle>Self-Directed Learning</FeatureTitle>
           <FeatureIcon>
             <Compass size={36} />
           </FeatureIcon>
+          <FeatureTitle>Self-Directed Learning</FeatureTitle>
           <FeatureDescription>Empowering children to choose their activities and pace</FeatureDescription>
         </FeatureCard>
         <FeatureCard>
-          <FeatureTitle>Holistic Development</FeatureTitle>
           <FeatureIcon>
             <Leaf size={36} />
           </FeatureIcon>
+          <FeatureTitle>Holistic Development</FeatureTitle>
           <FeatureDescription>Nurturing intellectual, physical, and emotional growth</FeatureDescription>
         </FeatureCard>
       </FeaturesGrid>
