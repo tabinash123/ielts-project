@@ -1,29 +1,51 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import { PlusCircle, MinusCircle } from 'lucide-react';
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+const slideIn = keyframes`
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+`;
 
 const FAQSection = styled.section`
-  // max-width: 800px;
-  padding: 40px 20px;
-  font-family: Arial, sans-serif;
-  background-color: #FFF9C4;
-  margin: 0 auto;
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="none"/><path d="M0 80V0l20 20L0 80zm21 0V20l20 20-20 40zm21 0V40l20 20-20 20zm21 0V60l17 17v3H63z" fill="%23FF9800" opacity="0.1"/></svg>') repeat;
+    opacity: 0.1;
+    z-index: 0;
+  }
 `;
 
 const Title = styled.h2`
-  color: #424242;
-  font-size: 2rem;
+  color: #FF6F00;
+  font-size: 2.2rem;
   text-align: center;
   margin-bottom: 40px;
   position: relative;
   font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  z-index: 1;
 
   @media (min-width: 768px) {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
   }
 
   @media (min-width: 1024px) {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 
   &::after {
@@ -32,24 +54,36 @@ const Title = styled.h2`
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(to right, #FF9800, transparent);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #FF6F00, #FFA000);
+    border-radius: 2px;
   }
+
+  animation: ${fadeIn} 1s ease-out;
+`;
+
+const FAQContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 `;
 
 const FAQItem = styled.div`
   margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: all 0.3s ease;
   background-color: #FFFFFF;
 
   &:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
   }
+
+  animation: ${slideIn} 1s ease-out ${props => 0.3 + props.index * 0.1}s both;
 `;
 
 const FAQQuestion = styled.div`
@@ -59,16 +93,16 @@ const FAQQuestion = styled.div`
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
-  color: #424242;
-  font-size: 0.85rem;
+  color: #4A4A4A;
+  font-size: 1.1rem;
   transition: background-color 0.3s ease;
 
   @media (min-width: 768px) {
-    font-size: 0.875rem;
+    font-size: 1.2rem;
   }
 
   @media (min-width: 1024px) {
-    font-size: 0.9rem;
+    font-size: 1.3rem;
   }
 
   &:hover {
@@ -80,12 +114,8 @@ const IconWrapper = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: #FF9800;
-  color: white;
-  font-size: 16px;
+  color: #FF6F00;
+  font-size: 24px;
   transition: all 0.3s ease;
 
   ${FAQQuestion}:hover & {
@@ -114,16 +144,16 @@ const FAQAnswer = styled.div`
 
   p {
     margin: 20px 0;
-    color: #616161;
-    line-height: 1.5;
-    font-size: 0.9rem;
+    color: #4A4A4A;
+    line-height: 1.6;
+    font-size: 1rem;
 
     @media (min-width: 768px) {
-      font-size: 0.95rem;
+      font-size: 1.1rem;
     }
 
     @media (min-width: 1024px) {
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
   }
 `;
@@ -138,42 +168,44 @@ const FAQ = () => {
   const faqData = [
     {
       question: "What age groups do you cater to?",
-      answer: "We offer programs for children aged 2 to 5 years old, including toddler, preschool, and kindergarten classes."
+      answer: "We offer programs for little explorers aged 2 to 5 years old, including toddler, preschool, and kindergarten classes. Each group has activities tailored to their developmental stage and interests."
     },
     {
       question: "What is your teacher-to-student ratio?",
-      answer: "Our teacher-to-student ratio varies by age group but typically ranges from 1:4 for toddlers to 1:10 for kindergarten, ensuring personalized attention for each child."
+      answer: "We keep our groups small and cozy! Our teacher-to-student ratio varies by age group, typically ranging from 1:4 for our youngest learners to 1:10 for our kindergarten adventurers. This ensures each child gets the attention and guidance they need."
     },
     {
       question: "Do you provide meals and snacks?",
-      answer: "Yes, we provide nutritious snacks twice a day. For full-day programs, we also offer a balanced lunch. All our meals are prepared fresh daily and cater to various dietary requirements."
+      answer: "Absolutely! We offer yummy and nutritious snacks twice a day. For our full-day programs, we also serve a balanced lunch. All our meals are prepared fresh daily, using wholesome ingredients, and we cater to various dietary needs. Mealtime is not just about eating – it's a fun, social learning experience!"
     },
     {
       question: "What is your approach to discipline?",
-      answer: "We use positive reinforcement and redirection techniques to guide children's behavior. Our goal is to help children develop self-regulation skills and emotional intelligence."
+      answer: "We believe in gentle guidance and positive reinforcement. Our goal is to help children understand their emotions and develop self-regulation skills. We use redirection techniques and encourage problem-solving. We create a respectful environment where children learn to express themselves appropriately and consider others' feelings."
     },
     {
       question: "How do you communicate with parents?",
-      answer: "We use a combination of daily reports, weekly newsletters, parent-teacher conferences to keep parents informed about their child's progress and daily activities."
+      answer: "We love keeping our parents in the loop! We use a mix of daily reports, weekly newsletters, and parent-teacher conferences. We also have a secure app where we share photos and updates about your child's day. We believe in building a strong partnership with parents to support each child's growth and learning journey."
     }
   ];
 
   return (
     <FAQSection>
-      <Title>Frequently Asked Questions</Title>
-      {faqData.map((faq, index) => (
-        <FAQItem key={index}>
-          <FAQQuestion onClick={() => toggleFAQ(index)}>
-            {faq.question}
-            <IconWrapper>
-              {openIndex === index ? <MinusOutlined /> : <PlusOutlined />}
-            </IconWrapper>
-          </FAQQuestion>
-          <FAQAnswer isOpen={openIndex === index}>
-            <p>{faq.answer}</p>
-          </FAQAnswer>
-        </FAQItem>
-      ))}
+      <Title>Curious Minds Ask</Title>
+      <FAQContainer>
+        {faqData.map((faq, index) => (
+          <FAQItem key={index} index={index}>
+            <FAQQuestion onClick={() => toggleFAQ(index)}>
+              {faq.question}
+              <IconWrapper>
+                {openIndex === index ? <MinusCircle size={28} /> : <PlusCircle size={28} />}
+              </IconWrapper>
+            </FAQQuestion>
+            <FAQAnswer isOpen={openIndex === index}>
+              <p>{faq.answer}</p>
+            </FAQAnswer>
+          </FAQItem>
+        ))}
+      </FAQContainer>
     </FAQSection>
   );
 };

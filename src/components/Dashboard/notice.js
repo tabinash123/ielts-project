@@ -1,13 +1,101 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Upload, X, Eye, Trash2, Plus } from 'lucide-react';
 import apiClient from '../../repository/apiClient';
 
 const baseUrl = process.env.REACT_APP_baseUrl;
 
+const PageContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: center;
+`;
+
+const Section = styled.section`
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 1.8rem;
+  color: #34495e;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #3498db;
+  }
+`;
+
+const FileInputLabel = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 2px dashed #3498db;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #34495e;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #ecf0f1;
+  }
+`;
+
+const Button = styled.button`
+  padding: 0.75rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: #2980b9;
+  }
+`;
 
 const Table = styled.table`
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
 `;
 
 const TableHead = styled.thead`
@@ -15,25 +103,46 @@ const TableHead = styled.thead`
 `;
 
 const TableRow = styled.tr`
-  &:nth-child(even) {
-    background-color: #f9f9f9;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const TableHeader = styled.th`
-  border: 1px solid #ddd;
-  padding: 12px;
+  padding: 1rem;
   text-align: left;
+  color: #34495e;
+  font-weight: 600;
 `;
 
 const TableCell = styled.td`
-  border: 1px solid #ddd;
-  padding: 12px;
+  padding: 1rem;
+  border-top: 1px solid #ecf0f1;
+  border-bottom: 1px solid #ecf0f1;
+
+  &:first-child {
+    border-left: 1px solid #ecf0f1;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+
+  &:last-child {
+    border-right: 1px solid #ecf0f1;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
 `;
 
 const Thumbnail = styled.img`
   width: 100px;
-  height: auto;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
   cursor: pointer;
   transition: transform 0.3s ease;
 
@@ -42,99 +151,64 @@ const Thumbnail = styled.img`
   }
 `;
 
-const DeleteButton = styled.button`
-  background-color: #ff4136;
-  color: white;
+const ActionButton = styled.button`
+  background-color: transparent;
   border: none;
-  padding: 8px 12px;
   cursor: pointer;
-  border-radius: 4px;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: #d50000;
+    transform: translateY(-2px);
   }
 `;
 
 const Modal = styled.div`
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ModalContent = styled.div`
   background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 700px;
+  padding: 2rem;
   border-radius: 8px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+  position: relative;
 `;
 
-const CloseButton = styled.span`
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+const CloseButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
   cursor: pointer;
-
-  &:hover,
-  &:focus {
-    color: black;
-    text-decoration: none;
-  }
+  color: #34495e;
 `;
 
 const EnlargedImage = styled.img`
   width: 100%;
   height: auto;
-  margin-top: 20px;
+  border-radius: 4px;
 `;
 
-const ImageTable = ({data}) => {
+const ImageTable = ({ data, onDelete }) => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [notices , SetNotices] = useState(data);
 
-  React.useEffect(() => { 
-
-    apiClient.get('/open/notices/all').then((response) => {
-        console.log(response.data.data);
-        SetNotices(response.data.data);
-    }
-    ).catch((error) => {
-        alert('Error fetching notices');
-    });
-}, [data]);
-
-  const handleDelete = (id) => {
-    apiClient.delete(`/admin/notice/delete/${id}`).then((response) => {  
-        alert('Notice deleted successfully');
-        apiClient.get('/open/notices/all').then((response) => {
-            console.log(response.data.data);
-            SetNotices(response.data.data);
-        }
-        ).catch((error) => {
-            alert('Error fetching notices');
-        });
-      
-    }).catch((error) => {
-        alert('Error deleting Notice');
-    })
-    // Implement your delete logic here
-  };
-
-  const openModal = (image) => {
-    setSelectedImage(image);
-  };
-
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
+  const openModal = (image) => setSelectedImage(image);
+  const closeModal = () => setSelectedImage(null);
 
   return (
     <div>
@@ -147,7 +221,7 @@ const ImageTable = ({data}) => {
           </TableRow>
         </TableHead>
         <tbody>
-          {notices.map((image) => (
+          {data.map((image) => (
             <TableRow key={image.id}>
               <TableCell>{image.title}</TableCell>
               <TableCell>
@@ -158,7 +232,12 @@ const ImageTable = ({data}) => {
                 />
               </TableCell>
               <TableCell>
-                <DeleteButton onClick={() => handleDelete(image.id)}>Delete</DeleteButton>
+                <ActionButton onClick={() => openModal(image)}>
+                  <Eye size={20} color="#3498db" />
+                </ActionButton>
+                <ActionButton onClick={() => onDelete(image.id)}>
+                  <Trash2 size={20} color="#e74c3c" />
+                </ActionButton>
               </TableCell>
             </TableRow>
           ))}
@@ -166,9 +245,11 @@ const ImageTable = ({data}) => {
       </Table>
 
       {selectedImage && (
-        <Modal>
-          <ModalContent>
-            <CloseButton onClick={closeModal}>&times;</CloseButton>
+        <Modal onClick={closeModal}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
+            <CloseButton onClick={closeModal}>
+              <X size={24} />
+            </CloseButton>
             <EnlargedImage
               src={baseUrl + selectedImage.filepath}
               alt={selectedImage.title}
@@ -180,88 +261,100 @@ const ImageTable = ({data}) => {
   );
 };
 
+const Notice = () => {
+  const [image, setImage] = useState([]);
+  const [notices, setNotices] = useState([]);
 
+  useEffect(() => {
+    fetchNotices();
+  }, []);
 
+  const fetchNotices = () => {
+    apiClient.get('/open/notices/all')
+      .then((response) => {
+        setNotices(response.data.data);
+      })
+      .catch((error) => {
+        alert('Error fetching notices');
+      });
+  };
 
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImage(files);
+  };
 
-const Notice = () =>{
+  const handleNoticeSubmit = (e) => {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const formData = new FormData();
+    formData.append('title', title);
+    image.forEach((file) => {
+      formData.append(`file`, file);
+    });
 
-    const [image, SetImage] = useState([]);
-    const [notices , SetNotices] = useState([]);
+    apiClient.post('/admin/notice/add', formData)
+      .then(() => {
+        alert('Notice created successfully');
+        e.target.reset();
+        setImage([]);
+        fetchNotices();
+      })
+      .catch(() => {
+        alert('Error creating notice');
+      });
+  };
 
-  
-    const handleImageChange = (e) => {
-        const files = Array.from(e.target.files);
-        console.log('Selected images:', files);
-        SetImage([...files]);
-    }
+  const handleDelete = (id) => {
+    apiClient.delete(`/admin/notice/delete/${id}`)
+      .then(() => {
+        alert('Notice deleted successfully');
+        fetchNotices();
+      })
+      .catch(() => {
+        alert('Error deleting Notice');
+      });
+  };
 
-    const handleNoticeSubmit = (e) => {
-        e.preventDefault();
-        const title = e.target.title.value;
-        const formData = new FormData();
-        formData.append('title', title);
-        image.forEach((file, i) => {
-            formData.append(`file`, file);
-        });
-        apiClient.post('/admin/notice/add', formData).then((response) => {
-            alert('Notice created successfully');
-            e.target.reset();
-            apiClient.get('/open/notices/all').then((response) => {
-                console.log(response.data.data);
-                SetNotices(response.data.data);
-            }
-            ).catch((error) => {
-                alert('Error fetching notices');
-            });
-        }).catch((error) => {
-            alert('Error creating notice');
-        });
-    }
-    return (
-        <div>
-            <h1>Notice</h1>
+  return (
+    <PageContainer>
+      <Title>Notice Board Management</Title>
 
-            <h2>Create Notice</h2>
-      <form onSubmit={handleNoticeSubmit}>
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="textInput" style={{ display: 'block', marginBottom: '5px' }}>
-            Enter Title:
-          </label>
-          <input
+      <Section>
+        <SectionTitle>Create Notice</SectionTitle>
+        <Form onSubmit={handleNoticeSubmit}>
+          <Input
             type="text"
             id="title"
             name="title"
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+            placeholder="Enter Notice Title"
+            required
           />
-        </div>
-
-        <input
+          <input
             type="file"
             id="files"
             name="files"
             accept="image/*"
             onChange={handleImageChange}
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+            style={{ display: 'none' }}
           />
-        <button type="submit" style={{ padding: '8px 16px', cursor: 'pointer' }}>
-          Submit
-        </button>
+          <FileInputLabel htmlFor="files">
+            <Upload size={24} style={{ marginRight: '0.5rem' }} />
+            {image.length > 0 ? `${image.length} file(s) selected` : 'Choose Image'}
+          </FileInputLabel>
+          <Button type="submit">
+            <Plus size={20} />
+            Create Notice
+          </Button>
+        </Form>
+      </Section>
 
-
-        </form>
-
-
-
-
-
-        <div>
-            <h2>Notice List</h2>
-            <ImageTable data={notices}/> 
-        </div>
-        </div>
-    )                
-
-}
+      <Section>
+        <SectionTitle>Notice List</SectionTitle>
+        <ImageTable data={notices} onDelete={handleDelete} />
+      </Section>
+    </PageContainer>
+  );
+};
 
 export default Notice;

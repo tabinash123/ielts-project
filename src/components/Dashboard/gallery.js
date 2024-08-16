@@ -1,35 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { Upload, X, ChevronRight } from 'lucide-react';
+import { Upload, X, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import apiClient from '../../repository/apiClient';
 
 const PageContainer = styled.div`
-  max-width: 800px;
+  max-width: 1000px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #f5f5f5;
+  background-color: #f8f9fa;
   border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const Section = styled.section`
   background-color: #ffffff;
-  border-radius: 8px;
-  padding: 1.5rem;
+  border-radius: 10px;
+  padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 1.5rem;
-  color: #333;
+  font-size: 1.75rem;
+  color: #2c3e50;
   margin-bottom: 1.5rem;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 `;
 
 const FormGroup = styled.div`
@@ -39,47 +47,64 @@ const FormGroup = styled.div`
 
 const Label = styled.label`
   margin-bottom: 0.5rem;
-  color: #555;
-  font-weight: 500;
+  color: #34495e;
+  font-weight: 600;
 `;
 
 const Input = styled.input`
   padding: 0.75rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #bdc3c7;
   border-radius: 6px;
   font-size: 1rem;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #3498db;
+  }
 `;
 
 const Select = styled.select`
   padding: 0.75rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #bdc3c7;
   border-radius: 6px;
   font-size: 1rem;
   background-color: #fff;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 1em;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #3498db;
+  }
 `;
 
 const Button = styled.button`
   padding: 0.75rem 1rem;
-  background-color: #4CAF50;
+  background-color: #3498db;
   color: white;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
 
   &:hover {
-    background-color: #45a049;
+    background-color: #2980b9;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 `;
 
@@ -91,33 +116,37 @@ const FileInputLabel = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem;
-  border: 2px dashed #e0e0e0;
+  padding: 1rem;
+  border: 2px dashed #3498db;
   border-radius: 6px;
   font-size: 1rem;
-  color: #555;
+  color: #34495e;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #4CAF50;
-    color: #4CAF50;
+    background-color: #ecf0f1;
   }
 `;
 
 const ImagePreviewContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
   margin-top: 1rem;
 `;
 
 const ImagePreview = styled.div`
   position: relative;
-  width: 80px;
-  height: 80px;
-  border-radius: 4px;
+  aspect-ratio: 1;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const PreviewImage = styled.img`
@@ -130,18 +159,29 @@ const RemoveButton = styled.button`
   position: absolute;
   top: 4px;
   right: 4px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
   border: none;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   padding: 0;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(231, 76, 60, 0.8);
+  }
+`;
+
+const ImageCounter = styled.div`
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #7f8c8d;
 `;
 
 const GalleryDashboard = () => {
@@ -201,7 +241,7 @@ const GalleryDashboard = () => {
       alert('Category created and images uploaded successfully');
       fetchCategories();
       setNewCategoryName('');
-      setImages([]);
+      setCategoryImages([]);
     }).catch(error => {
       alert('Error creating category and uploading images');
     });
@@ -279,12 +319,16 @@ const GalleryDashboard = () => {
             {categoryImages.map((image, index) => (
               <ImagePreview key={index}>
                 <PreviewImage src={URL.createObjectURL(image)} alt={`Preview ${index}`} />
-                <RemoveButton onClick={() => handleRemoveImage(index)}>
-                  <X size={12} />
+                <RemoveButton onClick={() => handleRemoveCategoryImage(index)}>
+                  <X size={16} />
                 </RemoveButton>
               </ImagePreview>
             ))}
           </ImagePreviewContainer>
+          <ImageCounter>
+            <ImageIcon size={16} style={{ verticalAlign: 'middle', marginRight: '0.25rem' }} />
+            {categoryImages.length} image{categoryImages.length !== 1 ? 's' : ''} selected
+          </ImageCounter>
           <Button type="submit">Create Category</Button>
         </Form>
       </Section>
@@ -320,11 +364,15 @@ const GalleryDashboard = () => {
               <ImagePreview key={index}>
                 <PreviewImage src={URL.createObjectURL(image)} alt={`Preview ${index}`} />
                 <RemoveButton onClick={() => handleRemoveImage(index)}>
-                  <X size={12} />
+                  <X size={16} />
                 </RemoveButton>
               </ImagePreview>
             ))}
           </ImagePreviewContainer>
+          <ImageCounter>
+            <ImageIcon size={16} style={{ verticalAlign: 'middle', marginRight: '0.25rem' }} />
+            {images.length} image{images.length !== 1 ? 's' : ''} selected
+          </ImageCounter>
           <Button type="submit">Upload Images</Button>
         </Form>
       </Section>

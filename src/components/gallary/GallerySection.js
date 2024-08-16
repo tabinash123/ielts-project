@@ -1,255 +1,395 @@
-import React, { useState, useCallback } from 'react';
-import styled from 'styled-components';
-import { Image as ImageIcon, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
+import { Folder, Link2, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
+import apiClient from '../../repository/apiClient';
+import { Link } from 'react-router-dom';
 
-import img1 from "../../assets/gallary/1.jpg";
-import img2 from "../../assets/gallary/2.jpg";
-import img3 from "../../assets/gallary/3.jpg";
-import img4 from "../../assets/gallary/4.jpg";
-import img5 from "../../assets/gallary/5.jpg";
-import img6 from "../../assets/gallary/6.jpg";
-import img7 from "../../assets/gallary/7.jpg";
-import img8 from "../../assets/gallary/8.jpg";
-import img9 from "../../assets/gallary/9.jpg";
-import img10 from "../../assets/gallary/10.jpg";
-import img11 from "../../assets/gallary/11.jpg";
-import img12 from "../../assets/gallary/12.jpg";
 
-const GallerySection = styled.section`
-  padding: 60px 20px;
-  background-color: #FFF9C4;
-  font-family: Arial, sans-serif;
-
-  @media (min-width: 768px) {
-    padding: 70px 30px;
-  }
-
-  @media (min-width: 1024px) {
-    padding: 80px 40px;
-  }
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
 `;
 
-const GalleryContainer = styled.div`
+const slideIn = keyframes`
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+`;
+
+const PageContainer = styled.div`
   max-width: 1200px;
-  margin: 0 auto;
-`;
-
-const IntroSection = styled.div`
-  text-align: center;
-  margin-bottom: 3rem;
-`;
-
-const IntroTitle = styled.h2`
-  color: #424242;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 20px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 20px;
   position: relative;
-  display: inline-block;
+  overflow: hidden;
 
-  @media (min-width: 768px) {
-    font-size: 2.25rem;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 2.5rem;
-  }
-
-  &::after {
+  &::before {
     content: '';
     position: absolute;
-    bottom: -10px;
+    top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(to right, #FF9800, transparent);
+    bottom: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="none"/><path d="M0 80V0l20 20L0 80zm21 0V20l20 20-20 40zm21 0V40l20 20-20 20zm21 0V60l17 17v3H63z" fill="%23FF9800" opacity="0.1"/></svg>') repeat;
+    opacity: 0.1;
+    z-index: 0;
   }
+
 `;
 
-const IntroDescription = styled.p`
-  color: #616161;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  max-width: 800px;
-  margin: 0 auto;
-
-  @media (min-width: 768px) {
-    font-size: 0.95rem;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 1rem;
-  }
-`;
-
-const GalleryTitle = styled.h3`
-  color: #FF9800;
-  font-size: 1.5rem;
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  color: #FF6F00;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const RefreshButton = styled.button`
   display: flex;
   align-items: center;
-  justify-content: center;
-`;
-
-const GalleryGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-`;
-
-const GalleryImageWrapper = styled.div`
-  position: relative;
+  padding: 0.75rem 1.5rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  font-size: 1.1rem;
   cursor: pointer;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  svg {
+    margin-right: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
   }
 `;
 
-const GalleryImage = styled.img`
+const CardGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+`;
+
+const Card = styled.div`
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+
+`;
+
+const CardImage = styled.div`
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 200px;
+  background-image: url(${props => props.src});
+  background-size: cover;
+  background-position: center;
   transition: transform 0.3s ease;
 
-  ${GalleryImageWrapper}:hover & {
-    transform: scale(1.1);
+
+`;
+
+const CardContent = styled.div`
+  padding: 1.5rem;
+`;
+
+const CategoryName = styled.h2`
+  font-size: 1.5rem;
+  color: #FF6F00;
+  margin-bottom: 1rem;
+`;
+
+const InfoItem = styled.p`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #4A4A4A;
+
+  svg {
+    margin-right: 0.5rem;
+    color: #4CAF50;
   }
 `;
 
-const LightboxOverlay = styled.div`
+const LoadingMessage = styled.div`
+  text-align: center;
+  font-size: 1.5rem;
+  color: #4A4A4A;
+  margin-top: 2rem;
+  animation: ${fadeIn} 1s ease-out;
+`;
+
+const ErrorMessage = styled.div`
+  text-align: center;
+  font-size: 1.5rem;
+  color: #e74c3c;
+  margin-top: 2rem;
+`;
+
+const CategoryImagesContainer = styled.div`
+  margin-top: 2rem;
+`;
+
+const CategoryTitle = styled.h2`
+  font-size: 2rem;
+  color: #FF6F00;
+  margin-bottom: 1rem;
+`;
+
+const ImageGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const GridImage = styled.img`
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+
+
+`;
+
+const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #FF6F00;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+
+  
+
+  svg {
+    margin-right: 0.5rem;
+  }
+`;
+
+const ImageViewer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000;
+  align-items: center;
+  z-index: 1100;
 `;
 
-const LightboxImage = styled.img`
+const LargeImage = styled.img`
   max-width: 90%;
   max-height: 90%;
   object-fit: contain;
 `;
 
-const LightboxButton = styled.button`
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 2rem;
+const NavButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+
 `;
 
-const CloseButton = styled(LightboxButton)`
-  top: 1rem;
-  right: 1rem;
+const PrevButton = styled(NavButton)`
+  left: 20px;
 `;
 
-const PrevButton = styled(LightboxButton)`
-  left: 1rem;
+const NextButton = styled(NavButton)`
+  right: 20px;
 `;
 
-const NextButton = styled(LightboxButton)`
-  right: 1rem;
-`;
+const CategoryImages = ({ category, images, onBack }) => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const baseUrl = process.env.REACT_APP_baseUrl || '';
 
-const galleryImages = [
-  { src: img1, alt: 'Classroom activity' },
-  { src: img2, alt: 'Children playing' },
-  { src: img3, alt: 'Art session' },
-  { src: img4, alt: 'Outdoor playtime' },
-  { src: img5, alt: 'Reading corner' },
-  { src: img6, alt: 'Music class' },
-  { src: img7, alt: 'Science experiment' },
-  { src: img8, alt: 'Group activity' },
-  { src: img9, alt: 'Montessori materials' },
-  { src: img10, alt: 'Snack time' },
-  { src: img11, alt: 'Parent-teacher meeting' },
-  { src: img12, alt: 'School event' },
-];
+  const handleImageClick = (image, index) => {
+    setSelectedImage(image);
+    setCurrentImageIndex(index);
+  };
 
-const Gallery = () => {
-  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex > 0 ? prevIndex - 1 : images.length - 1
+    );
+  };
 
-  const openLightbox = useCallback((index) => {
-    setLightboxIndex(index);
-  }, []);
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex < images.length - 1 ? prevIndex + 1 : 0
+    );
+  };
 
-  const closeLightbox = useCallback(() => {
-    setLightboxIndex(null);
-  }, []);
-
-  const navigateLightbox = useCallback((direction) => {
-    setLightboxIndex((prevIndex) => {
-      const newIndex = prevIndex + direction;
-      if (newIndex < 0) return galleryImages.length - 1;
-      if (newIndex >= galleryImages.length) return 0;
-      return newIndex;
-    });
-  }, []);
+  const closeImageViewer = () => {
+    setSelectedImage(null);
+    setCurrentImageIndex(0);
+  };
 
   return (
-    <GallerySection>
-      <GalleryContainer>
-        <IntroSection>
-          <IntroTitle>Our Visual Journey</IntroTitle>
-          <IntroDescription>
-            Explore the vibrant world of Sungava Balsansar Montessori School through our gallery. 
-            These images capture the essence of our nurturing environment, engaging activities, 
-            and the joy of learning that defines our children's daily experiences.
-          </IntroDescription>
-        </IntroSection>
-
-        <GalleryTitle>
-          <ImageIcon size={24} color="#FF9800" style={{ marginRight: '0.5rem' }} />
-          School Gallery
-        </GalleryTitle>
-        <GalleryGrid>
-          {galleryImages.map((image, index) => (
-            <GalleryImageWrapper 
-              key={index}
-              onClick={() => openLightbox(index)}
-              onKeyDown={(e) => e.key === 'Enter' && openLightbox(index)}
-              tabIndex={0}
-              role="button"
-              aria-label={`View larger image of ${image.alt}`}
-            >
-              <GalleryImage src={image.src} alt={image.alt} />
-            </GalleryImageWrapper>
-          ))}
-        </GalleryGrid>
-        
-        {lightboxIndex !== null && (
-          <LightboxOverlay>
-            <LightboxImage src={galleryImages[lightboxIndex].src} alt={galleryImages[lightboxIndex].alt} />
-            <CloseButton onClick={closeLightbox}><X /></CloseButton>
-            <PrevButton onClick={() => navigateLightbox(-1)}><ChevronLeft /></PrevButton>
-            <NextButton onClick={() => navigateLightbox(1)}><ChevronRight /></NextButton>
-          </LightboxOverlay>
-        )}
-      </GalleryContainer>
-    </GallerySection>
+    <CategoryImagesContainer>
+        <ChevronLeft size={20} />
+      <BackButton onClick={onBack}>
+        Back to Categories
+      </BackButton>
+      <CategoryTitle>{category.name} Images</CategoryTitle>
+      <ImageGrid>
+        {images.map((image, index) => (
+          <GridImage 
+            key={image.id} 
+            src={`${baseUrl}${image.filepath}`} 
+            alt={image.name} 
+            onClick={() => handleImageClick(image, index)}
+          />
+        ))}
+      </ImageGrid>
+      {selectedImage && (
+        <ImageViewer onClick={closeImageViewer}>
+          <LargeImage 
+            src={`${baseUrl}${images[currentImageIndex].filepath}`} 
+            alt={images[currentImageIndex].name} 
+            onClick={(e) => e.stopPropagation()}
+          />
+          <PrevButton onClick={handlePrevImage} disabled={images.length <= 1}>
+            <ChevronLeft size={30} color="white" />
+          </PrevButton>
+          <NextButton onClick={handleNextImage} disabled={images.length <= 1}>
+            <ChevronRight size={30} color="white" />
+          </NextButton>
+        </ImageViewer>
+      )}
+    </CategoryImagesContainer>
   );
 };
 
-export default Gallery;
+const useGalleryTitles = () => {
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchCategories = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await apiClient.get("/open/gallery/titles");
+      if (response.data.success) {
+        setCategories(response.data.data);
+      } else {
+        throw new Error(response.data.message || 'Failed to fetch gallery titles');
+      }
+    } catch (err) {
+      setError(err.message || 'Error fetching gallery titles');
+      console.error('Error fetching data: ', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  return { categories, isLoading, error, refetch: fetchCategories };
+};
+
+const GalleryDashboard = () => {
+  const { categories, isLoading, error, refetch } = useGalleryTitles();
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categoryImages, setCategoryImages] = useState([]);
+  const baseUrl = process.env.REACT_APP_baseUrl || '';
+
+  const handleCategoryClick = async (category) => {
+    try {
+      const response = await apiClient.get(`/open/gallery/titles?category=${category.url}`);
+      if (response.data.success) {
+        setCategoryImages(response.data.data);
+        setSelectedCategory(category);
+      } else {
+        throw new Error(response.data.message || 'Failed to fetch category images');
+      }
+    } catch (err) {
+      console.error('Error fetching category images:', err);
+      // You might want to show an error message to the user here
+    }
+  };
+
+  const handleBackToCategories = () => {
+    setSelectedCategory(null);
+    setCategoryImages([]);
+  };
+
+  if (isLoading) return <LoadingMessage>Loading our fun categories...</LoadingMessage>;
+  if (error) return <ErrorMessage>Oops! Something went wrong: {error}</ErrorMessage>;
+
+  return (
+    <PageContainer>
+      <Header>
+        <Title>Our Colorful Gallery</Title>
+        <RefreshButton onClick={refetch}>
+          <RefreshCw size={20} />
+          Refresh
+        </RefreshButton>
+      </Header>
+      {selectedCategory ? (
+        <CategoryImages 
+          category={selectedCategory} 
+          images={categoryImages} 
+          onBack={handleBackToCategories}
+        />
+      ) : (
+        <CardGrid>
+          {categories.map((category, index) => (
+            <Card key={category.id} index={index} onClick={() => handleCategoryClick(category)}>
+              <CardImage src={`${baseUrl}${category.filepath}`} />
+              <CardContent>
+                <CategoryName>{category.name}</CategoryName>
+              
+            
+              </CardContent>
+            </Card>
+          ))}
+        </CardGrid>
+      )}
+    </PageContainer>
+  );
+};
+
+export default GalleryDashboard;

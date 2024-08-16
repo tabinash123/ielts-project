@@ -1,31 +1,56 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Star } from 'lucide-react';
 
 import parent1 from '../assets/parents/parent1.jpg';
 import parent2 from '../assets/parents/parent2.jpg';
 import parent3 from '../assets/parents/parent3.jpg';
 
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+const slideIn = keyframes`
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+`;
+
 const TestimonialSection = styled.section`
-  background-color: #FFF9C4;
   padding: 60px 20px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="none"/><path d="M0 80V0l20 20L0 80zm21 0V20l20 20-20 40zm21 0V40l20 20-20 20zm21 0V60l17 17v3H63z" fill="%23FF9800" opacity="0.1"/></svg>') repeat;
+    opacity: 0.1;
+    z-index: 0;
+  }
 `;
 
 const Title = styled.h2`
-  color: #424242;
-  font-size: 2rem;
+  color: #FF6F00;
+  font-size: 2.2rem;
   margin-bottom: 40px;
   position: relative;
   display: inline-block;
   font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  z-index: 1;
 
   @media (min-width: 768px) {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
   }
 
   @media (min-width: 1024px) {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 
   &::after {
@@ -34,43 +59,58 @@ const Title = styled.h2`
     bottom: -10px;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(to right, #FF9800, transparent);
+    height: 4px;
+    background: linear-gradient(to right, #FF6F00, #FFA000);
+    border-radius: 2px;
   }
+
+  animation: ${fadeIn} 1s ease-out;
 `;
 
 const TestimonialGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 const TestimonialCard = styled.div`
   background-color: white;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 30px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px) rotate(1deg);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   }
+
+  animation: ${slideIn} 1s ease-out ${props => 0.3 + props.index * 0.2}s both;
 `;
 
 const QuoteSymbol = styled.div`
   font-size: 4rem;
-  color: #FF9800;
+  color: #FFA000;
   line-height: 1;
   margin-bottom: 20px;
   font-family: Georgia, serif;
 `;
 
 const TestimonialContent = styled.p`
-  color: #616161;
-  font-size: 1rem;
+  color: #4A4A4A;
+  font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 20px;
   font-style: italic;
@@ -83,11 +123,12 @@ const TestimonialFooter = styled.div`
 `;
 
 const TestimonialImageWrapper = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 15px;
+  border: 3px solid #FFA000;
 `;
 
 const TestimonialImage = styled.img`
@@ -101,15 +142,15 @@ const TestimonialAuthor = styled.div`
 `;
 
 const TestimonialName = styled.h3`
-  color: #424242;
-  font-size: 1.1rem;
+  color: #FF6F00;
+  font-size: 1.2rem;
   margin: 0;
   font-weight: 600;
 `;
 
 const TestimonialTitle = styled.p`
-  color: #FF9800;
-  font-size: 0.9rem;
+  color: #4CAF50;
+  font-size: 1rem;
   margin: 5px 0 0;
 `;
 
@@ -150,11 +191,11 @@ const SimpleTestimonials = () => {
       <Title>What Parents Say</Title>
       <TestimonialGrid>
         {testimonials.map((testimonial, index) => (
-          <TestimonialCard key={index}>
+          <TestimonialCard key={index} index={index}>
             <QuoteSymbol>"</QuoteSymbol>
             <StarRating>
               {[...Array(testimonial.rating)].map((_, i) => (
-                <Star key={i} size={20} fill="#FFD700" />
+                <Star key={i} size={24} fill="#FFD700" />
               ))}
             </StarRating>
             <TestimonialContent>{testimonial.content}</TestimonialContent>

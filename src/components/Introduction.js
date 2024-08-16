@@ -18,13 +18,12 @@ const IntroSection = styled.section`
   display: flex;
   flex-direction: column;
   padding: 4rem 2rem;
-  margin: 0rem auto;
+  margin: 0 auto;
   gap: 3rem;
-  background-color: #FFF9C4; // Light yellow background
   color: #4A4A4A;
   position: relative;
   overflow: hidden;
-  font-family: 'Comic Sans MS', cursive, sans-serif; // More playful font
+
 
   @media (min-width: 1024px) {
     flex-direction: row;
@@ -44,32 +43,26 @@ const IntroSection = styled.section`
   }
 `;
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  position: relative;
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   z-index: 1;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-  }
+  width: 100%;
 
   @media (min-width: 1024px) {
-    gap: 60px;
+    flex-direction: row;
+    align-items: center;
   }
 `;
 
 const ContentArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex: 1;
 `;
 
-const Title = styled.h1`
-  color: #FF6F00; // Warm orange
+const Title = styled.h2`
   font-size: 2.5rem;
+  color: #FF6F00;
   margin-bottom: 1rem;
   position: relative;
   padding-bottom: 0.5rem;
@@ -98,18 +91,18 @@ const Title = styled.h1`
   animation: ${fadeIn} 1s ease-out;
 `;
 
-const Subtitle = styled.h2`
+const Subtitle = styled.h3`
   font-size: 1.2rem;
-  color: #4CAF50; // Cheerful green
+  color: #4CAF50;
   margin-bottom: 1rem;
   font-weight: 600;
 
   @media (min-width: 768px) {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   @media (min-width: 1024px) {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   animation: ${slideIn} 1s ease-out 0.3s both;
@@ -119,15 +112,15 @@ const Description = styled.p`
   color: #4A4A4A;
   line-height: 1.6;
   margin-bottom: 1rem;
-  font-size: 1rem;
-  font-family: Arial, sans-serif; // More readable font for longer text
+  font-size: 1.1rem;
+  font-family: Arial, sans-serif;
 
   @media (min-width: 768px) {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   @media (min-width: 1024px) {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   animation: ${slideIn} 1s ease-out 0.6s both;
@@ -136,6 +129,12 @@ const Description = styled.p`
 const ImageWrapper = styled.div`
   position: relative;
   height: 300px;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    flex: 1;
+    height: 400px;
+  }
 
   &::before {
     content: '';
@@ -144,17 +143,12 @@ const ImageWrapper = styled.div`
     left: 10px;
     right: -10px;
     bottom: -10px;
-    border: 4px solid #FF9800; // Playful orange border
-    border-radius: 20px; // Rounded corners
+    border: 4px solid #FF9800;
+    border-radius: 20px;
     z-index: 1;
   }
 
   animation: ${fadeIn} 1s ease-out 0.3s both;
-
-  @media (min-width: 768px) {
-    height: 100%;
-    min-height: 400px;
-  }
 `;
 
 const Image = styled.img`
@@ -164,16 +158,37 @@ const Image = styled.img`
   position: relative;
   z-index: 2;
   transition: transform 0.3s ease;
-  border-radius: 15px; // Rounded corners for the image
+  border-radius: 15px;
 
   &:hover {
     transform: scale(1.05);
   }
 `;
 
+const FeatureList = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin-top: 2rem;
+`;
+
+const FeatureItem = styled.li`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #4A4A4A;
+
+  svg {
+    margin-right: 10px;
+    color: #FF6F00;
+  }
+
+  animation: ${slideIn} 1s ease-out 0.9s both;
+`;
+
 const MontessoriIntroComponent = () => (
   <IntroSection>
-    <Grid>
+    <ContentWrapper>
       <ContentArea>
         <Title>Sungava Balsansar Montessori School</Title>
         <Subtitle>Where Little Minds Bloom and Grow!</Subtitle>
@@ -184,11 +199,26 @@ const MontessoriIntroComponent = () => (
         <Description>
           At Sungava Balsansar, we believe in the magic of childhood. Our playful environment encourages creativity, builds confidence, and helps your little one make new friends. We focus on developing important skills through games, stories, and exciting discoveries, setting the stage for a lifetime of joyful learning.
         </Description>
+
+        <FeatureList>
+          <FeatureItem>
+            <Book size={24} />
+            Engaging Montessori curriculum
+          </FeatureItem>
+          <FeatureItem>
+            <Heart size={24} />
+            Nurturing and supportive environment
+          </FeatureItem>
+          <FeatureItem>
+            <Sun size={24} />
+            Outdoor learning and play areas
+          </FeatureItem>
+        </FeatureList>
       </ContentArea>
       <ImageWrapper>
         <Image src={schoolExterior} alt="Sungava Balsansar Montessori School exterior" />
       </ImageWrapper>
-    </Grid>
+    </ContentWrapper>
   </IntroSection>
 );
 

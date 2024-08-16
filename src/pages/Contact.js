@@ -11,8 +11,8 @@ const PageContainer = styled.div`
   margin: 0 auto;
   padding: 60px 20px;
   font-family: Arial, sans-serif;
-  background-color: #FFF9C4;
   position: relative;
+  overflow: hidden;
 
   @media (min-width: 768px) {
     padding: 70px 30px;
@@ -21,23 +21,36 @@ const PageContainer = styled.div`
   @media (min-width: 1024px) {
     padding: 80px 40px;
   }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="none"/><path d="M0 80V0l20 20L0 80zm21 0V20l20 20-20 40zm21 0V40l20 20-20 20zm21 0V60l17 17v3H63z" fill="%23FF9800" opacity="0.1"/></svg>') repeat;
+    opacity: 0.1;
+    z-index: 0;
+  }
 `;
 
 const PageTitle = styled.h2`
-  color: #424242;
-  font-size: 2rem;
+  color: #FF6F00;
+  font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
   position: relative;
   display: inline-block;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 
   @media (min-width: 768px) {
-    font-size: 2.25rem;
+    font-size: 3rem;
   }
 
   @media (min-width: 1024px) {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
   }
 
   &::after {
@@ -46,14 +59,17 @@ const PageTitle = styled.h2`
     bottom: -10px;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(to right, #FF9800, transparent);
+    height: 4px;
+    background: linear-gradient(to right, #FF6F00, #FFA000);
+    border-radius: 2px;
   }
+
+  animation: ${fadeIn} 1s ease-out;
 `;
 
 const Subtitle = styled.p`
-  color: #616161;
-  font-size: 0.9rem;
+  color: #4A4A4A;
+  font-size: 1.1rem;
   text-align: center;
   margin-bottom: 3rem;
   max-width: 800px;
@@ -62,12 +78,14 @@ const Subtitle = styled.p`
   line-height: 1.6;
 
   @media (min-width: 768px) {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
   }
 
   @media (min-width: 1024px) {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
+
+  animation: ${fadeIn} 1s ease-out 0.3s both;
 `;
 
 const ContactSection = styled.div`
@@ -84,23 +102,33 @@ const ContactInfo = styled.div`
   flex: 1;
   background: white;
   padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   animation: ${fadeIn} 0.6s ease-out;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 `;
 
 const ContactForm = styled.form`
   flex: 1;
   background: white;
   padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   animation: ${fadeIn} 0.6s ease-out;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 `;
 
 const SectionTitle = styled.h3`
   font-size: 1.5rem;
-  color: #FF9800;
+  color: #4CAF50;
   margin-bottom: 1.5rem;
   font-weight: 600;
 `;
@@ -110,11 +138,11 @@ const ContactDetail = styled.div`
   align-items: center;
   margin-bottom: 1rem;
   font-size: 1rem;
-  color: #616161;
+  color: #4A4A4A;
 
   svg {
     margin-right: 1rem;
-    color: #FF9800;
+    color: #FF6F00;
   }
 `;
 
@@ -126,12 +154,13 @@ const Input = styled.input`
   width: 100%;
   padding: 0.75rem 1rem;
   border: 2px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 1rem;
+  transition: border-color 0.3s ease;
 
   &:focus {
     outline: none;
-    border-color: #FF9800;
+    border-color: #FF6F00;
   }
 `;
 
@@ -139,41 +168,46 @@ const TextArea = styled.textarea`
   width: 100%;
   padding: 0.75rem 1rem;
   border: 2px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 1rem;
   min-height: 150px;
+  transition: border-color 0.3s ease;
 
   &:focus {
     outline: none;
-    border-color: #FF9800;
+    border-color: #FF6F00;
   }
 `;
 
 const SubmitButton = styled.button`
-  background-color: #FF9800;
+  background-color: #4CAF50;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 4px;
+  font-size: 1.1rem;
+  border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background-color: #F57C00;
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   }
 `;
 
 const MapSection = styled.div`
   margin-bottom: 4rem;
+  animation: ${fadeIn} 0.6s ease-out;
 `;
 
 const Map = styled.iframe`
   width: 100%;
   height: 400px;
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 768px) {
     height: 300px;
@@ -182,11 +216,12 @@ const Map = styled.iframe`
 
 const InfoBox = styled.div`
   background: white;
-  border-left: 4px solid #FF9800;
+  border-left: 4px solid #FF6F00;
   padding: 1.5rem;
   margin-top: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  animation: ${fadeIn} 0.6s ease-out;
 `;
 
 const InfoList = styled.ul`
@@ -195,19 +230,22 @@ const InfoList = styled.ul`
 
   li {
     margin-bottom: 0.75rem;
-    color: #616161;
+    color: #4A4A4A;
     font-size: 1rem;
     padding-left: 1.5rem;
     position: relative;
 
     &:before {
       content: '•';
-      color: #FF9800;
+      color: #FF6F00;
       position: absolute;
       left: 0;
     }
   }
 `;
+
+// ... Rest of the component remains the same
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({

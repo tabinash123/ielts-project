@@ -1,34 +1,61 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Layout, Row, Col, Drawer, Button, Divider } from 'antd';
 import { Link } from 'react-router-dom';
-import { 
-  PhoneOutlined, FacebookOutlined, InstagramOutlined, EnvironmentOutlined, MenuOutlined,
-  HomeOutlined, InfoCircleOutlined, BookOutlined, TeamOutlined, ToolOutlined, QuestionCircleOutlined, ContactsOutlined
-} from '@ant-design/icons';
+import { Phone, Facebook, Instagram, MapPin, Menu, X, Home, Info, Image, Mail } from 'lucide-react';
 
-const { Header } = Layout;
+const HeaderWrapper = styled.header`
+`;
 
 const TopBar = styled.div`
-  background-color: #333;
+  background-color: #FF9800;
   color: white;
   padding: 5px 0;
   font-size: 14px;
   font-weight: 500;
+
   @media (max-width: 768px) {
     display: none;
   }
 `;
 
-const MainHeader = styled(Header)`
-  background-color: #f8f4e6;
-  padding: 10px 20px;
-  height: auto;
-  line-height: 1.5;
+const TopBarContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+`;
+
+const TopBarItem = styled.div`
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-right: 5px;
+  }
+`;
+
+const SocialIcons = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const MainHeader = styled.div`
+  padding: 15px 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 `;
 
-const Logo = styled.div`
+const MainHeaderContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const Logo = styled(Link)`
+  text-decoration: none;
   display: flex;
   flex-direction: column;
 `;
@@ -36,7 +63,9 @@ const Logo = styled.div`
 const LogoTitle = styled.span`
   font-size: 28px;
   font-weight: 800;
-  color: #4a90e2;
+  color: #FF6F00;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+
   @media (max-width: 768px) {
     font-size: 24px;
   }
@@ -45,171 +74,179 @@ const LogoTitle = styled.span`
 const LogoSubtitle = styled.span`
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #4CAF50;
+
   @media (max-width: 768px) {
     font-size: 16px;
   }
 `;
 
-const NavMenu = styled.div`
+const NavMenu = styled.nav`
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%;
+  gap: 20px;
+
   @media (max-width: 1024px) {
     display: none;
   }
 `;
 
 const MenuItem = styled(Link)`
-  margin-left: 20px;
   font-size: 16px;
   font-weight: 600;
-  transition: color 0.3s ease;
-  &:nth-child(1) { color: #4a90e2; }
-  &:nth-child(2) { color: #f39c12; }
-  &:nth-child(3) { color: #e74c3c; }
-  &:nth-child(4) { color: #2ecc71; }
-  &:nth-child(5) { color: #9b59b6; }
-  &:nth-child(6) { color: #3498db; }
-  &:nth-child(7) { color: #333; }
+  text-decoration: none;
+  transition: all 0.3s ease;
+
   &:hover {
-    opacity: 0.8;
+    transform: scale(1.1);
   }
 `;
 
-const MenuButton = styled(Button)`
+const MenuButton = styled.button`
   display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #FF6F00;
+
   @media (max-width: 1024px) {
     display: block;
   }
 `;
 
-const StyledDrawer = styled(Drawer)`
-  .ant-drawer-header {
-    background-color: #4a90e2;
-    border-bottom: none;
-  }
-  .ant-drawer-title {
-    color: white;
-  }
-  .ant-drawer-body {
-    padding: 0;
-    background-color: #f5f5f5;
-  }
-`;
-
-const DrawerMenuItem = styled(Link)`
+const MobileMenu = styled.div`
+  position: fixed;
+  top: 0;
+  right: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
+  width: 80%;
+  max-width: 300px;
+  height: 100vh;
+  background-color: #FFF9C4;
+  transition: right 0.3s ease;
+  z-index: 1000;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
   display: flex;
-  align-items: center;
-  padding: 15px 20px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  transition: all 0.3s ease;
-  border-left: 4px solid transparent;
-  
-  &:hover {
-    background-color: #e6f7ff;
-    color: #4a90e2;
-    border-left-color: #4a90e2;
-  }
+  flex-direction: column;
+`;
 
-  .anticon {
-    font-size: 20px;
-    margin-right: 15px;
+const MobileMenuHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #FF9800;
+`;
+
+const MobileMenuItems = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`;
+
+const MobileMenuItem = styled(Link)`
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #FF6F00;
+  padding: 15px 0;
+  border-bottom: 1px solid #FFE0B2;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #FFE0B2;
+    padding-left: 10px;
   }
 `;
 
-const DrawerFooter = styled.div`
+const MobileMenuFooter = styled.div`
+  margin-top: auto;
   padding: 20px;
-  background-color: white;
+  background-color: #FFE0B2;
   text-align: center;
-  border-top: 1px solid #f0f0f0;
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  z-index: 999;
 `;
 
 const HeaderComponent = () => {
-  const [visible, setVisible] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const showDrawer = () => {
-    setVisible(true);
-  };
-
-  const onClose = () => {
-    setVisible(false);
-  };
-
-  const handleDrawerClose = () => {
-    setVisible(false);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const menuItems = [
-    { icon: <HomeOutlined />, text: 'Home', path: '/', color: '#4a90e2' },
-    { icon: <InfoCircleOutlined />, text: 'About', path: '/about', color: '#f39c12' },
-    { icon: <BookOutlined />, text: 'Gallary', path: '/gallery', color: '#e74c3c' },
-    { icon: <ContactsOutlined />, text: 'Contact', path: '/contact', color: '#34495e' },
+    { icon: <Home size={20} />, text: 'Home', path: '/', color: '#4a90e2' },
+    { icon: <Info size={20} />, text: 'About', path: '/about', color: '#f39c12' },
+    { icon: <Image size={20} />, text: 'Gallery', path: '/gallery', color: '#e74c3c' },
+    { icon: <Mail size={20} />, text: 'Contact', path: '/contact', color: '#34495e' },
   ];
 
   return (
-    <>
+    <HeaderWrapper>
       <TopBar>
-        <Row justify="space-between" align="middle" style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <Col><EnvironmentOutlined /> Tandi, Chitwan</Col>
-          <Col><PhoneOutlined /> 9884547637</Col>
-          <Col>
+        <TopBarContent>
+          <TopBarItem><MapPin size={16} /> Tandi, Chitwan</TopBarItem>
+          <TopBarItem><Phone size={16} /> 9884547637</TopBarItem>
+          <TopBarItem>
             Educating students since 2069 B.S.
-            <FacebookOutlined style={{ marginLeft: 10 }} />
-            <InstagramOutlined style={{ marginLeft: 10 }} />
-            <EnvironmentOutlined style={{ marginLeft: 10 }} />
-          </Col>
-        </Row>
+            <SocialIcons>
+              <Facebook size={16} />
+              <Instagram size={16} />
+              <MapPin size={16} />
+            </SocialIcons>
+          </TopBarItem>
+        </TopBarContent>
       </TopBar>
       <MainHeader>
-        <Row justify="space-between" align="middle" style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <Col>
-            <Logo>
-              <LogoTitle>SunGava</LogoTitle>
-              <LogoSubtitle>Montessori</LogoSubtitle>
-            </Logo>
-          </Col>
-          <Col>
-            <NavMenu>
-              {menuItems.map((item, index) => (
-                <MenuItem key={index} to={item.path} style={{ color: item.color }}>{item.text}</MenuItem>
-              ))}
-            </NavMenu>
-            <MenuButton type="primary" onClick={showDrawer}>
-              <MenuOutlined />
-            </MenuButton>
-          </Col>
-        </Row>
+        <MainHeaderContent>
+          <Logo to="/">
+            <LogoTitle>SunGava</LogoTitle>
+            <LogoSubtitle>Montessori</LogoSubtitle>
+          </Logo>
+          <NavMenu>
+            {menuItems.map((item, index) => (
+              <MenuItem key={index} to={item.path} style={{ color: item.color }}>
+                {item.text}
+              </MenuItem>
+            ))}
+          </NavMenu>
+          <MenuButton onClick={toggleMobileMenu}>
+            <Menu />
+          </MenuButton>
+        </MainHeaderContent>
       </MainHeader>
-      <StyledDrawer
-        title={<LogoTitle style={{ fontSize: '22px', color: 'white' }}>ANGEL'S KINGDOM</LogoTitle>}
-        placement="right"
-        onClose={onClose}
-        visible={visible}
-        width={300}
-      >
-        {menuItems.map((item, index) => (
-          <React.Fragment key={index}>
-            <DrawerMenuItem to={item.path} style={{ color: item.color }} onClick={handleDrawerClose}>
-              {item.icon}
-              {item.text}
-            </DrawerMenuItem>
-            {index < menuItems.length - 1 && <Divider style={{ margin: 0 }} />}
-          </React.Fragment>
-        ))}
-        <DrawerFooter>
-          <p><PhoneOutlined /> 01 - 400 3564</p>
-          <p><EnvironmentOutlined /> Chaitya Marg, Lazimpat</p>
-          <div>
-            <FacebookOutlined style={{ fontSize: '20px', margin: '0 10px' }} />
-            <InstagramOutlined style={{ fontSize: '20px', margin: '0 10px' }} />
-          </div>
-        </DrawerFooter>
-      </StyledDrawer>
-    </>
+      <MobileMenu isOpen={isMobileMenuOpen}>
+        <MobileMenuHeader>
+          <LogoTitle style={{ color: 'white', fontSize: '22px' }}>SunGava</LogoTitle>
+          <X size={24} color="white" onClick={toggleMobileMenu} style={{ cursor: 'pointer' }} />
+        </MobileMenuHeader>
+        <MobileMenuItems>
+          {menuItems.map((item, index) => (
+            <MobileMenuItem key={index} to={item.path} onClick={toggleMobileMenu}>
+              {item.icon} {item.text}
+            </MobileMenuItem>
+          ))}
+        </MobileMenuItems>
+        <MobileMenuFooter>
+          <p><Phone size={16} /> 01 - 400 3564</p>
+          <p><MapPin size={16} /> Tandi,Chitwan</p>
+          <SocialIcons>
+            <Facebook size={20} />
+            <Instagram size={20} />
+          </SocialIcons>
+        </MobileMenuFooter>
+      </MobileMenu>
+      <Overlay isOpen={isMobileMenuOpen} onClick={toggleMobileMenu} />
+    </HeaderWrapper>
   );
 };
 

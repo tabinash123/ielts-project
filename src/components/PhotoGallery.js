@@ -13,7 +13,6 @@ import img9 from '../assets/gallary/9.jpg';
 import img10 from '../assets/gallary/10.jpg';
 
 const GallerySection = styled.section`
-  background-color: #FFF9C4;
   padding: 40px 20px;
 
   @media (min-width: 768px) {
@@ -26,7 +25,7 @@ const GallerySection = styled.section`
 `;
 
 const GalleryTitle = styled.h2`
-  color: #424242;
+  color: #FF6F00;
   font-size: 2rem;
   text-align: center;
   margin-bottom: 40px;
