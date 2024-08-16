@@ -9,11 +9,19 @@ import Footer from './components/Footer';
 import Gallery from './pages/Gallary';
 
 import { ParallaxProvider } from 'react-scroll-parallax';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import Login from './components/Login/Login';
+import AuthWrapper from './components/authwrapper/AuthWrapper';
+import Dashboard from './components/authwrapper/AuthWrapper';
+import GalleryDashboard from './components/Dashboard/gallery';
+import ImageGrid from './components/Dashboard/image_gird';
+import Notice from './components/Dashboard/notice';
+import PopUp from './components/Dashboard/popup';
 
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 `;
 
 const StyledHeader = styled.header`
@@ -36,11 +44,11 @@ const StyledFooter = styled.footer`
 `;
 
 const App = () => {
-  return (
-        <ParallaxProvider>
-    <Router>
-      <AppContainer>
-        <StyledHeader>
+
+  const Website = () => {
+    return ( <AppContainer>
+
+<StyledHeader>
           <Header />
         </StyledHeader>
         <MainContent>
@@ -49,14 +57,42 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </MainContent>
         <StyledFooter>
           <Footer />
         </StyledFooter>
-      </AppContainer>
+  </AppContainer>);
+  }
+
+
+
+
+
+  return (
+    <Provider store={store}>
+ 
+        <ParallaxProvider>
+    <Router>
+ 
+        <Routes>
+          <Route path="/" element={<Website />} />
+          <Route path="/login" element={<Login />} />
+
+          
+          <Route path="/dashboard/*" element={<Dashboard />}>
+          <Route path="" element={<Login />} />  {/* /dashboard */}
+          <Route path="gallery" element={<GalleryDashboard />} /> 
+          <Route path="images/:url" element={<ImageGrid />} />
+          <Route path="notice" element={<Notice />} />
+          <Route path="popup-notice" element={<PopUp />} />
+        </Route>
+        </Routes>
+     
       </Router>
       </ParallaxProvider>
+      </Provider>
   );
 };
 
