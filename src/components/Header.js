@@ -61,13 +61,13 @@ const Logo = styled(Link)`
 `;
 
 const LogoTitle = styled.span`
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 800;
   color: #FF6F00;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 
   @media (max-width: 768px) {
-    font-size: 24px;
+    font-size: 30px;
   }
 `;
 
@@ -91,7 +91,7 @@ const NavMenu = styled.nav`
 `;
 
 const MenuItem = styled(Link)`
-  font-size: 16px;
+  font-size: 25px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -105,7 +105,7 @@ const MenuButton = styled.button`
   display: none;
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 30px;
   cursor: pointer;
   color: #FF6F00;
 
@@ -209,8 +209,8 @@ const HeaderComponent = () => {
       <MainHeader>
         <MainHeaderContent>
           <Logo to="/">
-            <LogoTitle>SunGava</LogoTitle>
-            <LogoSubtitle>Montessori</LogoSubtitle>
+            <LogoTitle>SunGava Balsansar</LogoTitle>
+            {/* <LogoSubtitle>Montessori</LogoSubtitle> */}
           </Logo>
           <NavMenu>
             {menuItems.map((item, index) => (
@@ -226,7 +226,7 @@ const HeaderComponent = () => {
       </MainHeader>
       <MobileMenu isOpen={isMobileMenuOpen}>
         <MobileMenuHeader>
-          <LogoTitle style={{ color: 'white', fontSize: '22px' }}>SunGava</LogoTitle>
+          <LogoTitle style={{ color: 'white', fontSize: '22px' }}>SunGava Balsansar</LogoTitle>
           <X size={24} color="white" onClick={toggleMobileMenu} style={{ cursor: 'pointer' }} />
         </MobileMenuHeader>
         <MobileMenuItems>

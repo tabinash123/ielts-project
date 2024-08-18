@@ -200,9 +200,9 @@ const SimpleTestimonials = () => {
             </StarRating>
             <TestimonialContent>{testimonial.content}</TestimonialContent>
             <TestimonialFooter>
-              <TestimonialImageWrapper>
+              {/* <TestimonialImageWrapper>
                 <TestimonialImage src={testimonial.image} alt={testimonial.name} />
-              </TestimonialImageWrapper>
+              </TestimonialImageWrapper> */}
               <TestimonialAuthor>
                 <TestimonialName>{testimonial.name}</TestimonialName>
                 <TestimonialTitle>{testimonial.title}</TestimonialTitle>

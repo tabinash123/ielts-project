@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import img1 from '../../assets/111.jpg' ;
 
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
@@ -9,7 +10,7 @@ const fadeIn = keyframes`
 const HeroSection = styled.section`
   position: relative;
   height: 90vh;
-  background-image: url(https://kcsrestaurantandhome.com/wp-content/uploads/2023/10/kc-property-11-1-1024x683.webp);
+  background-image: url(${img1});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

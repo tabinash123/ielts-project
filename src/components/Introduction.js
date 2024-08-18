@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Book, Heart, Sun } from 'lucide-react';
 
-import schoolExterior from '../assets/gallary/11.jpg';
+import schoolExterior from '../assets/gallary/1.jpg';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -160,9 +160,6 @@ const Image = styled.img`
   transition: transform 0.3s ease;
   border-radius: 15px;
 
-  &:hover {
-    transform: scale(1.05);
-  }
 `;
 
 const FeatureList = styled.ul`

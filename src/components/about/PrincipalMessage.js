@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { BookOpen, Users, Smile } from 'lucide-react';
-import img1 from "../../assets/parents/parent1.jpg";
-import img2 from "../../assets/parents/parent2.jpg";
-import img3 from "../../assets/parents/parent3.jpg";
+import img1 from "../../assets/gallary/5.jpg";
+import img2 from "../../assets/gallary/9.jpg";
+import img3 from "../../assets/gallary/3.jpg";
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -267,15 +267,8 @@ const AboutUs = () => {
                 <StatText>Certified Teachers</StatText>
               </StatContent>
             </StatItem>
-            <StatItem>
-              <StatIcon><Smile size={24} /></StatIcon>
-              <StatContent>
-                <StatNumber>500+</StatNumber>
-                <StatText>Happy Graduates</StatText>
-              </StatContent>
-            </StatItem>
+        
           </StatsContainer>
-          <ExploreButton>Schedule a Visit</ExploreButton>
         </ContentContainer>
 
         <ImageContainer>
