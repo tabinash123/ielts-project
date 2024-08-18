@@ -9,8 +9,6 @@ const PageContainer = styled.div`
   margin: 2rem auto;
   padding: 2rem;
   background-color: #f8f9fa;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const Section = styled.section`

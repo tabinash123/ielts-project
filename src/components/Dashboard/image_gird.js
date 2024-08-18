@@ -73,9 +73,6 @@ const Image = styled.img`
   object-fit: cover;
   transition: transform 0.3s ease;
 
-  ${Card}:hover & {
-    transform: scale(1.05);
-  }
 `;
 
 const Overlay = styled.div`
@@ -217,7 +214,7 @@ const InspirationGrid = () => {
   return (
     <PageContainer>
       <Header>
-        <Title>Inspiration Gallery</Title>
+        <Title> Gallery</Title>
         <BackButton onClick={() => window.history.back()}>
           <ChevronLeft size={20} />
           Back to Galleries

@@ -124,7 +124,7 @@ const Login = () => {
       const response = await axios.post('https://backend.businessitpartners.website/login', { username: email, password });
       if (response.data.success) {
         dispatch({ type: 'SET_CREDENTIALS', payload: { username: email, password } });
-        navigate('/dashboard');
+        navigate('/dashboard/gallery');
       } else {
         setError(response.data.message || 'Login failed. Please try again.');
       }

@@ -8,6 +8,7 @@ import PhotoGallery from '../components/PhotoGallery'
 import FAQ from '../components/FAQ'
 import ContactForm from './../components/contact/ContactForm';
 import Hero from './../components/Hero';
+import NoticesDisplay from '../components/NoticesDisplay'
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
       <ParentTestimonials />
       <PhotoGallery />
       {/* <MKWBlog /> */}
+      <NoticesDisplay />
       <FAQ />
     </>
   )
