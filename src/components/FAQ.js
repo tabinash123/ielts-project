@@ -164,30 +164,28 @@ const FAQ = () => {
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-
-  const faqData = [
-    {
-      question: "What age groups do you cater to?",
-      answer: "We offer programs for little explorers aged 2 to 5 years old, including toddler, preschool, and kindergarten classes. Each group has activities tailored to their developmental stage and interests."
-    },
-    {
-      question: "What is your teacher-to-student ratio?",
-      answer: "We keep our groups small and cozy! Our teacher-to-student ratio varies by age group, typically ranging from 1:4 for our youngest learners to 1:10 for our kindergarten adventurers. This ensures each child gets the attention and guidance they need."
-    },
-    {
-      question: "Do you provide meals and snacks?",
-      answer: "Absolutely! We offer yummy and nutritious snacks twice a day. For our full-day programs, we also serve a balanced lunch. All our meals are prepared fresh daily, using wholesome ingredients, and we cater to various dietary needs. Mealtime is not just about eating – it's a fun, social learning experience!"
-    },
-    {
-      question: "What is your approach to discipline?",
-      answer: "We believe in gentle guidance and positive reinforcement. Our goal is to help children understand their emotions and develop self-regulation skills. We use redirection techniques and encourage problem-solving. We create a respectful environment where children learn to express themselves appropriately and consider others' feelings."
-    },
-    {
-      question: "How do you communicate with parents?",
-      answer: "We love keeping our parents in the loop! We use a mix of daily reports, weekly newsletters, and parent-teacher conferences. We also have a secure app where we share photos and updates about your child's day. We believe in building a strong partnership with parents to support each child's growth and learning journey."
-    }
-  ];
-
+const faqData = [
+  {
+    question: "What age groups do you cater to?",
+    answer: "We have programs for kids from 2 to 5 years old. This includes toddler, preschool, and kindergarten classes. Each group does activities that fit their age."
+  },
+  {
+    question: "What is your teacher-to-student ratio?",
+    answer: "We keep our groups small. For the youngest kids, we have about 1 teacher for every 4 children. For kindergarten, it's about 1 teacher for every 10 kids. This helps us give each child enough attention."
+  },
+  {
+    question: "Do you provide meals and snacks?",
+    answer: "Yes, we give snacks multiple times in  a day. For full-day programs, we also serve lunch. We make fresh meals daily and can handle different food needs. Meal times are for eating and learning."
+  },
+  {
+    question: "What is your approach to discipline?",
+    answer: "We use gentle guidance and focus on good behavior. We help kids understand their feelings and learn to control themselves. We teach kids to talk about their feelings and think about others."
+  },
+  {
+    question: "How do you communicate with parents?",
+    answer: "We use daily reports, weekly newsletters, and parent-teacher meetings. We also have an app where we share photos and updates about your child's day. We work closely with parents to help each child learn and grow."
+  }
+];
   return (
     <FAQSection>
       <Title>Curious Minds Ask</Title>

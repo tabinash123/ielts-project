@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Book, Heart, Sun } from 'lucide-react';
 
-import schoolExterior from '../assets/gallary/1.jpg';
+import schoolExterior from '../assets/intro.jpg';
 
 const fadeIn = keyframes`
   from { opacity: 0; }

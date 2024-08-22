@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { BookOpen, Users, Smile } from 'lucide-react';
-import img1 from "../../assets/gallary/5.jpg";
-import img2 from "../../assets/gallary/9.jpg";
+import img1 from "../../assets/principal.jpg";
+import img2 from "../../assets/about2.jpg";
 import img3 from "../../assets/gallary/3.jpg";
 
 const fadeIn = keyframes`

@@ -195,7 +195,7 @@ const HeaderComponent = () => {
       <TopBar>
         <TopBarContent>
           <TopBarItem><MapPin size={16} /> Tandi, Chitwan</TopBarItem>
-          <TopBarItem><Phone size={16} /> 9884547637</TopBarItem>
+          <TopBarItem><Phone size={16} />  +977 9846093188</TopBarItem>
           <TopBarItem>
             Educating students since 2069 B.S.
             <SocialIcons>
@@ -237,7 +237,7 @@ const HeaderComponent = () => {
           ))}
         </MobileMenuItems>
         <MobileMenuFooter>
-          <p><Phone size={16} /> 01 - 400 3564</p>
+          <p><Phone size={16} /> +977 9846093188</p>
           <p><MapPin size={16} /> Tandi,Chitwan</p>
           <SocialIcons>
             <Facebook size={20} />

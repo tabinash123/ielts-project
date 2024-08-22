@@ -136,7 +136,7 @@ const FooterComponent = () => {
           <FooterSection>
             <FooterTitle level={4}>Contact Us</FooterTitle>
             <ContactItem>
-              <PhoneOutlined /> <Text>01 - 400 3564</Text>
+              <PhoneOutlined /> <Text> +977 9846093188</Text>
             </ContactItem>
             <ContactItem>
               {/* <MailOutlined /> <Text>info@angelskingdom.com</Text> */}

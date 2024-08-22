@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Calendar, Users, Award, Smile } from 'lucide-react';
-import imag from '../assets/111.jpg'
+import imag from '../assets/hero.jpg'
 
 const HeroSection = styled.section`
   position: relative;

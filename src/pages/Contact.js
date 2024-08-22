@@ -275,7 +275,7 @@ const Contact = () => {
           <SectionTitle>Get in Touch</SectionTitle>
           <ContactDetail>
             <Phone size={20} />
-            +977 1234567890
+            +977 9846093188
           </ContactDetail>
           <ContactDetail>
             <Mail size={20} />

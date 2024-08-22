@@ -2,9 +2,9 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Star } from 'lucide-react';
 
-import parent1 from '../assets/parents/parent1.jpg';
-import parent2 from '../assets/parents/parent2.jpg';
-import parent3 from '../assets/parents/parent3.jpg';
+// import parent1 from '../assets/parents/parent1.jpg';
+// import parent2 from '../assets/parents/parent2.jpg';
+// import parent3 from '../assets/parents/parent3.jpg';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -166,21 +166,21 @@ const SimpleTestimonials = () => {
     { 
       name: 'Aarav Sharma', 
       title: 'Parent of 5-year-old', 
-      image: parent1,
+     
       content: 'Sungava Balsansar has been a blessing for our family. The Montessori approach has helped our daughter become more independent and confident in her abilities.',
       rating: 5
     },
     { 
       name: 'Priya Thapa', 
       title: 'Mother of twins', 
-      image: parent2,
+    
       content: 'We\'ve seen remarkable progress in our twins since they started at Sungava Balsansar. The teachers are attentive and the environment truly nurtures their individual growth.',
       rating: 5
     },
     { 
       name: 'Rajesh Adhikari', 
       title: 'Father of 3-year-old', 
-      image: parent3,
+    
       content: 'The holistic development approach at Sungava Balsansar is impressive. Our son has not only improved academically but also socially and emotionally.',
       rating: 5
     },

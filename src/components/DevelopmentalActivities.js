@@ -4,7 +4,7 @@ import art from '../assets/activities/art.jpg';
 import cowork from '../assets/activities/cowork.jpg';
 import creativity from '../assets/activities/creativity.jpg';
 import hands from '../assets/activities/hands.jpg';
-import meal from '../assets/activities/meal.png';
+import meal from '../assets/activities/meal.jpg';
 import socialActivity from '../assets/activities/social activity.jpg';
 import yoga from '../assets/activities/yoga.jpg';
 
